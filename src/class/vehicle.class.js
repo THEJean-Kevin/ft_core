@@ -8,7 +8,9 @@
 class Vehicle extends Entity {
 
     get class() {
-        this._class = GetVehicleClass(this.id);
+        if (this._class === undefined) {
+            this._class = GetVehicleClass(this.id);
+        }
         return this._class;
     }
 

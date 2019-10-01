@@ -13,7 +13,7 @@ class Entity {
 
     // Model
     get model() {
-        if (!this._model) {
+        if (this._model === undefined) {
             this._model = GetEntityModel(this.id);
         }
         return this._model;
@@ -82,6 +82,11 @@ class Entity {
     get networkId() {
         this._networkId = NetworkGetNetworkIdFromEntity(this.id);
         return this._networkId;
+    }
+
+    GetByNetworkId(netId) {
+        this.id         = NetworkGetEntityFromNetworkId(netId);
+        this._networkId = netId;
     }
 
     // Functions
