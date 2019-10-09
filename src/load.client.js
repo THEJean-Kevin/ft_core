@@ -21,3 +21,11 @@ const loadingClient = setInterval(function () {
     }
 
 }, 10);
+
+//
+//
+//
+RegisterServerEvent('playerSpawned');
+AddEventHandler('playerSpawned', function () {
+    TriggerServerEvent('ft_core:playerSpawned');
+});

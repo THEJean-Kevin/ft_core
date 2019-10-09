@@ -21,7 +21,7 @@ class Vehicle extends Entity {
     }
 
     set bodyHealth(amount) {
-        this._bodyHealth = value;
+        this._bodyHealth = amount;
         SetVehicleBodyHealth(this.id, amount);
     }
 
@@ -101,6 +101,10 @@ class Vehicle extends Entity {
         return this._neons;
     }
 
+    IsNeonLightEnabled(index) {
+        return Boolean(IsVehicleNeonLightEnabled(this.id, index));
+    }
+
     SetNeonLight(index, status) {
         this._neons[index] = status;
         SetVehicleNeonLightEnabled(this.id, index, status);
@@ -119,34 +123,97 @@ class Vehicle extends Entity {
     }
 
     // Max doors
-    get maxDoors() {
-        this._maxDoors = GetNumberOfVehicleDoors(this.id);
+    GetNumberDoors() {
+        if (this._maxDoors === undefined) {
+            this._maxDoors = GetNumberOfVehicleDoors(this.id);
+        }
         return this._maxDoors;
     }
 
     // Doors
-    get doors() {
-        this._doors = [];
-        for (let index = 0; index < this.maxDoors; index++) {
-            if (IsVehicleDoorDamaged(this.id, index)) {
-                this._doors[index] = -1;
-            } else {
-                this._doors[index] = GetVehicleDoorAngleRatio(this.id, index);
-            }
+    IsDoorDamaged(index) {
+        return IsVehicleDoorDamaged(this.id, index);
+    }
+
+    GetDoorAngleRatio(index) {
+        return GetVehicleDoorAngleRatio(this.id, index);
+    }
+
+    GetDoorState(index) {
+        if (this._doors === undefined) {
+            this._doors = {};
+        }
+
+        let door;
+        if (this.IsDoorDamaged(index)) {
+            door = -1;
+        } else {
+            door = this.GetDoorAngleRatio(index);
+        }
+
+        this._doors[index] = door;
+        return door;
+    }
+
+    GetAllDoorState() {
+        this._doors = {};
+        for (let index = 0; index < this.GetNumberDoors(); index++) {
+            this.GetDoorState(index);
         }
         return this._doors;
     }
 
-    set doors(values) {
-        this._doors[values.door] = values.state;
-        if (values.state === -1) {
-            SetVehicleDoorBroken(this.id, values.door, true);
-        } else if (values.state === 0) {
-            SetVehicleDoorShut(this.id, values.door, false, false);
-        } else {
-            SetVehicleDoorOpen(this.id, values.door, true, true);
-            SetVehicleDoorControl(this.id, values.door, values.state);
+    SetDoorBroken(index, remove) {
+        SetVehicleDoorBroken(this.id, Number(index), Boolean(remove));
+    }
+
+    SetDoorShut(index, instantly) {
+        SetVehicleDoorShut(this.id, Number(index), Boolean(instantly));
+    }
+
+    SetDoorOpen(index, loose, instantly) {
+        SetVehicleDoorOpen(this.id, Number(index), Boolean(loose), Boolean(instantly));
+    }
+
+    SetDoorControl(index, speed, angle) {
+        SetVehicleDoorControl(this.id, Number(index), Number(speed), Number(angle));
+    }
+
+    SetDoorLatched(index, force, lock) {
+        SetVehicleDoorLatched(this.id, Number(index), Boolean(force), Boolean(lock));
+    }
+
+    SetDoorState(index, state) {
+        if (this._doors === undefined) {
+            this._doors = {};
         }
+
+        if (state === -1) {
+            this.SetDoorBroken(index, true);
+        } else if (state === 0) {
+            this.SetDoorShut(index, true);
+        } else {
+            this.SetDoorOpen(index, false, true);
+            let self = this;
+            setTimeout(function () {
+                self.SetDoorLatched(index, false, true);
+            }, 100);
+        }
+        this._doors[index] = state;
+    }
+
+    SetAllDoorsState(states) {
+        for (let index in states) {
+            this.SetDoorState(index, states[index]);
+        }
+    }
+
+    get doors() {
+        return this._doors;
+    }
+
+    set doors(values) {
+        this._doors = values;
     }
 
     // Look
@@ -212,6 +279,81 @@ class Vehicle extends Entity {
     set wheelType(type) {
         this._wheelType = type;
         SetVehicleWheelType(this.id, type);
+    }
+
+    // Tyre
+    GetAllTyreBurst() {
+        this._tyreBurst = {};
+
+        const tireIndex = {
+            "wheel_lf": 0,
+            "wheel_rf": 1,
+            "wheel_lm1": 2,
+            "wheel_rm1": 3,
+            "wheel_lr": 4,
+            "wheel_rr": 5,
+            "wheel_lm2": 45,
+            "wheel_rm2": 47,
+            "wheel_lm3": 46,
+            "wheel_rm3": 48,
+        };
+
+        for (let index in tireIndex) {
+            if (GetEntityBoneIndexByName(this.id, index) !== -1 && IsVehicleTyreBurst(this.id, tireIndex[index], false)) {
+                this._tyreBurst[tireIndex[index]] = true;
+            }
+        }
+
+        return this._tyreBurst;
+    }
+
+    SetTyreBurst(index, state) {
+        SetVehicleTyreBurst(this.id, Number(index), Boolean(state), 1000.0);
+        this._tyreBurst[index] = state;
+    }
+
+    SetAllTyreBurst(states) {
+        for (let index in states) {
+            this.SetTyreBurst(index, states[index]);
+        }
+    }
+
+    // Windows
+    GetAllWindowState() {
+        this.__windows = {};
+
+        const windowsIndex = {
+            'window_rf': 0,
+            'window_lf': 1,
+            'window_rr': 2,
+            'window_lr': 3
+        };
+
+        for (let index in windowsIndex) {
+            if (GetEntityBoneIndexByName(this.id, index) !== -1) {
+                this.__windows[windowsIndex[index]] = IsVehicleWindowIntact(this.id, windowsIndex[index], false);
+            }
+        }
+
+        return this.__windows;
+    }
+
+    SmashWindow(index) {
+        SmashVehicleWindow(this.id, Number(index));
+        this.__windows[index] = -1;
+    }
+
+    SetAllWindowState(states) {
+
+        if (this._windows === undefined) {
+            this.__windows = {};
+        }
+
+        for (let index in states) {
+            if (states[index] === -1) {
+                this.SmashWindow(index);
+            }
+        }
     }
 
     // Colours
@@ -318,7 +460,7 @@ class Vehicle extends Entity {
     }
 
     // Mods
-    GetMods() {
+    GetAllMods() {
         this._mods = {};
         for (let i = 0; i < 49; i++) {
             if (i >= 17 && i <= 22) {
@@ -336,7 +478,7 @@ class Vehicle extends Entity {
             SetVehicleModKit(this.id, 0);
         }
 
-        if (typeof  this._customTires === "undefined") {
+        if (typeof this._customTires === "undefined") {
             this._customTires = false;
         }
 
@@ -416,25 +558,36 @@ class Vehicle extends Entity {
                     clearInterval(timer);
                     self.id = CreateVehicle(self._model, self._coords.x, self._coords.y - 1.0, self._coords.z, self._heading, true, true);
 
-                    const exclude = ["id", "_model", "_coords", "_heading", "_networkId", "_mods", "_neons"];
+                    const exclude = ["id", "_model", "_coords", "_heading", "_networkId", "_mods", "_neons", "_doors", "_tyreBurst", "__windows"];
                     for (let key in self) {
                         if (!exclude.includes(key)) {
                             self[key.substring(1)] = self[key];
                         }
                     }
 
-                    // Mods
-                    if (typeof self._mods !== "undefined") {
+                    if (self._mods !== undefined) {
                         SetVehicleModKit(self.id, 0);
                         for (let index in self._mods) {
                             self.SetMod(index, self._mods[index]);
                         }
                     }
 
-                    if (typeof self._neons !== "undefined") {
+                    if (self._neons !== undefined) {
                         for (let index in self._neons) {
                             self.SetNeonLight(Number(index), self._neons[index]);
                         }
+                    }
+
+                    if (self._doors !== undefined) {
+                        self.SetAllDoorsState(self._doors);
+                    }
+
+                    if (self._tyreBurst !== undefined) {
+                        self.SetAllTyreBurst(self._tyreBurst);
+                    }
+
+                    if (self.__windows !== undefined) {
+                        self.SetAllWindowState(self.__windows);
                     }
 
                     SetModelAsNoLongerNeeded(self._model);
