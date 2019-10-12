@@ -21,8 +21,8 @@ class Vehicle extends Entity {
     }
 
     set bodyHealth(amount) {
-        this._bodyHealth = amount;
-        SetVehicleBodyHealth(this.id, amount);
+        this._bodyHealth = Number(amount);
+        SetVehicleBodyHealth(this.id, Number(amount));
     }
 
     // Engine Health
@@ -32,19 +32,19 @@ class Vehicle extends Entity {
     }
 
     set engineHealth(amount) {
-        this._engineHealth = amount;
-        SetVehicleEngineHealth(this.id, amount);
+        this._engineHealth = Number(amount);
+        SetVehicleEngineHealth(this.id, Number(amount));
     }
 
     // Engine
-    get engineRunning() {
-        this._engineRunning = GetIsVehicleEngineRunning(this.id);
-        return this._engineRunning;
+    get engineIsRunning() {
+        this._engineIsRunning = GetIsVehicleEngineRunning(this.id);
+        return this._engineIsRunning;
     }
 
-    set engineRunning(status) {
-        this._engineRunning = status;
-        SetVehicleEngineOn(this.id, status, true, true);
+    set engineIsRunning(status) {
+        this._engineIsRunning = Boolean(status);
+        SetVehicleEngineOn(this.id, this._engineIsRunning, true, true);
     }
 
     // Petrol Tank Health
@@ -54,8 +54,8 @@ class Vehicle extends Entity {
     }
 
     set petrolTankHealth(amount) {
-        this._petrolTankHealth = amount;
-        SetVehiclePetrolTankHealth(this.id, amount);
+        this._petrolTankHealth = Number(amount);
+        SetVehiclePetrolTankHealth(this.id, this._petrolTankHealth);
     }
 
     // Lights
@@ -68,11 +68,11 @@ class Vehicle extends Entity {
     // TODO
     set lights(state) {
         this._lights = state;
-        if (state === 2) {
+        if (this._lights === 2) {
             SetVehicleLights(this.id, 2);
             SetVehicleFullbeam(this.id, true);
             this.lightsMode = 0;
-        } else if (state === 1) {
+        } else if (this._lights === 1) {
             SetVehicleLights(this.id, 2);
             this.lightsMode = 0;
         } else {
@@ -81,39 +81,53 @@ class Vehicle extends Entity {
     }
 
     set lightsMode(amount) {
-        this._lightsMode = amount;
-        SetVehicleLightsMode(this.id, amount);
+        this._lightsMode = Number(amount);
+        SetVehicleLightsMode(this.id, this._lightsMode);
     }
 
     set lightMultiplier(amount) {
-        this._lightMultiplier = amount;
-        SetVehicleLightMultiplier(this.id, amount);
+        this._lightMultiplier = Number(amount);
+        SetVehicleLightMultiplier(this.id, this._lightMultiplier);
     }
 
     // Neon Light
-    GetNeonLight() {
-        this._neons = {};
-        if (IsThisModelACar(this.model)) {
-            for (let index = 0; index < 3; index++) {
-                this._neons[index] = Boolean(IsVehicleNeonLightEnabled(this.id, index));
-            }
+    GetNeonLight(index) {
+        if (this._neonLight === undefined) {
+            this._neonLight = {};
         }
-        return this._neons;
+        this._neonLight[index] = Boolean(IsVehicleNeonLightEnabled(this.id, index));
+    }
+
+    GetAllNeonLight() {
+        for (let index = 0; index < 3; index++) {
+            this.GetNeonLight(index);
+        }
+        return this._neonLight;
     }
 
     IsNeonLightEnabled(index) {
-        return Boolean(IsVehicleNeonLightEnabled(this.id, index));
+        return Boolean(IsVehicleNeonLightEnabled(this.id, Boolean(index)));
     }
 
-    SetNeonLight(index, status) {
-        this._neons[index] = status;
-        SetVehicleNeonLightEnabled(this.id, index, status);
+    SetNeonLight(index, state) {
+        if (this._neonLight === undefined) {
+            this._neonLight = {};
+        }
+        console.log(state);
+        this._neonLight[Number(index)] = Boolean(state);
+        SetVehicleNeonLightEnabled(this.id, Number(index), Boolean(state));
+    }
+
+    SetAllNeonLight(status) {
+        for (let index in status) {
+            this.SetNeonLight(index, status[index]);
+        }
     }
 
     // neon colour
     get neonColour() {
         const colours = GetVehicleNeonLightsColour(this.id);
-        this._neonColour = {red: colours[0], green: colours[1], blue: colours[2]};
+        this._neonColour = { red: colours[0], green: colours[1], blue: colours[2] };
         return this._neonColour;
     }
 
@@ -132,11 +146,11 @@ class Vehicle extends Entity {
 
     // Doors
     IsDoorDamaged(index) {
-        return IsVehicleDoorDamaged(this.id, index);
+        return IsVehicleDoorDamaged(this.id, Number(index));
     }
 
     GetDoorAngleRatio(index) {
-        return GetVehicleDoorAngleRatio(this.id, index);
+        return GetVehicleDoorAngleRatio(this.id, Number(index));
     }
 
     GetDoorState(index) {
@@ -151,7 +165,7 @@ class Vehicle extends Entity {
             door = this.GetDoorAngleRatio(index);
         }
 
-        this._doors[index] = door;
+        this._doors[Number(index)] = door;
         return door;
     }
 
@@ -165,10 +179,12 @@ class Vehicle extends Entity {
 
     SetDoorBroken(index, remove) {
         SetVehicleDoorBroken(this.id, Number(index), Boolean(remove));
+        this._doors[Number(index)] = -1;
     }
 
     SetDoorShut(index, instantly) {
         SetVehicleDoorShut(this.id, Number(index), Boolean(instantly));
+        this._doors[Number(index)] = 0;
     }
 
     SetDoorOpen(index, loose, instantly) {
@@ -183,14 +199,15 @@ class Vehicle extends Entity {
         SetVehicleDoorLatched(this.id, Number(index), Boolean(force), Boolean(lock));
     }
 
+    // TODO : Angle
     SetDoorState(index, state) {
         if (this._doors === undefined) {
             this._doors = {};
         }
 
-        if (state === -1) {
+        if (Number(state) === -1) {
             this.SetDoorBroken(index, true);
-        } else if (state === 0) {
+        } else if (Number(state) === 0) {
             this.SetDoorShut(index, true);
         } else {
             this.SetDoorOpen(index, false, true);
@@ -199,7 +216,7 @@ class Vehicle extends Entity {
                 self.SetDoorLatched(index, false, true);
             }, 100);
         }
-        this._doors[index] = state;
+        this._doors[Number(index)] = state;
     }
 
     SetAllDoorsState(states) {
@@ -223,8 +240,8 @@ class Vehicle extends Entity {
     }
 
     set lookStatus(status) {
-        this._lookStatus = status;
-        SetVehicleDoorsLocked(this.id, status);
+        this._lookStatus = Boolean(status);
+        SetVehicleDoorsLocked(this.id, Boolean(status));
     }
 
     // Fuel
@@ -234,8 +251,8 @@ class Vehicle extends Entity {
     }
 
     set fuelLevel(amount) {
-        this._fuelLevel = amount;
-        SetVehicleFuelLevel(this.id, amount);
+        this._fuelLevel = Number(amount);
+        SetVehicleFuelLevel(this.id, this._fuelLevel);
     }
 
     // Plate
@@ -246,7 +263,7 @@ class Vehicle extends Entity {
 
     set plateText(text) {
         this._plateText = text;
-        SetVehicleNumberPlateText(this.id, text);
+        SetVehicleNumberPlateText(this.id, this._plateText);
     }
 
     get plateStyle() {
@@ -255,8 +272,8 @@ class Vehicle extends Entity {
     }
 
     set plateStyle(style) {
-        this._plateStyle = style;
-        SetVehicleNumberPlateTextIndex(this.id, style);
+        this._plateStyle = Number(style);
+        SetVehicleNumberPlateTextIndex(this.id, this._plateStyle);
     }
 
     // DirtLevel
@@ -307,9 +324,12 @@ class Vehicle extends Entity {
         return this._tyreBurst;
     }
 
-    SetTyreBurst(index, state) {
-        SetVehicleTyreBurst(this.id, Number(index), Boolean(state), 1000.0);
-        this._tyreBurst[index] = state;
+    SetTyreBurst(index, state, p3 = 1000.0) {
+        if (this._tyreBurst === undefined) {
+            this._tyreBurst = {};
+        }
+        SetVehicleTyreBurst(this.id, Number(index), Boolean(state), p3);
+        this._tyreBurst[Number(index)] = Boolean(state);
     }
 
     SetAllTyreBurst(states) {
@@ -340,12 +360,12 @@ class Vehicle extends Entity {
 
     SmashWindow(index) {
         SmashVehicleWindow(this.id, Number(index));
-        this.__windows[index] = -1;
+        this.__windows[Number(index)] = -1;
     }
 
     SetAllWindowState(states) {
 
-        if (this._windows === undefined) {
+        if (this.__windows === undefined) {
             this.__windows = {};
         }
 
@@ -459,38 +479,49 @@ class Vehicle extends Entity {
         AttachVehicleToTrailer(this.id, traillerId);
     }
 
-    // Mods
-    GetAllMods() {
-        this._mods = {};
-        for (let i = 0; i < 49; i++) {
-            if (i >= 17 && i <= 22) {
-                this._mods[i] = Boolean(IsToggleModOn(this.id, i));
-            } else {
-                this._mods[i] = GetVehicleMod(this.id, i);
-            }
+    // Mod
+    GetMod(index) {
+        if (this._mod === undefined) {
+            this._mod = {};
         }
-        return this._mods;
+
+        if (index >= 17 && index <= 22) {
+            this._mod[Number(index)] = Boolean(IsToggleModOn(this.id, Number(index)));
+        } else {
+            this._mod[Number(index)] = GetVehicleMod(this.id, Number(index));
+        }
+    }
+
+    GetAllMod() {
+        for (let index = 0; index < 49; index++) {
+            this.GetMod(index);
+        }
+        return this._mod;
+    }
+
+    SetAllMod(status) {
+        for (let index in status) {
+            this.SetMod(index, status[index]);
+        }
     }
 
     SetMod(type, index) {
-        if (typeof this._mods === "undefined") {
-            this._mods = {};
+        if (this._mod === undefined) {
+            this._mod = {};
             SetVehicleModKit(this.id, 0);
         }
 
-        if (typeof this._customTires === "undefined") {
+        if (this._customTires === undefined) {
             this._customTires = false;
         }
 
         // Convert string to number
-        type = Number(type);
-        index = Number(index);
-
-        this._mods[type] = index;
-        if (type >= 17 && type <= 22) {
-            ToggleVehicleMod(this.id, type, index);
+        if (Number(type) >= 17 && Number(type) <= 22) {
+            ToggleVehicleMod(this.id, Number(type), Boolean(index));
+            this._mod[Number(type)] = Boolean(index);
         } else {
-            SetVehicleMod(this.id, type, index, this._customTires);
+            SetVehicleMod(this.id, Number(type), Number(index), this._customTires);
+            this._mod[Number(type)] = Number(index);
         }
     }
 
@@ -558,24 +589,21 @@ class Vehicle extends Entity {
                     clearInterval(timer);
                     self.id = CreateVehicle(self._model, self._coords.x, self._coords.y - 1.0, self._coords.z, self._heading, true, true);
 
-                    const exclude = ["id", "_model", "_coords", "_heading", "_networkId", "_mods", "_neons", "_doors", "_tyreBurst", "__windows"];
+                    const exclude = ["id", "_model", "_coords", "_heading", "_networkId", "_mod", "_neonLight", "_doors", "_tyreBurst", "__windows"];
                     for (let key in self) {
                         if (!exclude.includes(key)) {
                             self[key.substring(1)] = self[key];
                         }
                     }
 
-                    if (self._mods !== undefined) {
+                    if (self._mod !== undefined) {
                         SetVehicleModKit(self.id, 0);
-                        for (let index in self._mods) {
-                            self.SetMod(index, self._mods[index]);
-                        }
+                        self.SetAllMod(self._mod);
                     }
 
-                    if (self._neons !== undefined) {
-                        for (let index in self._neons) {
-                            self.SetNeonLight(Number(index), self._neons[index]);
-                        }
+                    if (self._neonLight !== undefined) {
+                        self.SetAllNeonLight(self._neonLight);
+                        console.log("oui :!!!");
                     }
 
                     if (self._doors !== undefined) {
