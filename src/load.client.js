@@ -7,24 +7,28 @@
 
 let onReady = [];
 
+/**
+ * @param {function} callback
+ */
 function OnClientReady(callback) {
     onReady.push(callback);
 }
 
+/**
+ *
+ */
 const loadingClient = setInterval(function () {
-
     if (NetworkIsSessionStarted()) {
         clearInterval(loadingClient);
         onReady.forEach(function (callback) {
             callback();
         })
     }
-
 }, 10);
 
-//
-//
-//
+/**
+ *
+ */
 RegisterServerEvent('playerSpawned');
 AddEventHandler('playerSpawned', function () {
     TriggerServerEvent('ft_core:playerSpawned');
