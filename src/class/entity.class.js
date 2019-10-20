@@ -200,15 +200,6 @@ class Entity {
     }
 
     /**
-     * TODO
-     */
-    Init(data) {
-        for (let name in data) {
-            this[name] = data[name];
-        }
-    }
-
-    /**
      * @description Set as mission
      * @param {function} callback
      * @return void
