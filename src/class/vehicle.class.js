@@ -1,12 +1,16 @@
-//
-// @Project: FivemTools
-// @Author: Samuelds
-// @License: GNU General Public License v3.0
-// @Source: https://github.com/FivemTools/ft_core
-//
+/*
+ * @Project: FivemTools
+ * @Author: Samuelds
+ * @License: GNU General Public License v3.0
+ * @Source: https://github.com/FivemTools/ft_core
+*/
 
 class Vehicle extends Entity {
 
+    /**
+     * @description Get class
+     * @returns {string}
+     */
     get class() {
         if (this._class === undefined) {
             this._class = GetVehicleClass(this.id);
@@ -14,59 +18,96 @@ class Vehicle extends Entity {
         return this._class;
     }
 
-    // Body Health
+    /**
+     * @description Get body health
+     * @returns {number}
+     */
     get bodyHealth() {
         this._bodyHealth = GetVehicleBodyHealth(this.id);
         return this._bodyHealth;
     }
 
+    /**
+     * @description Set body health
+     * @param {number} amount
+     * @return {void}
+     */
     set bodyHealth(amount) {
         this._bodyHealth = Number(amount);
         SetVehicleBodyHealth(this.id, Number(amount));
     }
 
-    // Engine Health
+    /**
+     * @description Get engine health
+     * @returns {number}
+     */
     get engineHealth() {
         this._engineHealth = GetVehicleEngineHealth(this.id);
         return this._engineHealth;
     }
 
+    /**
+     * @description Set engine health
+     * @param {number} amount
+     * @return {void}
+     */
     set engineHealth(amount) {
         this._engineHealth = Number(amount);
         SetVehicleEngineHealth(this.id, Number(amount));
     }
 
-    // Engine
+    /**
+     * @description Get engine is running
+     * @returns {boolean}
+     */
     get engineIsRunning() {
         this._engineIsRunning = GetIsVehicleEngineRunning(this.id);
         return this._engineIsRunning;
     }
 
+    /**
+     * @description Set engine is running
+     * @param {boolean} status
+     * @return {void}
+     */
     set engineIsRunning(status) {
         this._engineIsRunning = Boolean(status);
         SetVehicleEngineOn(this.id, this._engineIsRunning, true, true);
     }
 
-    // Petrol Tank Health
+    /**
+     * @description Get petrol tank health
+     * @returns {number}
+     */
     get petrolTankHealth() {
         this._petrolTankHealth = GetVehiclePetrolTankHealth(this.id);
         return this._petrolTankHealth;
     }
 
+    /**
+     * @description Set petrol tank health
+     * @param {number} amount
+     * @return {void}
+     */
     set petrolTankHealth(amount) {
         this._petrolTankHealth = Number(amount);
         SetVehiclePetrolTankHealth(this.id, this._petrolTankHealth);
     }
 
-    // Lights
+    /**
+     * @description
+     * @returns {object}
+     */
     get lights() {
         const state = GetVehicleLightsState(this.id);
         this._lights = state[1] + state[2];
         return this._lights;
     }
 
-    // TODO
-    set lights(state) {
+    /**
+     * TODO
+     */
+    /*set lights(state) {
         this._lights = state;
         if (this._lights === 2) {
             SetVehicleLights(this.id, 2);
@@ -78,19 +119,33 @@ class Vehicle extends Entity {
         } else {
             SetVehicleLights(this.id, 0);
         }
-    }
+    }*/
 
+    /**
+     * @description Set lights mode
+     * @param {number} amount
+     * @return {void}
+     */
     set lightsMode(amount) {
         this._lightsMode = Number(amount);
         SetVehicleLightsMode(this.id, this._lightsMode);
     }
 
+    /**
+     * @description Set light multiplier
+     * @param {number} amount
+     * @return {void}
+     */
     set lightMultiplier(amount) {
         this._lightMultiplier = Number(amount);
         SetVehicleLightMultiplier(this.id, this._lightMultiplier);
     }
 
-    // Neon Light
+    /**
+     * @description Get neon light
+     * @param {number} index
+     * @return {void}
+     */
     GetNeonLight(index) {
         if (this._neonLight === undefined) {
             this._neonLight = {};
@@ -98,6 +153,10 @@ class Vehicle extends Entity {
         this._neonLight[index] = Boolean(IsVehicleNeonLightEnabled(this.id, index));
     }
 
+    /**
+     * @description Get all neon light
+     * @returns {object}
+     */
     GetAllNeonLight() {
         for (let index = 0; index < 3; index++) {
             this.GetNeonLight(index);
@@ -105,10 +164,21 @@ class Vehicle extends Entity {
         return this._neonLight;
     }
 
+    /**
+     * @description Return neon light is enabled
+     * @param {number} index
+     * @returns {boolean}
+     */
     IsNeonLightEnabled(index) {
         return Boolean(IsVehicleNeonLightEnabled(this.id, Boolean(index)));
     }
 
+    /**
+     * @description Set neon light
+     * @param {number} index
+     * @param {boolean} state
+     * @return {void}
+     */
     SetNeonLight(index, state) {
         if (this._neonLight === undefined) {
             this._neonLight = {};
@@ -118,25 +188,40 @@ class Vehicle extends Entity {
         SetVehicleNeonLightEnabled(this.id, Number(index), Boolean(state));
     }
 
+    /**
+     * @description Set multiple neon light
+     * @param {object} status
+     * @return {void}
+     */
     SetAllNeonLight(status) {
         for (let index in status) {
             this.SetNeonLight(index, status[index]);
         }
     }
 
-    // neon colour
+    /**
+     * @description Get neon colour
+     * @returns {object}
+     */
     get neonColour() {
         const colours = GetVehicleNeonLightsColour(this.id);
         this._neonColour = { red: colours[0], green: colours[1], blue: colours[2] };
         return this._neonColour;
     }
 
+    /**
+     * @description Set neon colour
+     * @param {object} colour
+     */
     set neonColour(colour) {
         this._neonColour = colour;
         SetVehicleNeonLightsColour(this.id, colour.red, colour.green, colour.blue);
     }
 
-    // Max doors
+    /**
+     * @description Get number doors
+     * @returns {number}
+     */
     GetNumberDoors() {
         if (this._maxDoors === undefined) {
             this._maxDoors = GetNumberOfVehicleDoors(this.id);
@@ -144,15 +229,29 @@ class Vehicle extends Entity {
         return this._maxDoors;
     }
 
-    // Doors
+    /**
+     * @description Return if door id damaged
+     * @param {number} index
+     * @returns {boolean}
+     */
     IsDoorDamaged(index) {
         return IsVehicleDoorDamaged(this.id, Number(index));
     }
 
+    /**
+     * @description Return door angle
+     * @param {number} index
+     * @returns {number}
+     */
     GetDoorAngleRatio(index) {
         return GetVehicleDoorAngleRatio(this.id, Number(index));
     }
 
+    /**
+     * @description Get door state
+     * @param {number} index
+     * @returns {number}
+     */
     GetDoorState(index) {
         if (this._doors === undefined) {
             this._doors = {};
@@ -169,6 +268,10 @@ class Vehicle extends Entity {
         return door;
     }
 
+    /**
+     * @description Get all door state
+     * @returns {object}
+     */
     GetAllDoorState() {
         this._doors = {};
         for (let index = 0; index < this.GetNumberDoors(); index++) {
@@ -177,24 +280,57 @@ class Vehicle extends Entity {
         return this._doors;
     }
 
+    /**
+     * @description Set door is broken
+     * @param {number} index
+     * @param {boolean} remove
+     * @returns {void}
+     */
     SetDoorBroken(index, remove) {
         SetVehicleDoorBroken(this.id, Number(index), Boolean(remove));
         this._doors[Number(index)] = -1;
     }
 
+    /**
+     * @description Set door shut
+     * @param {number} index
+     * @param {boolean} instantly
+     * @returns {void}
+     */
     SetDoorShut(index, instantly) {
         SetVehicleDoorShut(this.id, Number(index), Boolean(instantly));
         this._doors[Number(index)] = 0;
     }
 
+    /**
+     * @description Set door open
+     * @param {number} index
+     * @param {boolean} loose
+     * @param {boolean} instantly
+     * @returns {void}
+     */
     SetDoorOpen(index, loose, instantly) {
         SetVehicleDoorOpen(this.id, Number(index), Boolean(loose), Boolean(instantly));
     }
 
+    /**
+     * @description Set door control
+     * @param {number} index
+     * @param {number} speed
+     * @param {number} angle
+     * @returns {void}
+     */
     SetDoorControl(index, speed, angle) {
         SetVehicleDoorControl(this.id, Number(index), Number(speed), Number(angle));
     }
 
+    /**
+     * @description Set door control
+     * @param {number} index
+     * @param {boolean} force
+     * @param {boolean} lock
+     * @returns {void}
+     */
     SetDoorLatched(index, force, lock) {
         SetVehicleDoorLatched(this.id, Number(index), Boolean(force), Boolean(lock));
     }
