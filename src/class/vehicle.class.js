@@ -9,7 +9,7 @@ class Vehicle extends Entity {
 
     /**
      * @description Get class
-     * @returns {string}
+     * @return {string}
      */
     get class() {
         if (this._class === undefined) {
@@ -20,7 +20,7 @@ class Vehicle extends Entity {
 
     /**
      * @description Get body health
-     * @returns {number}
+     * @return {number}
      */
     get bodyHealth() {
         this._bodyHealth = GetVehicleBodyHealth(this.id);
@@ -39,7 +39,7 @@ class Vehicle extends Entity {
 
     /**
      * @description Get engine health
-     * @returns {number}
+     * @return {number}
      */
     get engineHealth() {
         this._engineHealth = GetVehicleEngineHealth(this.id);
@@ -58,7 +58,7 @@ class Vehicle extends Entity {
 
     /**
      * @description Get engine is running
-     * @returns {boolean}
+     * @return {boolean}
      */
     get engineIsRunning() {
         this._engineIsRunning = GetIsVehicleEngineRunning(this.id);
@@ -77,7 +77,7 @@ class Vehicle extends Entity {
 
     /**
      * @description Get petrol tank health
-     * @returns {number}
+     * @return {number}
      */
     get petrolTankHealth() {
         this._petrolTankHealth = GetVehiclePetrolTankHealth(this.id);
@@ -95,8 +95,8 @@ class Vehicle extends Entity {
     }
 
     /**
-     * @description
-     * @returns {object}
+     * @description Get lights
+     * @return {object}
      */
     get lights() {
         const state = GetVehicleLightsState(this.id);
@@ -155,7 +155,7 @@ class Vehicle extends Entity {
 
     /**
      * @description Get all neon light
-     * @returns {object}
+     * @return {object}
      */
     GetAllNeonLight() {
         for (let index = 0; index < 3; index++) {
@@ -165,9 +165,9 @@ class Vehicle extends Entity {
     }
 
     /**
-     * @description Return neon light is enabled
+     * @description return neon light is enabled
      * @param {number} index
-     * @returns {boolean}
+     * @return {boolean}
      */
     IsNeonLightEnabled(index) {
         return Boolean(IsVehicleNeonLightEnabled(this.id, Boolean(index)));
@@ -201,7 +201,7 @@ class Vehicle extends Entity {
 
     /**
      * @description Get neon colour
-     * @returns {object}
+     * @return {object}
      */
     get neonColour() {
         const colours = GetVehicleNeonLightsColour(this.id);
@@ -219,306 +219,149 @@ class Vehicle extends Entity {
     }
 
     /**
-     * @description Get number doors
-     * @returns {number}
-     */
-    GetNumberDoors() {
-        if (this._maxDoors === undefined) {
-            this._maxDoors = GetNumberOfVehicleDoors(this.id);
-        }
-        return this._maxDoors;
-    }
-
-    /**
-     * @description Return if door id damaged
-     * @param {number} index
-     * @returns {boolean}
-     */
-    IsDoorDamaged(index) {
-        return IsVehicleDoorDamaged(this.id, Number(index));
-    }
-
-    /**
-     * @description Return door angle
-     * @param {number} index
-     * @returns {number}
-     */
-    GetDoorAngleRatio(index) {
-        return GetVehicleDoorAngleRatio(this.id, Number(index));
-    }
-
-    /**
-     * @description Get door state
-     * @param {number} index
-     * @returns {number}
-     */
-    GetDoorState(index) {
-        if (this._doors === undefined) {
-            this._doors = {};
-        }
-
-        let door;
-        if (this.IsDoorDamaged(index)) {
-            door = -1;
-        } else {
-            door = this.GetDoorAngleRatio(index);
-        }
-
-        this._doors[Number(index)] = door;
-        return door;
-    }
-
-    /**
-     * @description Get all door state
+     * @description Return all doors
      * @returns {object}
      */
-    GetAllDoorState() {
-        this._doors = {};
-        for (let index = 0; index < this.GetNumberDoors(); index++) {
-            this.GetDoorState(index);
-        }
-        return this._doors;
-    }
-
-    /**
-     * @description Set door is broken
-     * @param {number} index
-     * @param {boolean} remove
-     * @returns {void}
-     */
-    SetDoorBroken(index, remove) {
-        SetVehicleDoorBroken(this.id, Number(index), Boolean(remove));
-        this._doors[Number(index)] = -1;
-    }
-
-    /**
-     * @description Set door shut
-     * @param {number} index
-     * @param {boolean} instantly
-     * @returns {void}
-     */
-    SetDoorShut(index, instantly) {
-        SetVehicleDoorShut(this.id, Number(index), Boolean(instantly));
-        this._doors[Number(index)] = 0;
-    }
-
-    /**
-     * @description Set door open
-     * @param {number} index
-     * @param {boolean} loose
-     * @param {boolean} instantly
-     * @returns {void}
-     */
-    SetDoorOpen(index, loose, instantly) {
-        SetVehicleDoorOpen(this.id, Number(index), Boolean(loose), Boolean(instantly));
-    }
-
-    /**
-     * @description Set door control
-     * @param {number} index
-     * @param {number} speed
-     * @param {number} angle
-     * @returns {void}
-     */
-    SetDoorControl(index, speed, angle) {
-        SetVehicleDoorControl(this.id, Number(index), Number(speed), Number(angle));
-    }
-
-    /**
-     * @description Set door control
-     * @param {number} index
-     * @param {boolean} force
-     * @param {boolean} lock
-     * @returns {void}
-     */
-    SetDoorLatched(index, force, lock) {
-        SetVehicleDoorLatched(this.id, Number(index), Boolean(force), Boolean(lock));
-    }
-
-    // TODO : Angle
-    SetDoorState(index, state) {
-        if (this._doors === undefined) {
-            this._doors = {};
-        }
-
-        if (Number(state) === -1) {
-            this.SetDoorBroken(index, true);
-        } else if (Number(state) === 0) {
-            this.SetDoorShut(index, true);
-        } else {
-            this.SetDoorOpen(index, false, true);
-            let self = this;
-            setTimeout(function () {
-                self.SetDoorLatched(index, false, true);
-            }, 100);
-        }
-        this._doors[Number(index)] = state;
-    }
-
-    SetAllDoorsState(states) {
-        for (let index in states) {
-            this.SetDoorState(index, states[index]);
-        }
-    }
-
     get doors() {
         return this._doors;
     }
 
+    /**
+     * @description Set all doors
+     * @param {object} values
+     */
     set doors(values) {
         this._doors = values;
     }
 
-    // Look
+    /**
+     * @description Get look status
+     * @returns {boolean}
+     */
     get lookStatus() {
         this._lookStatus = GetVehicleDoorLockStatus(this.id);
         return this._lookStatus;
     }
 
+    /**
+     * @description Set look status
+     * @param status
+     */
     set lookStatus(status) {
         this._lookStatus = Boolean(status);
         SetVehicleDoorsLocked(this.id, Boolean(status));
     }
 
-    // Fuel
+    /**
+     * @description Get fuel level
+     * @returns {number}
+     */
     get fuelLevel() {
         this._fuelLevel = GetVehicleFuelLevel(this.id);
         return this._fuelLevel;
     }
 
+    /**
+     * @description Set fuel level
+     * @param {number} amount
+     * @return {void}
+     */
     set fuelLevel(amount) {
         this._fuelLevel = Number(amount);
         SetVehicleFuelLevel(this.id, this._fuelLevel);
     }
 
-    // Plate
+    /**
+     * @description Get plate text
+     * @returns {string}
+     */
     get plateText() {
         this._plateText = GetVehicleNumberPlateText(this.id);
         return this._plateText;
     }
 
+    /**
+     * @description Set plate text
+     * @param {string} text
+     * @return {void}
+     */
     set plateText(text) {
         this._plateText = text;
         SetVehicleNumberPlateText(this.id, this._plateText);
     }
 
+    /**
+     * @description Get plate style
+     * @returns {number}
+     */
     get plateStyle() {
         this._plateStyle = GetVehicleNumberPlateTextIndex(this.id);
         return this._plateStyle;
     }
 
+    /**
+     * @description Set plate style
+     * @param style
+     * @return {void}
+     */
     set plateStyle(style) {
         this._plateStyle = Number(style);
         SetVehicleNumberPlateTextIndex(this.id, this._plateStyle);
     }
 
-    // DirtLevel
+    /**
+     * @description Get dirt level
+     * @returns {number}
+     */
     get dirtLevel() {
         this._dirtLevel = GetVehicleDirtLevel(this.id);
         return this._dirtLevel;
     }
 
+    /**
+     * @description Set dirt level
+     * @param {number} level
+     * @return {void}
+     */
     set dirtLevel(level) {
-        this._dirtLevel = level;
-        SetVehicleDirtLevel(this.id, level);
+        this._dirtLevel = Number(level);
+        SetVehicleDirtLevel(this.id, Number(level));
     }
 
-    // WheelType
+    /**
+     * @description Get wheel type
+     * @returns {number}
+     */
     get wheelType() {
         this._wheelType = GetVehicleWheelType(this.id);
         return this._wheelType;
     }
 
+    /**
+     * @description Set wheel type
+     * @param {number} type
+     * @return {number}
+     */
     set wheelType(type) {
         this._wheelType = type;
         SetVehicleWheelType(this.id, type);
     }
 
-    // Tyre
-    GetAllTyreBurst() {
-        this._tyreBurst = {};
-
-        const tireIndex = {
-            "wheel_lf": 0,
-            "wheel_rf": 1,
-            "wheel_lm1": 2,
-            "wheel_rm1": 3,
-            "wheel_lr": 4,
-            "wheel_rr": 5,
-            "wheel_lm2": 45,
-            "wheel_rm2": 47,
-            "wheel_lm3": 46,
-            "wheel_rm3": 48,
-        };
-
-        for (let index in tireIndex) {
-            if (GetEntityBoneIndexByName(this.id, index) !== -1 && IsVehicleTyreBurst(this.id, tireIndex[index], false)) {
-                this._tyreBurst[tireIndex[index]] = true;
-            }
-        }
-
-        return this._tyreBurst;
-    }
-
-    SetTyreBurst(index, state, p3 = 1000.0) {
-        if (this._tyreBurst === undefined) {
-            this._tyreBurst = {};
-        }
-        SetVehicleTyreBurst(this.id, Number(index), Boolean(state), p3);
-        this._tyreBurst[Number(index)] = Boolean(state);
-    }
-
-    SetAllTyreBurst(states) {
-        for (let index in states) {
-            this.SetTyreBurst(index, states[index]);
-        }
-    }
-
-    // Windows
-    GetAllWindowState() {
-        this.__windows = {};
-
-        const windowsIndex = {
-            'window_rf': 0,
-            'window_lf': 1,
-            'window_rr': 2,
-            'window_lr': 3
-        };
-
-        for (let index in windowsIndex) {
-            if (GetEntityBoneIndexByName(this.id, index) !== -1) {
-                this.__windows[windowsIndex[index]] = IsVehicleWindowIntact(this.id, windowsIndex[index], false);
-            }
-        }
-
-        return this.__windows;
-    }
-
-    SmashWindow(index) {
-        SmashVehicleWindow(this.id, Number(index));
-        this.__windows[Number(index)] = -1;
-    }
-
-    SetAllWindowState(states) {
-
-        if (this.__windows === undefined) {
-            this.__windows = {};
-        }
-
-        for (let index in states) {
-            if (states[index] === -1) {
-                this.SmashWindow(index);
-            }
-        }
-    }
-
-    // Colours
+    /**
+     * @description Get colours
+     * @returns {object}
+     */
     get colours() {
         const colours = GetVehicleColours(this.id);
         this._colours = { primary: colours[0], secondary: colours[1] };
         return this._colours;
     }
 
+    /**
+     * @description Set colours
+     * @param {object} colours
+     * @return {void}
+     */
     set colours(colours) {
         this._colours = colours;
         SetVehicleColours(this.id, colours.primary, colours.secondary);
@@ -615,56 +458,6 @@ class Vehicle extends Entity {
         AttachVehicleToTrailer(this.id, traillerId);
     }
 
-    // Mod
-    GetMod(index) {
-        if (this._mod === undefined) {
-            this._mod = {};
-        }
-
-        if (index >= 17 && index <= 22) {
-            this._mod[Number(index)] = Boolean(IsToggleModOn(this.id, Number(index)));
-        } else {
-            this._mod[Number(index)] = GetVehicleMod(this.id, Number(index));
-        }
-    }
-
-    GetAllMod() {
-        for (let index = 0; index < 49; index++) {
-            this.GetMod(index);
-        }
-        return this._mod;
-    }
-
-    SetAllMod(status) {
-        for (let index in status) {
-            this.SetMod(index, status[index]);
-        }
-    }
-
-    SetMod(type, index) {
-        if (this._mod === undefined) {
-            this._mod = {};
-            SetVehicleModKit(this.id, 0);
-        }
-
-        if (this._customTires === undefined) {
-            this._customTires = false;
-        }
-
-        // Convert string to number
-        if (Number(type) >= 17 && Number(type) <= 22) {
-            ToggleVehicleMod(this.id, Number(type), Boolean(index));
-            this._mod[Number(type)] = Boolean(index);
-        } else {
-            SetVehicleMod(this.id, Number(type), Number(index), this._customTires);
-            this._mod[Number(type)] = Number(index);
-        }
-    }
-
-    // Extra
-    IsVehicleExtraTurnedOn(index) {
-        return IsVehicleExtraTurnedOn(this.id, index);
-    }
 
     get extras() {
         this._extras = [];
@@ -712,9 +505,343 @@ class Vehicle extends Entity {
         SetVehicleSiren(this.id, status);
     }
 
-    // Spawn vehicule
-    Spawn(callback) {
+    /**
+     * @description Get number doors
+     * @return {number}
+     */
+    GetNumberDoors() {
+        if (this._maxDoors === undefined) {
+            this._maxDoors = GetNumberOfVehicleDoors(this.id);
+        }
+        return this._maxDoors;
+    }
 
+    /**
+     * @description return if door id damaged
+     * @param {number} index
+     * @return {boolean}
+     */
+    IsDoorDamaged(index) {
+        return IsVehicleDoorDamaged(this.id, Number(index));
+    }
+
+    /**
+     * @description return door angle
+     * @param {number} index
+     * @return {number}
+     */
+    GetDoorAngleRatio(index) {
+        return GetVehicleDoorAngleRatio(this.id, Number(index));
+    }
+
+    /**
+     * @description Get door state
+     * @param {number} index
+     * @return {number}
+     */
+    GetDoorState(index) {
+        if (this._doors === undefined) {
+            this._doors = {};
+        }
+
+        let door;
+        if (this.IsDoorDamaged(index)) {
+            door = -1;
+        } else {
+            door = this.GetDoorAngleRatio(index);
+        }
+
+        this._doors[Number(index)] = door;
+        return door;
+    }
+
+    /**
+     * @description Get all door state
+     * @return {object}
+     */
+    GetAllDoorState() {
+        this._doors = {};
+        for (let index = 0; index < this.GetNumberDoors(); index++) {
+            this.GetDoorState(index);
+        }
+        return this._doors;
+    }
+
+    /**
+     * @description Set door is broken
+     * @param {number} index
+     * @param {boolean} remove
+     * @return {void}
+     */
+    SetDoorBroken(index, remove) {
+        SetVehicleDoorBroken(this.id, Number(index), Boolean(remove));
+        this._doors[Number(index)] = -1;
+    }
+
+    /**
+     * @description Set door shut
+     * @param {number} index
+     * @param {boolean} instantly
+     * @return {void}
+     */
+    SetDoorShut(index, instantly) {
+        SetVehicleDoorShut(this.id, Number(index), Boolean(instantly));
+        this._doors[Number(index)] = 0;
+    }
+
+    /**
+     * @description Set door open
+     * @param {number} index
+     * @param {boolean} loose
+     * @param {boolean} instantly
+     * @return {void}
+     */
+    SetDoorOpen(index, loose, instantly) {
+        SetVehicleDoorOpen(this.id, Number(index), Boolean(loose), Boolean(instantly));
+    }
+
+    /**
+     * @description Set door control
+     * @param {number} index
+     * @param {number} speed
+     * @param {number} angle
+     * @return {void}
+     */
+    SetDoorControl(index, speed, angle) {
+        SetVehicleDoorControl(this.id, Number(index), Number(speed), Number(angle));
+    }
+
+    /**
+     * @description Set door control
+     * @param {number} index
+     * @param {boolean} force
+     * @param {boolean} lock
+     * @return {void}
+     */
+    SetDoorLatched(index, force, lock) {
+        SetVehicleDoorLatched(this.id, Number(index), Boolean(force), Boolean(lock));
+    }
+
+    /**
+     * @description Set door state
+     * @param {number} index
+     * @param {number} state
+     * @return {void}
+     */
+    SetDoorState(index, state) {
+        if (this._doors === undefined) {
+            this._doors = {};
+        }
+
+        if (Number(state) === -1) {
+            this.SetDoorBroken(index, true);
+        } else if (Number(state) === 0) {
+            this.SetDoorShut(index, true);
+        } else {
+            this.SetDoorOpen(index, false, true);
+            let self = this;
+            setTimeout(function () {
+                self.SetDoorLatched(index, false, true);
+            }, 100);
+        }
+        this._doors[Number(index)] = state;
+    }
+
+    /**
+     * @description Set multiple door state
+     * @param {object} states
+     * @return {void}
+     */
+    SetAllDoorsState(states) {
+        for (let index in states) {
+            this.SetDoorState(index, states[index]);
+        }
+    }
+
+    /**
+     * @description Get all tyre burst bone
+     * @returns {object}
+     */
+    GetAllTyreBurst() {
+        this._tyreBurst = {};
+
+        const tireIndex = {
+            "wheel_lf": 0,
+            "wheel_rf": 1,
+            "wheel_lm1": 2,
+            "wheel_rm1": 3,
+            "wheel_lr": 4,
+            "wheel_rr": 5,
+            "wheel_lm2": 45,
+            "wheel_rm2": 47,
+            "wheel_lm3": 46,
+            "wheel_rm3": 48,
+        };
+
+        for (let index in tireIndex) {
+            if (GetEntityBoneIndexByName(this.id, index) !== -1 && IsVehicleTyreBurst(this.id, tireIndex[index], false)) {
+                this._tyreBurst[tireIndex[index]] = true;
+            }
+        }
+
+        return this._tyreBurst;
+    }
+
+    /**
+     * @description Set tyre burst
+     * @param {number} index
+     * @param {boolean} state
+     * @param {number} p3
+     */
+    SetTyreBurst(index, state, p3 = 1000.0) {
+        if (this._tyreBurst === undefined) {
+            this._tyreBurst = {};
+        }
+        SetVehicleTyreBurst(this.id, Number(index), Boolean(state), p3);
+        this._tyreBurst[Number(index)] = Boolean(state);
+    }
+
+    /**
+     * @description Set multiple tyre burst
+     * @param {object} states
+     */
+    SetAllTyreBurst(states) {
+        for (let index in states) {
+            this.SetTyreBurst(index, states[index]);
+        }
+    }
+
+    /**
+     * @description Get all window state
+     * @returns {*}
+     * @constructor
+     */
+    GetAllWindowState() {
+        this.__windows = {};
+
+        const windowsIndex = {
+            'window_rf': 0,
+            'window_lf': 1,
+            'window_rr': 2,
+            'window_lr': 3
+        };
+
+        for (let index in windowsIndex) {
+            if (GetEntityBoneIndexByName(this.id, index) !== -1) {
+                this.__windows[windowsIndex[index]] = IsVehicleWindowIntact(this.id, windowsIndex[index], false);
+            }
+        }
+
+        return this.__windows;
+    }
+
+    /**
+     * @description Smash window
+     * @param {number} index
+     * @return {void}
+     */
+    SmashWindow(index) {
+        SmashVehicleWindow(this.id, Number(index));
+        this.__windows[Number(index)] = -1;
+    }
+
+    /**
+     * @description Set multiple window state
+     * @param {object} states
+     */
+    SetAllWindowState(states) {
+        if (this.__windows === undefined) {
+            this.__windows = {};
+        }
+
+        for (let index in states) {
+            if (states[index] === -1) {
+                this.SmashWindow(index);
+            }
+        }
+    }
+
+    /**
+     * @description Get specific mod
+     * @param {number} index
+     * @return {object}
+     */
+    GetMod(index) {
+        if (this._mod === undefined) {
+            this._mod = {};
+        }
+
+        if (index >= 17 && index <= 22) {
+            this._mod[Number(index)] = Boolean(IsToggleModOn(this.id, Number(index)));
+        } else {
+            this._mod[Number(index)] = GetVehicleMod(this.id, Number(index));
+        }
+        return this._mod;
+    }
+
+    /**
+     * @description Get all mods
+     * @returns {object}
+     */
+    GetAllMod() {
+        for (let index = 0; index < 49; index++) {
+            this.GetMod(index);
+        }
+        return this._mod;
+    }
+
+    /**
+     * @description Set multiple mods
+     * @param {object} status
+     * @return {void}
+     */
+    SetAllMod(status) {
+        for (let index in status) {
+            this.SetMod(index, status[index]);
+        }
+    }
+
+    /**
+     * @description Set specific mod
+     * @param {number} type
+     * @param {number} index
+     * @return {void}
+     */
+    SetMod(type, index) {
+        if (this._mod === undefined) {
+            this._mod = {};
+            SetVehicleModKit(this.id, 0);
+        }
+
+        if (this._customTires === undefined) {
+            this._customTires = false;
+        }
+
+        // Convert string to number
+        if (Number(type) >= 17 && Number(type) <= 22) {
+            ToggleVehicleMod(this.id, Number(type), Boolean(index));
+            this._mod[Number(type)] = Boolean(index);
+        } else {
+            SetVehicleMod(this.id, Number(type), Number(index), this._customTires);
+            this._mod[Number(type)] = Number(index);
+        }
+    }
+
+    /**
+     * @description Is vehicle extra turned on
+     * @param {number} index
+     * @returns {boolean}
+     */
+    IsVehicleExtraTurnedOn(index) {
+        return IsVehicleExtraTurnedOn(this.id, index);
+    }
+
+    /**
+     * @description Spawn
+     * @param {function} callback
+     * @return {void}
+     */
+    Spawn(callback) {
         if (IsModelAVehicle(this._model)) {
 
             let waiting = 0;
@@ -768,7 +895,6 @@ class Vehicle extends Entity {
         } else {
             callback(false);
         }
-
     }
 
 }

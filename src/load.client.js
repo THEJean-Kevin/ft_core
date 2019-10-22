@@ -8,15 +8,14 @@
 let onReady = [];
 
 /**
+ * @description Add function to run on client ready
  * @param {function} callback
+ * @return {void}
  */
 function OnClientReady(callback) {
     onReady.push(callback);
 }
 
-/**
- *
- */
 const loadingClient = setInterval(function () {
     if (NetworkIsSessionStarted()) {
         clearInterval(loadingClient);
@@ -26,9 +25,7 @@ const loadingClient = setInterval(function () {
     }
 }, 10);
 
-/**
- *
- */
+// Event send by spawn manager
 RegisterServerEvent('playerSpawned');
 AddEventHandler('playerSpawned', function () {
     TriggerServerEvent('ft_core:playerSpawned');

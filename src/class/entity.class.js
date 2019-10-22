@@ -15,8 +15,8 @@ class Entity {
     }
 
     /**
-     * @description Return entity model
-     * @returns {string} model
+     * @description Get entity model
+     * @return {string}
      */
     get model() {
         if (this._model === undefined) {
@@ -36,7 +36,7 @@ class Entity {
 
     /**
      * @description Get entity health
-     * @returns {number}
+     * @return {number}
      */
     get health() {
         this._health = GetEntityHealth(this.id);
@@ -104,7 +104,7 @@ class Entity {
 
     /**
      * @description Get heading
-     * @returns {number}
+     * @return {number}
      */
     get heading() {
         this._heading = GetEntityHeading(this.id);
@@ -112,7 +112,7 @@ class Entity {
     }
 
     /**
-     * @description
+     * @description Set heading
      * @param heading
      * @return {void}
      */
@@ -123,7 +123,7 @@ class Entity {
 
     /**
      * @description Get collision status
-     * @returns {boolean}
+     * @return {boolean}
      */
     get collision() {
         this._collision = !GetEntityCollisionDisabled(this.id);
@@ -142,7 +142,7 @@ class Entity {
 
     /**
      * @description Get network id
-     * @returns {number}
+     * @return {number}
      */
     get networkId() {
         this._networkId = NetworkGetNetworkIdFromEntity(this.id);
@@ -160,7 +160,7 @@ class Entity {
 
     /**
      * @description Get if entity is dead
-     * @returns {boolean}
+     * @return {boolean}
      */
     IsDead() {
         return Boolean(IsEntityDead(this.id));
@@ -168,7 +168,7 @@ class Entity {
 
     /**
      * @description Get if entity is alive
-     * @returns {boolean}
+     * @return {boolean}
      */
     IsAlive() {
         return !this.isDead();
@@ -176,7 +176,7 @@ class Entity {
 
     /**
      * @description Get if entity exist
-     * @returns {boolean}
+     * @return {boolean}
      */
     Exist() {
         return Boolean(DoesEntityExist(this.id));
@@ -193,7 +193,7 @@ class Entity {
 
     /**
      * @param {string} boneName
-     * @returns {number}
+     * @return {number}
      */
     GetBoneIndex(boneName) {
         return GetEntityBoneIndexByName(this.id, boneName);
