@@ -18,15 +18,15 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "./src/load.client.js~loadingclient",
-    "variable/index.html#static-variable-loadingClient",
-    "<span>loadingClient</span> <span class=\"search-result-import-path\">./src/load.client.js</span>",
+    "./src/load.client.js~_loadingclienttimer",
+    "variable/index.html#static-variable-_loadingClientTimer",
+    "<span>_loadingClientTimer</span> <span class=\"search-result-import-path\">./src/load.client.js</span>",
     "variable"
   ],
   [
-    "./src/load.client.js~onready",
-    "variable/index.html#static-variable-onReady",
-    "<span>onReady</span> <span class=\"search-result-import-path\">./src/load.client.js</span>",
+    "./src/load.client.js~_onready",
+    "variable/index.html#static-variable-_onReady",
+    "<span>_onReady</span> <span class=\"search-result-import-path\">./src/load.client.js</span>",
     "variable"
   ],
   [
@@ -445,13 +445,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/class/entity.class.js~entity#heading",
-    "class/src/class/entity.class.js~Entity.html#instance-get-heading",
+    "class/src/class/entity.class.js~Entity.html#instance-set-heading",
     "src/class/entity.class.js~Entity#heading",
     "member"
   ],
   [
     "src/class/entity.class.js~entity#heading",
-    "class/src/class/entity.class.js~Entity.html#instance-set-heading",
+    "class/src/class/entity.class.js~Entity.html#instance-get-heading",
     "src/class/entity.class.js~Entity#heading",
     "member"
   ],
@@ -475,25 +475,25 @@ window.esdocSearchIndex = [
   ],
   [
     "src/class/entity.class.js~entity#maxhealth",
-    "class/src/class/entity.class.js~Entity.html#instance-set-maxHealth",
-    "src/class/entity.class.js~Entity#maxHealth",
-    "member"
-  ],
-  [
-    "src/class/entity.class.js~entity#maxhealth",
     "class/src/class/entity.class.js~Entity.html#instance-get-maxHealth",
     "src/class/entity.class.js~Entity#maxHealth",
     "member"
   ],
   [
-    "src/class/entity.class.js~entity#model",
-    "class/src/class/entity.class.js~Entity.html#instance-set-model",
-    "src/class/entity.class.js~Entity#model",
+    "src/class/entity.class.js~entity#maxhealth",
+    "class/src/class/entity.class.js~Entity.html#instance-set-maxHealth",
+    "src/class/entity.class.js~Entity#maxHealth",
     "member"
   ],
   [
     "src/class/entity.class.js~entity#model",
     "class/src/class/entity.class.js~Entity.html#instance-get-model",
+    "src/class/entity.class.js~Entity#model",
+    "member"
+  ],
+  [
+    "src/class/entity.class.js~entity#model",
+    "class/src/class/entity.class.js~Entity.html#instance-set-model",
     "src/class/entity.class.js~Entity#model",
     "member"
   ],
@@ -931,13 +931,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/class/vehicle.class.js~vehicle#dirtlevel",
-    "class/src/class/vehicle.class.js~Vehicle.html#instance-get-dirtLevel",
+    "class/src/class/vehicle.class.js~Vehicle.html#instance-set-dirtLevel",
     "src/class/vehicle.class.js~Vehicle#dirtLevel",
     "member"
   ],
   [
     "src/class/vehicle.class.js~vehicle#dirtlevel",
-    "class/src/class/vehicle.class.js~Vehicle.html#instance-set-dirtLevel",
+    "class/src/class/vehicle.class.js~Vehicle.html#instance-get-dirtLevel",
     "src/class/vehicle.class.js~Vehicle#dirtLevel",
     "member"
   ],
@@ -967,13 +967,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/class/vehicle.class.js~vehicle#engineisrunning",
-    "class/src/class/vehicle.class.js~Vehicle.html#instance-set-engineIsRunning",
+    "class/src/class/vehicle.class.js~Vehicle.html#instance-get-engineIsRunning",
     "src/class/vehicle.class.js~Vehicle#engineIsRunning",
     "member"
   ],
   [
     "src/class/vehicle.class.js~vehicle#engineisrunning",
-    "class/src/class/vehicle.class.js~Vehicle.html#instance-get-engineIsRunning",
+    "class/src/class/vehicle.class.js~Vehicle.html#instance-set-engineIsRunning",
     "src/class/vehicle.class.js~Vehicle#engineIsRunning",
     "member"
   ],
@@ -1003,13 +1003,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/class/vehicle.class.js~vehicle#fuellevel",
-    "class/src/class/vehicle.class.js~Vehicle.html#instance-get-fuelLevel",
+    "class/src/class/vehicle.class.js~Vehicle.html#instance-set-fuelLevel",
     "src/class/vehicle.class.js~Vehicle#fuelLevel",
     "member"
   ],
   [
     "src/class/vehicle.class.js~vehicle#fuellevel",
-    "class/src/class/vehicle.class.js~Vehicle.html#instance-set-fuelLevel",
+    "class/src/class/vehicle.class.js~Vehicle.html#instance-get-fuelLevel",
     "src/class/vehicle.class.js~Vehicle#fuelLevel",
     "member"
   ],
@@ -1033,20 +1033,14 @@ window.esdocSearchIndex = [
   ],
   [
     "src/class/vehicle.class.js~vehicle#livery",
-    "class/src/class/vehicle.class.js~Vehicle.html#instance-set-livery",
-    "src/class/vehicle.class.js~Vehicle#livery",
-    "member"
-  ],
-  [
-    "src/class/vehicle.class.js~vehicle#livery",
     "class/src/class/vehicle.class.js~Vehicle.html#instance-get-livery",
     "src/class/vehicle.class.js~Vehicle#livery",
     "member"
   ],
   [
-    "src/class/vehicle.class.js~vehicle#lookstatus",
-    "class/src/class/vehicle.class.js~Vehicle.html#instance-set-lookStatus",
-    "src/class/vehicle.class.js~Vehicle#lookStatus",
+    "src/class/vehicle.class.js~vehicle#livery",
+    "class/src/class/vehicle.class.js~Vehicle.html#instance-set-livery",
+    "src/class/vehicle.class.js~Vehicle#livery",
     "member"
   ],
   [
@@ -1056,14 +1050,20 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/class/vehicle.class.js~vehicle#modcolor1",
-    "class/src/class/vehicle.class.js~Vehicle.html#instance-set-modColor1",
-    "src/class/vehicle.class.js~Vehicle#modColor1",
+    "src/class/vehicle.class.js~vehicle#lookstatus",
+    "class/src/class/vehicle.class.js~Vehicle.html#instance-set-lookStatus",
+    "src/class/vehicle.class.js~Vehicle#lookStatus",
     "member"
   ],
   [
     "src/class/vehicle.class.js~vehicle#modcolor1",
     "class/src/class/vehicle.class.js~Vehicle.html#instance-get-modColor1",
+    "src/class/vehicle.class.js~Vehicle#modColor1",
+    "member"
+  ],
+  [
+    "src/class/vehicle.class.js~vehicle#modcolor1",
+    "class/src/class/vehicle.class.js~Vehicle.html#instance-set-modColor1",
     "src/class/vehicle.class.js~Vehicle#modColor1",
     "member"
   ],
@@ -1081,13 +1081,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/class/vehicle.class.js~vehicle#neoncolour",
-    "class/src/class/vehicle.class.js~Vehicle.html#instance-set-neonColour",
+    "class/src/class/vehicle.class.js~Vehicle.html#instance-get-neonColour",
     "src/class/vehicle.class.js~Vehicle#neonColour",
     "member"
   ],
   [
     "src/class/vehicle.class.js~vehicle#neoncolour",
-    "class/src/class/vehicle.class.js~Vehicle.html#instance-get-neonColour",
+    "class/src/class/vehicle.class.js~Vehicle.html#instance-set-neonColour",
     "src/class/vehicle.class.js~Vehicle#neonColour",
     "member"
   ],
@@ -1117,25 +1117,25 @@ window.esdocSearchIndex = [
   ],
   [
     "src/class/vehicle.class.js~vehicle#platetext",
-    "class/src/class/vehicle.class.js~Vehicle.html#instance-set-plateText",
-    "src/class/vehicle.class.js~Vehicle#plateText",
-    "member"
-  ],
-  [
-    "src/class/vehicle.class.js~vehicle#platetext",
     "class/src/class/vehicle.class.js~Vehicle.html#instance-get-plateText",
     "src/class/vehicle.class.js~Vehicle#plateText",
     "member"
   ],
   [
-    "src/class/vehicle.class.js~vehicle#primarycolour",
-    "class/src/class/vehicle.class.js~Vehicle.html#instance-get-primaryColour",
-    "src/class/vehicle.class.js~Vehicle#primaryColour",
+    "src/class/vehicle.class.js~vehicle#platetext",
+    "class/src/class/vehicle.class.js~Vehicle.html#instance-set-plateText",
+    "src/class/vehicle.class.js~Vehicle#plateText",
     "member"
   ],
   [
     "src/class/vehicle.class.js~vehicle#primarycolour",
     "class/src/class/vehicle.class.js~Vehicle.html#instance-set-primaryColour",
+    "src/class/vehicle.class.js~Vehicle#primaryColour",
+    "member"
+  ],
+  [
+    "src/class/vehicle.class.js~vehicle#primarycolour",
+    "class/src/class/vehicle.class.js~Vehicle.html#instance-get-primaryColour",
     "src/class/vehicle.class.js~Vehicle#primaryColour",
     "member"
   ],
@@ -1153,13 +1153,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/class/vehicle.class.js~vehicle#siren",
-    "class/src/class/vehicle.class.js~Vehicle.html#instance-set-siren",
+    "class/src/class/vehicle.class.js~Vehicle.html#instance-get-siren",
     "src/class/vehicle.class.js~Vehicle#siren",
     "member"
   ],
   [
     "src/class/vehicle.class.js~vehicle#siren",
-    "class/src/class/vehicle.class.js~Vehicle.html#instance-get-siren",
+    "class/src/class/vehicle.class.js~Vehicle.html#instance-set-siren",
     "src/class/vehicle.class.js~Vehicle#siren",
     "member"
   ],
@@ -1189,13 +1189,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/class/vehicle.class.js~vehicle#wheeltype",
-    "class/src/class/vehicle.class.js~Vehicle.html#instance-get-wheelType",
+    "class/src/class/vehicle.class.js~Vehicle.html#instance-set-wheelType",
     "src/class/vehicle.class.js~Vehicle#wheelType",
     "member"
   ],
   [
     "src/class/vehicle.class.js~vehicle#wheeltype",
-    "class/src/class/vehicle.class.js~Vehicle.html#instance-set-wheelType",
+    "class/src/class/vehicle.class.js~Vehicle.html#instance-get-wheelType",
     "src/class/vehicle.class.js~Vehicle#wheelType",
     "member"
   ],

@@ -30,8 +30,8 @@
   <ul>
     
   <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-OnClientReady">OnClientReady</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-loadingClient">loadingClient</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-onReady">onReady</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-_loadingClientTimer">_loadingClientTimer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-_onReady">_onReady</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#class">class</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/class/entity.class.js~Entity.html">Entity</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/class/vehicle.class.js~Vehicle.html">Vehicle</a></span></span></li>
 </ul>
@@ -46,7 +46,7 @@
 // @Source: https://github.com/FivemTools/ft_core
 //
 
-let onReady = [];
+let _onReady = [];
 
 /**
  * @description Add function to run on client ready
@@ -54,13 +54,13 @@ let onReady = [];
  * @return {void}
  */
 function OnClientReady(callback) {
-    onReady.push(callback);
+    _onReady.push(callback);
 }
 
-const loadingClient = setInterval(function () {
+const _loadingClientTimer = setInterval(function () {
     if (NetworkIsSessionStarted()) {
-        clearInterval(loadingClient);
-        onReady.forEach(function (callback) {
+        clearInterval(_loadingClientTimer);
+        _onReady.forEach(function (callback) {
             callback();
         })
     }

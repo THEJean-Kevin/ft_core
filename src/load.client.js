@@ -5,7 +5,7 @@
 // @Source: https://github.com/FivemTools/ft_core
 //
 
-let onReady = [];
+let _onReady = [];
 
 /**
  * @description Add function to run on client ready
@@ -13,13 +13,13 @@ let onReady = [];
  * @return {void}
  */
 function OnClientReady(callback) {
-    onReady.push(callback);
+    _onReady.push(callback);
 }
 
-const loadingClient = setInterval(function () {
+const _loadingClientTimer = setInterval(function () {
     if (NetworkIsSessionStarted()) {
-        clearInterval(loadingClient);
-        onReady.forEach(function (callback) {
+        clearInterval(_loadingClientTimer);
+        _onReady.forEach(function (callback) {
             callback();
         })
     }
