@@ -1,0 +1,69 @@
+{
+  "coverage": "71.24%",
+  "expectCount": 153,
+  "actualCount": 109,
+  "files": {
+    "src/class/entity.class.js": {
+      "expectCount": 32,
+      "actualCount": 24,
+      "undocumentLines": [
+        18,
+        27,
+        46,
+        65,
+        85,
+        114,
+        133,
+        152
+      ]
+    },
+    "src/class/vehicle.class.js": {
+      "expectCount": 118,
+      "actualCount": 84,
+      "undocumentLines": [
+        21,
+        31,
+        50,
+        69,
+        88,
+        108,
+        135,
+        145,
+        156,
+        213,
+        239,
+        247,
+        265,
+        284,
+        303,
+        322,
+        341,
+        361,
+        381,
+        401,
+        421,
+        441,
+        461,
+        481,
+        507,
+        516,
+        535,
+        557,
+        576,
+        594,
+        614,
+        766,
+        819,
+        870
+      ]
+    },
+    "src/load.client.js": {
+      "expectCount": 3,
+      "actualCount": 1,
+      "undocumentLines": [
+        8,
+        19
+      ]
+    }
+  }
+}

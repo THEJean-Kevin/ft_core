@@ -1,4 +1,42 @@
-/*
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">src/class/vehicle.class.js</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#class">class</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/class/entity.class.js~Entity.html">Entity</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/class/vehicle.class.js~Vehicle.html">Vehicle</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/class/vehicle.class.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/*
  * @Project: FivemTools
  * @Author: Samuelds
  * @License: GNU General Public License v3.0
@@ -10,7 +48,7 @@
  * @example
  * let vehicle = new Vehicle();
  */
-class Vehicle extends Entity {
+export default class Vehicle extends Entity {
 
     /**
      * @description Get class
@@ -163,7 +201,7 @@ class Vehicle extends Entity {
      * @return {object}
      */
     GetAllNeonLight() {
-        for (let index = 0; index < 3; index++) {
+        for (let index = 0; index &lt; 3; index++) {
             this.GetNeonLight(index);
         }
         return this._neonLight;
@@ -533,7 +571,7 @@ class Vehicle extends Entity {
      */
     get extras() {
         this._extras = {};
-        for (let index = 0; index < 14; index++) {
+        for (let index = 0; index &lt; 14; index++) {
             this._extras[index] = Boolean(this.IsVehicleExtraTurnedOn(index));
         }
         return this._extras;
@@ -661,7 +699,7 @@ class Vehicle extends Entity {
      */
     GetAllDoorState() {
         this._doors = {};
-        for (let index = 0; index < this.GetNumberDoors(); index++) {
+        for (let index = 0; index &lt; this.GetNumberDoors(); index++) {
             this.GetDoorState(index);
         }
         return this._doors;
@@ -766,20 +804,20 @@ class Vehicle extends Entity {
         this._tyreBurst = {};
 
         const tireIndex = {
-            "wheel_lf": 0,
-            "wheel_rf": 1,
-            "wheel_lm1": 2,
-            "wheel_rm1": 3,
-            "wheel_lr": 4,
-            "wheel_rr": 5,
-            "wheel_lm2": 45,
-            "wheel_rm2": 47,
-            "wheel_lm3": 46,
-            "wheel_rm3": 48,
+            &quot;wheel_lf&quot;: 0,
+            &quot;wheel_rf&quot;: 1,
+            &quot;wheel_lm1&quot;: 2,
+            &quot;wheel_rm1&quot;: 3,
+            &quot;wheel_lr&quot;: 4,
+            &quot;wheel_rr&quot;: 5,
+            &quot;wheel_lm2&quot;: 45,
+            &quot;wheel_rm2&quot;: 47,
+            &quot;wheel_lm3&quot;: 46,
+            &quot;wheel_rm3&quot;: 48,
         };
 
         for (let index in tireIndex) {
-            if (GetEntityBoneIndexByName(this.id, index) !== -1 && IsVehicleTyreBurst(this.id, tireIndex[index], false)) {
+            if (GetEntityBoneIndexByName(this.id, index) !== -1 &amp;&amp; IsVehicleTyreBurst(this.id, tireIndex[index], false)) {
                 this._tyreBurst[tireIndex[index]] = true;
             }
         }
@@ -819,10 +857,10 @@ class Vehicle extends Entity {
         this.__windows = {};
 
         const windowsIndex = {
-            'window_rf': 0,
-            'window_lf': 1,
-            'window_rr': 2,
-            'window_lr': 3
+            &apos;window_rf&apos;: 0,
+            &apos;window_lf&apos;: 1,
+            &apos;window_rr&apos;: 2,
+            &apos;window_lr&apos;: 3
         };
 
         for (let index in windowsIndex) {
@@ -870,7 +908,7 @@ class Vehicle extends Entity {
             this._mod = {};
         }
 
-        if (index >= 17 && index <= 22) {
+        if (index &gt;= 17 &amp;&amp; index &lt;= 22) {
             this._mod[Number(index)] = Boolean(IsToggleModOn(this.id, Number(index)));
         } else {
             this._mod[Number(index)] = GetVehicleMod(this.id, Number(index));
@@ -883,7 +921,7 @@ class Vehicle extends Entity {
      * @return {object}
      */
     GetAllMod() {
-        for (let index = 0; index < 49; index++) {
+        for (let index = 0; index &lt; 49; index++) {
             this.GetMod(index);
         }
         return this._mod;
@@ -917,7 +955,7 @@ class Vehicle extends Entity {
         }
 
         // Convert string to number
-        if (Number(type) >= 17 && Number(type) <= 22) {
+        if (Number(type) &gt;= 17 &amp;&amp; Number(type) &lt;= 22) {
             ToggleVehicleMod(this.id, Number(type), Boolean(index));
             this._mod[Number(type)] = Boolean(index);
         } else {
@@ -951,7 +989,7 @@ class Vehicle extends Entity {
                     clearInterval(timer);
                     self.id = CreateVehicle(self._model, self._coords.x, self._coords.y - 1.0, self._coords.z, self._heading, true, true);
 
-                    const exclude = ["id", "_model", "_coords", "_heading", "_networkId", "_mod", "_neonLight", "_doors", "_tyreBurst", "__windows"];
+                    const exclude = [&quot;id&quot;, &quot;_model&quot;, &quot;_coords&quot;, &quot;_heading&quot;, &quot;_networkId&quot;, &quot;_mod&quot;, &quot;_neonLight&quot;, &quot;_doors&quot;, &quot;_tyreBurst&quot;, &quot;__windows&quot;];
                     for (let key in self) {
                         if (!exclude.includes(key)) {
                             self[key.substring(1)] = self[key];
@@ -965,7 +1003,7 @@ class Vehicle extends Entity {
 
                     if (self._neonLight !== undefined) {
                         self.SetAllNeonLight(self._neonLight);
-                        console.log("oui :!!!");
+                        console.log(&quot;oui :!!!&quot;);
                     }
 
                     if (self._doors !== undefined) {
@@ -996,4 +1034,20 @@ class Vehicle extends Entity {
         }
     }
 
-}
+}</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>
