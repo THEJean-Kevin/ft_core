@@ -220,7 +220,7 @@ class Vehicle extends Entity {
 
     /**
      * @description Return all doors
-     * @returns {object}
+     * @{*} {object}
      */
     get doors() {
         return this._doors;
@@ -236,7 +236,7 @@ class Vehicle extends Entity {
 
     /**
      * @description Get look status
-     * @returns {boolean}
+     * @{*} {boolean}
      */
     get lookStatus() {
         this._lookStatus = GetVehicleDoorLockStatus(this.id);
@@ -254,7 +254,7 @@ class Vehicle extends Entity {
 
     /**
      * @description Get fuel level
-     * @returns {number}
+     * @{*} {number}
      */
     get fuelLevel() {
         this._fuelLevel = GetVehicleFuelLevel(this.id);
@@ -367,139 +367,234 @@ class Vehicle extends Entity {
         SetVehicleColours(this.id, colours.primary, colours.secondary);
     }
 
-    // Primary Colour
+    /**
+     * @description Get primary colour
+     * @returns {object}
+     */
     get primaryColour() {
         const color = GetVehicleCustomPrimaryColour(this.id);
         this._primaryColour = {red: color[0], green: color[1], blue: color[2]};
         return this._primaryColour;
     }
 
+    /**
+     * @description Set primary colour
+     * @param {object} colour
+     * @return {void}
+     */
     set primaryColour(colour) {
         this._primaryColour = colour;
         SetVehicleCustomPrimaryColour(this.id, colour.red, colour.green, colour.blue);
     }
 
-    // Secondary Colour
+    /**
+     * @description Get secondary colour
+     * @returns {object}
+     */
     get secondaryColour() {
         const colour = GetVehicleCustomSecondaryColour(this.id);
         this._secondaryColour = {red: colour[0], green: colour[1], blue: colour[2]};
         return this._secondaryColour;
     }
 
+    /**
+     * @description Set secondary colour
+     * @param {object} colour
+     * @return {void}
+     */
     set secondaryColour(colour) {
         this._secondaryColour = colour;
         SetVehicleCustomSecondaryColour(this.id, colour.red, colour.green, colour.blue);
     }
 
-    // Extra colours
+    /**
+     * @description Get extra colours
+     * @returns {object}
+     */
     get extraColours() {
         const extraColours = GetVehicleExtraColours(this.id);
-        this._extraColours = {pearlescent: extraColours[0], wheel: extraColours[1]};
+        this._extraColours = { pearlescent: extraColours[0], wheel: extraColours[1] };
         return this._extraColours;
     }
 
+    /**
+     * @description Set extra colours
+     * @param {object} extraColours
+     * @return {void}
+     */
     set extraColours(extraColours) {
         this._extraColours = extraColours;
         SetVehicleExtraColours(this.id, extraColours.pearlescent, extraColours.wheel);
     }
 
-    // Mod Color
+    /**
+     * @description Get mod color 1
+     * @returns {object}
+     */
     get modColor1() {
         const color = GetVehicleModColor_1(this.id);
-        this._modColor1 = {paintType: color[0], color: color[1], pearlescent: color[2]};
+        this._modColor1 = { paintType: color[0], color: color[1], pearlescent: color[2] };
         return this._modColor1;
     }
 
+    /**
+     * @description Set mod color 1
+     * @param {object} color
+     * @return {void}
+     */
     set modColor1(color) {
         this._modColor1 = color;
         SetVehicleModColor_1(this.id, color.paintType, color.color, color.pearlescent);
     }
 
+    /**
+     * @description Get mod color 2
+     * @return {object}
+     */
     get modColor2() {
         const color = GetVehicleModColor_2(this.id);
-        this._modColor2 = {paintType: color[0], color: color[1]};
+        this._modColor2 = { paintType: color[0], color: color[1] };
         return this._modColor2;
     }
 
+    /**
+     * @description Set mod color 2
+     * @param {object} color
+     * @return {void}
+     */
     set modColor2(color) {
         this._modColor2 = color;
         SetVehicleModColor_2(this.id, color.paintType, color.color);
     }
 
-    // Tyre Smoke
-    get tyreSmoke() {
+    /**
+     * @description Get tyre smoke color
+     * @return {object}
+     */
+    get tyreSmokeColor() {
         const color = GetVehicleTyreSmokeColor(this.id);
-        this._tyreSmoke = {red: color[0], green: color[1], blue: color[2]};
+        this._tyreSmoke = { red: color[0], green: color[1], blue: color[2] };
         return this._tyreSmoke;
     }
 
-    set tyreSmoke(color) {
+    /**
+     * @description Set tyre smoke color
+     * @param {object} color
+     */
+    set tyreSmokeColor(color) {
         this._tyreSmoke = color;
         SetVehicleTyreSmokeColor(this.id, color.red, color.green, color.blue);
     }
 
+    /**
+     * @description Get custom tires
+     * @return {boolean}
+     */
     get customTires() {
         return this._customTires;
     }
 
+    /**
+     * @description Set custom tires
+     * @param value
+     */
     set customTires(value) {
         this._customTires = value;
     }
 
-    // Tailer
+    /**
+     * @description Get traier
+     * @return {number}
+     */
     get trailer() {
         const trailer = GetVehicleTrailerVehicle(this.id);
         this._trailer = trailer[1];
         return this._trailer;
     }
 
-    set trailer(traillerId) {
-        this._trailer = traillerId;
-        AttachVehicleToTrailer(this.id, traillerId);
+    /**
+     * @description Set trailler
+     * @param {number} trailerId
+     * @return {void}
+     */
+    set trailer(trailerId) {
+        this._trailer = trailerId;
+        AttachVehicleToTrailer(this.id, trailerId);
     }
 
-
+    /**
+     * @description Get Extras
+     * @return {object}
+     */
     get extras() {
-        this._extras = [];
+        this._extras = {};
         for (let index = 0; index < 14; index++) {
             this._extras[index] = Boolean(this.IsVehicleExtraTurnedOn(index));
         }
         return this._extras;
     }
 
+    /**
+     * @description Set extras
+     * @param {object} values
+     * @return {void}
+     */
     set extras(values) {
         this._extras[values.extra] = values.state;
         SetVehicleExtra(this.id, values.extra, values.state);
     }
 
-    // Livery
+    /**
+     * @description Get livery
+     * @return {number}
+     */
     get livery() {
         this._livery = GetVehicleLivery(this.id);
         return this._livery;
     }
 
+    /**
+     * @description Set livery
+     * @param {number} value
+     * @return {void}
+     */
     set livery(value) {
         this._livery = value;
         SetVehicleLivery(this.id, value);
     }
 
-    // WindowTint
+    /**
+     * @description Get window tint
+     * @return {number}
+     */
     get windowTint() {
         this._windowTint = GetVehicleWindowTint(this.id);
         return this._windowTint;
     }
 
+    /**
+     * @description Set window tint
+     * @param value
+     */
     set windowTint(value) {
         this._windowTint = value;
         SetVehicleWindowTint(this.id, value);
     }
 
-    // Siren
+    /**
+     * @description Get is siren is On
+     * @returns {boolean}
+     */
     get siren() {
         this._siren = IsVehicleSirenOn(this.id);
         return this._siren;
     }
 
+    /**
+     * @description Get is siren is On
+     * @param {boolean} status
+     * @returns {void}
+     */
     set siren(status) {
         this._siren = status;
         SetVehicleSiren(this.id, status);
@@ -660,7 +755,7 @@ class Vehicle extends Entity {
 
     /**
      * @description Get all tyre burst bone
-     * @returns {object}
+     * @return {object}
      */
     GetAllTyreBurst() {
         this._tyreBurst = {};
@@ -713,7 +808,7 @@ class Vehicle extends Entity {
 
     /**
      * @description Get all window state
-     * @returns {*}
+     * @return {object}
      * @constructor
      */
     GetAllWindowState() {
@@ -781,7 +876,7 @@ class Vehicle extends Entity {
 
     /**
      * @description Get all mods
-     * @returns {object}
+     * @return {object}
      */
     GetAllMod() {
         for (let index = 0; index < 49; index++) {
@@ -830,7 +925,7 @@ class Vehicle extends Entity {
     /**
      * @description Is vehicle extra turned on
      * @param {number} index
-     * @returns {boolean}
+     * @return {boolean}
      */
     IsVehicleExtraTurnedOn(index) {
         return IsVehicleExtraTurnedOn(this.id, index);
