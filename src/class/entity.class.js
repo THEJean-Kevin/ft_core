@@ -7,7 +7,8 @@
 
 /**
  * Creates a new Entity.
- * @class
+ * @example
+ * let entity = new Entity();
  */
 class Entity {
 
