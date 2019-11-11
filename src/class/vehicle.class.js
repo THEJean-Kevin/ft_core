@@ -188,7 +188,6 @@ class Vehicle extends Entity {
         if (this._neonLight === undefined) {
             this._neonLight = {};
         }
-        console.log(state);
         this._neonLight[Number(index)] = Boolean(state);
         SetVehicleNeonLightEnabled(this.id, Number(index), Boolean(state));
     }
@@ -812,26 +811,47 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @description Return all windows name
+     * @type {array}
+     */
+     windowsIndex = [
+        'window_lf',
+        'window_rf',
+        'window_lr',
+        'window_rr'
+    ];
+
+    /**
      * @description Get all window state
      * @return {object}
      */
     GetAllWindowState() {
         this.__windows = {};
 
-        const windowsIndex = {
-            'window_rf': 0,
-            'window_lf': 1,
-            'window_rr': 2,
-            'window_lr': 3
-        };
-
-        for (let index in windowsIndex) {
-            if (GetEntityBoneIndexByName(this.id, index) !== -1) {
-                this.__windows[windowsIndex[index]] = IsVehicleWindowIntact(this.id, windowsIndex[index], false);
-            }
+        for (let index in this.windowsIndex) {
+            this.GetWindowIsIntact(index);
         }
 
         return this.__windows;
+    }
+
+    /**
+     * @description Get is widows is intact
+     * @param {number} index
+     * @returns {boolean}
+     */
+    GetWindowIsIntact(index) {
+        if (this.__windows === undefined) {
+            this.__windows = {};
+        }
+
+        const windowName = this.windowsIndex[index];
+        if (GetEntityBoneIndexByName(this.id, windowName) !== -1) {
+            this.__windows[windowName] = Boolean(IsVehicleWindowIntact(this.id, Number(index)));
+            return this.__windows[windowName];
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -841,7 +861,7 @@ class Vehicle extends Entity {
      */
     SmashWindow(index) {
         SmashVehicleWindow(this.id, Number(index));
-        this.__windows[Number(index)] = -1;
+        this.__windows[Number(index)] = false;
     }
 
     /**
@@ -853,9 +873,14 @@ class Vehicle extends Entity {
             this.__windows = {};
         }
 
-        for (let index in states) {
-            if (states[index] === -1) {
-                this.SmashWindow(index);
+        for (let window in states) {
+            if (states[window] === false) {
+                for (let index in this.windowsIndex) {
+                    if (this.windowsIndex[index] === window) {
+                        this.SmashWindow(index);
+                        break;
+                    }
+                }
             }
         }
     }
@@ -965,7 +990,6 @@ class Vehicle extends Entity {
 
                     if (self._neonLight !== undefined) {
                         self.SetAllNeonLight(self._neonLight);
-                        console.log("oui :!!!");
                     }
 
                     if (self._doors !== undefined) {
