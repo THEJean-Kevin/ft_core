@@ -961,11 +961,22 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @description Get vehicle id for ped
+     * @param {number} pedId
+     * @return {number}
+     */
+    GetVehiclePed(pedId) {
+        return this.id = GetVehiclePedIsUsing(pedId);
+    }
+
+    /**
      * @description Spawn
      * @param {function} callback
+     * @param {boolean} isNetwork
+     * @param {boolean} thisScriptCheck
      * @return {void}
      */
-    Spawn(callback) {
+    Spawn(callback, isNetwork = false, thisScriptCheck = false) {
         if (IsModelAVehicle(this._model)) {
 
             let waiting = 0;
@@ -974,7 +985,7 @@ class Vehicle extends Entity {
             let timer = setInterval(function () {
                 if (HasModelLoaded(self._model)) {
                     clearInterval(timer);
-                    self.id = CreateVehicle(self._model, self._coords.x, self._coords.y - 1.0, self._coords.z, self._heading, true, true);
+                    self.id = CreateVehicle(self._model, self._coords.x, self._coords.y, self._coords.z, self._heading, isNetwork, thisScriptCheck);
 
                     const exclude = ["id", "_model", "_coords", "_heading", "_networkId", "_mod", "_neonLight", "_doors", "_tyreBurst", "__windows"];
                     for (let key in self) {
@@ -1019,5 +1030,4 @@ class Vehicle extends Entity {
             callback(false);
         }
     }
-
 }

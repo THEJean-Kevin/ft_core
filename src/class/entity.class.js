@@ -40,6 +40,15 @@ class Entity {
     }
 
     /**
+     * @description Get model hash by name
+     * @param {string} name
+     * @return {void}
+     */
+    SetModelByName(name) {
+        this.model = GetHashKey(name);
+    }
+
+    /**
      * @description Get entity health
      * @return {number}
      */
@@ -262,6 +271,14 @@ class Entity {
             }
             waiting++;
         }, 20);
+    }
+
+    /**
+     * @description Set coords
+     * @return {void}
+     */
+     SetCoords(x, y, z) {
+        this.coords = { x: x, y: y, z: z }
     }
 
 }
