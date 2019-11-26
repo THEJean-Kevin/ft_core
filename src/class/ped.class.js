@@ -78,6 +78,45 @@ class Ped extends Entity {
     }
 
     /**
+     * @description Play animation on ped
+     * @param {string} animDictionary
+     * @param {string} animationName
+     * @param {number} posX
+     * @param {number} posY
+     * @param {number} posZ
+     * @param {number} rotX
+     * @param {number} rotY
+     * @param {number} rotZ
+     * @param {number} duration
+     * @param {number} flag
+     * @param {function} callback
+     * @param {number} speed
+     * @param {number} speedMultiplier
+     * @param {number} animTime
+     * @constructor
+     */
+    TaskPlayAnimAdvanced(animDictionary, animationName, posX, posY, posZ, rotX, rotY, rotZ, duration = -1, flag = 0, callback, speed = 8.0, speedMultiplier = 8.0, animTime = 0) {
+        if (DoesAnimDictExist(animDictionary)) {
+            RequestAnimDict(animDictionary);
+            let self = this;
+            let timer = setInterval(function () {
+                if (HasAnimDictLoaded(animDictionary)) {
+                    clearInterval(timer);
+                    if (duration === -1 && flag === 0) {
+                        duration = GetAnimDuration(animDictionary, animationName);
+                        setTimeout(function () {
+                            callback();
+                        }, duration * 1000);
+                    }
+                    TaskPlayAnimAdvanced(self.id, animDictionary, animationName, posX, posY, posZ, rotX, rotY, rotZ, speed, speedMultiplier, duration, flag, animTime);
+                }
+            }, 10);
+        } else {
+            console.log("Anim " + animDictionary + " not exist !");
+        }
+    }
+
+    /**
      * @description Clear primary tasks
      */
     ClearPrimaryTasks() {
