@@ -7,10 +7,6 @@ Nothing
 
 ### Installing
 
-Put the folder where you want it and add it to the server.cfg file :
-
-Example:
-
 ```
 start ft_core
 ```

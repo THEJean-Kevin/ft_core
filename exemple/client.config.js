@@ -1,7 +1,6 @@
+const glob = require("glob");
 module.exports = {
-    entry: [
-        "./src/client/test.js"
-    ],
+    entry: glob.sync("./src/**/*.js"),
     output: {
         filename: 'index.js',
         path: __dirname + '/dist/',

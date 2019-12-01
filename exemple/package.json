@@ -7,6 +7,7 @@
   "author": "Fivemtools",
   "license": "ISC",
   "dependencies": {
-    "@fivemtools/ft_core": "latest"
+    "@fivemtools/ft_core": "latest",
+    "glob": "^7.1.6"
   }
 }
