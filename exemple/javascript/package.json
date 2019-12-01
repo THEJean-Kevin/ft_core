@@ -1,0 +1,12 @@
+{
+  "name": "fivem-js-example-javascript",
+  "version": "1.0.1",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fivemtools/ft_core" : "latest"
+  }
+}
