@@ -567,7 +567,7 @@
     "__docId__": 48,
     "kind": "file",
     "name": "src/class/entity.class.js",
-    "content": "/*\r\n * @Project: FivemTools\r\n * @Author: Samuelds\r\n * @License: GNU General Public License v3.0\r\n * @Source: https://github.com/FivemTools/ft_core\r\n*/\r\n\r\n/**\r\n * Creates a new Entity.\r\n * @example\r\n * let entity = new Entity();\r\n */\r\nclass Entity {\r\n\r\n    /**\r\n     * @param {number} entityId\r\n     */\r\n    constructor(entityId = 0) {\r\n        this.id = entityId;\r\n    }\r\n\r\n    /**\r\n     * @description Get entity model\r\n     * @return {string}\r\n     */\r\n    get model() {\r\n        if (this._model === undefined) {\r\n            this._model = GetEntityModel(this.id);\r\n        }\r\n        return this._model;\r\n    }\r\n\r\n    /**\r\n     * @description Set entity model value\r\n     * @param {string} value\r\n     * @return {void}\r\n     */\r\n    set model(value) {\r\n        this._model = value;\r\n    }\r\n\r\n    /**\r\n     * @description Get entity health\r\n     * @return {number}\r\n     */\r\n    get health() {\r\n        this._health = GetEntityHealth(this.id);\r\n        return this._health;\r\n    }\r\n\r\n    /**\r\n     * @description Set entity health\r\n     * @param amount\r\n     * @return {void}\r\n     */\r\n    set health(amount) {\r\n        this._health = amount;\r\n        SetEntityHealth(this.id, amount);\r\n    }\r\n\r\n    /**\r\n     * @description Get max health\r\n     * @return {number}\r\n     */\r\n    get maxHealth() {\r\n        this._maxHealth = GetEntityMaxHealth(this.id);\r\n        return this._maxHealth;\r\n    }\r\n\r\n    /**\r\n     * @description Set max health\r\n     * @param {number} amount\r\n     * @return {void}\r\n     */\r\n    set maxHealth(amount) {\r\n        this._maxHealth = amount;\r\n        SetEntityMaxHealth(this.id, this._maxHealth);\r\n    }\r\n\r\n    /**\r\n     * @description Get coords\r\n     * @return {object} coords\r\n     */\r\n    get coords() {\r\n        const coords = GetEntityCoords(this.id);\r\n        this._coords = { x : coords[0], y : coords[1], z : coords[2] };\r\n        return this._coords;\r\n    }\r\n\r\n    /**\r\n     * @description Set coords\r\n     * @param {object} coords\r\n     * @return {void}\r\n     */\r\n    set coords(coords) {\r\n        this._coords = coords;\r\n        SetEntityCoords(this.id, coords.x, coords.y, coords.z, false, false, false, true);\r\n    }\r\n\r\n    /**\r\n     * @description Set coords no offset\r\n     * @param {object} coords\r\n     * @return {void}\r\n     */\r\n    set coordsNoOffset(coords) {\r\n        this._coords = coords;\r\n        SetEntityCoordsNoOffset(this.id, coords.x, coords.y, coords.z, true, true, true);\r\n    }\r\n\r\n    /**\r\n     * @description Get heading\r\n     * @return {number}\r\n     */\r\n    get heading() {\r\n        this._heading = GetEntityHeading(this.id);\r\n        return this._heading;\r\n    }\r\n\r\n    /**\r\n     * @description Set heading\r\n     * @param heading\r\n     * @return {void}\r\n     */\r\n    set heading(heading) {\r\n        this._heading = heading;\r\n        SetEntityHeading(this.id, heading);\r\n    }\r\n\r\n    /**\r\n     * @description Get collision status\r\n     * @return {boolean}\r\n     */\r\n    get collision() {\r\n        this._collision = !GetEntityCollisionDisabled(this.id);\r\n        return this._collision;\r\n    }\r\n\r\n    /**\r\n     * @description Set collision\r\n     * @param status\r\n     * @return {void}\r\n     */\r\n    set collision(status) {\r\n        this._collision = value;\r\n        SetEntityCollision(this.id, status, false);\r\n    }\r\n\r\n    /**\r\n     * @description Get network id\r\n     * @return {number}\r\n     */\r\n    get networkId() {\r\n        this._networkId = NetworkGetNetworkIdFromEntity(this.id);\r\n        return this._networkId;\r\n    }\r\n\r\n    /**\r\n     * @param {number} netId\r\n     * @return {void}\r\n     */\r\n    GetByNetworkId(netId) {\r\n        this.id         = NetworkGetEntityFromNetworkId(netId);\r\n        this._networkId = netId;\r\n    }\r\n\r\n    /**\r\n     * @description Get if entity is dead\r\n     * @return {boolean}\r\n     */\r\n    IsDead() {\r\n        return Boolean(IsEntityDead(this.id));\r\n    }\r\n\r\n    /**\r\n     * @description Get if entity is alive\r\n     * @return {boolean}\r\n     */\r\n    IsAlive() {\r\n        return !this.isDead();\r\n    }\r\n\r\n    /**\r\n     * @description Get if entity exist\r\n     * @return {boolean}\r\n     */\r\n    Exist() {\r\n        return Boolean(DoesEntityExist(this.id));\r\n    }\r\n\r\n    /**\r\n     * @description Delete entity\r\n     * @return {void}\r\n     */\r\n    Delete() {\r\n        SetEntityAsMissionEntity(this.id, false, true);\r\n        DeleteEntity(this.id);\r\n    }\r\n\r\n    /**\r\n     * @param {string} boneName\r\n     * @return {number}\r\n     */\r\n    GetBoneIndex(boneName) {\r\n        return GetEntityBoneIndexByName(this.id, boneName);\r\n    }\r\n\r\n    /**\r\n     * @description Set as mission\r\n     * @param {function} callback\r\n     * @return void\r\n     */\r\n    AsMission(callback) {\r\n        let waiting = 0;\r\n        let self    = this;\r\n        let timer   = setInterval(function() {\r\n            if (NetworkHasControlOfEntity(self.id)) {\r\n                SetEntityAsMissionEntity(self.id);\r\n                if (IsEntityAMissionEntity(self.id)) {\r\n                    clearInterval(timer);\r\n                    callback(true);\r\n                }\r\n            } else {\r\n                NetworkRequestControlOfEntity(this.id);\r\n            }\r\n\r\n            if (waiting === 10) {\r\n                clearInterval(timer);\r\n                callback(false);\r\n            }\r\n            waiting++;\r\n        }, 20);\r\n    }\r\n\r\n    /**\r\n     * @description Register as networked\r\n     * @param {function} callback\r\n     * @return {void}\r\n     */\r\n    AsNetworked(callback) {\r\n        let netId   = false;\r\n        let waiting = 0;\r\n        let self    = this;\r\n        let timer   = setInterval(function() {\r\n            if (NetworkHasControlOfEntity(self.id)) {\r\n                NetworkRegisterEntityAsNetworked(self.id);\r\n                netId = self.networkId;\r\n                if (netId) {\r\n                    SetNetworkIdCanMigrate(netId, true);\r\n                    SetNetworkIdExistsOnAllMachines(netId, true);\r\n                    if (NetworkDoesNetworkIdExist(netId)) {\r\n                        clearInterval(timer);\r\n                        callback(netId);\r\n                    }\r\n                }\r\n            } else {\r\n                NetworkRequestControlOfEntity(this.id);\r\n            }\r\n\r\n            if (waiting === 10) {\r\n                clearInterval(timer);\r\n                callback(false);\r\n            }\r\n            waiting++;\r\n        }, 20);\r\n    }\r\n\r\n}",
+    "content": "/*\r\n * @Project: FivemTools\r\n * @Author: Samuelds\r\n * @License: GNU General Public License v3.0\r\n * @Source: https://github.com/FivemTools/ft_core\r\n*/\r\n\r\n/**\r\n * Creates a new Entity.\r\n * @example\r\n * let entity = new Entity();\r\n */\r\nclass Entity {\r\n\r\n    /**\r\n     * @param {number} entityId\r\n     */\r\n    constructor(entityId = 0) {\r\n        this.id = entityId;\r\n    }\r\n\r\n    /**\r\n     * @description Get entity model\r\n     * @return {string}\r\n     */\r\n    get model() {\r\n        if (this._model === undefined) {\r\n            this._model = GetEntityModel(this.id);\r\n        }\r\n        return this._model;\r\n    }\r\n\r\n    /**\r\n     * @description Set entity model value\r\n     * @param {string} value\r\n     * @return {void}\r\n     */\r\n    set model(value) {\r\n        this._model = value;\r\n    }\r\n\r\n    /**\r\n     * @description Get model hash by name\r\n     * @param {string} name\r\n     * @return {void}\r\n     */\r\n    SetModelByName(name) {\r\n        this.model = GetHashKey(name);\r\n    }\r\n\r\n    /**\r\n     * @description Get entity health\r\n     * @return {number}\r\n     */\r\n    get health() {\r\n        this._health = GetEntityHealth(this.id);\r\n        return this._health;\r\n    }\r\n\r\n    /**\r\n     * @description Set entity health\r\n     * @param amount\r\n     * @return {void}\r\n     */\r\n    set health(amount) {\r\n        this._health = amount;\r\n        SetEntityHealth(this.id, amount);\r\n    }\r\n\r\n    /**\r\n     * @description Get max health\r\n     * @return {number}\r\n     */\r\n    get maxHealth() {\r\n        this._maxHealth = GetEntityMaxHealth(this.id);\r\n        return this._maxHealth;\r\n    }\r\n\r\n    /**\r\n     * @description Set max health\r\n     * @param {number} amount\r\n     * @return {void}\r\n     */\r\n    set maxHealth(amount) {\r\n        this._maxHealth = amount;\r\n        SetEntityMaxHealth(this.id, this._maxHealth);\r\n    }\r\n\r\n    /**\r\n     * @description Get coords\r\n     * @return {object} coords\r\n     */\r\n    get coords() {\r\n        const coords = GetEntityCoords(this.id);\r\n        this._coords = { x : coords[0], y : coords[1], z : coords[2] };\r\n        return this._coords;\r\n    }\r\n\r\n    /**\r\n     * @description Set coords\r\n     * @param {object} coords\r\n     * @return {void}\r\n     */\r\n    set coords(coords) {\r\n        this._coords = coords;\r\n        SetEntityCoords(this.id, coords.x, coords.y, coords.z, false, false, false, true);\r\n    }\r\n\r\n    /**\r\n     * @description Set coords no offset\r\n     * @param {object} coords\r\n     * @return {void}\r\n     */\r\n    set coordsNoOffset(coords) {\r\n        this._coords = coords;\r\n        SetEntityCoordsNoOffset(this.id, coords.x, coords.y, coords.z, true, true, true);\r\n    }\r\n\r\n    /**\r\n     * @description Get heading\r\n     * @return {number}\r\n     */\r\n    get heading() {\r\n        this._heading = GetEntityHeading(this.id);\r\n        return this._heading;\r\n    }\r\n\r\n    /**\r\n     * @description Set heading\r\n     * @param heading\r\n     * @return {void}\r\n     */\r\n    set heading(heading) {\r\n        this._heading = heading;\r\n        SetEntityHeading(this.id, heading);\r\n    }\r\n\r\n    /**\r\n     * @description Get collision status\r\n     * @return {boolean}\r\n     */\r\n    get collision() {\r\n        this._collision = !GetEntityCollisionDisabled(this.id);\r\n        return this._collision;\r\n    }\r\n\r\n    /**\r\n     * @description Set collision\r\n     * @param status\r\n     * @return {void}\r\n     */\r\n    set collision(status) {\r\n        this._collision = value;\r\n        SetEntityCollision(this.id, status, false);\r\n    }\r\n\r\n    /**\r\n     * @description Get network id\r\n     * @return {number}\r\n     */\r\n    get networkId() {\r\n        this._networkId = NetworkGetNetworkIdFromEntity(this.id);\r\n        return this._networkId;\r\n    }\r\n\r\n    /**\r\n     * @param {number} netId\r\n     * @return {void}\r\n     */\r\n    GetByNetworkId(netId) {\r\n        this.id         = NetworkGetEntityFromNetworkId(netId);\r\n        this._networkId = netId;\r\n    }\r\n\r\n    /**\r\n     * @description Get if entity is dead\r\n     * @return {boolean}\r\n     */\r\n    IsDead() {\r\n        return Boolean(IsEntityDead(this.id));\r\n    }\r\n\r\n    /**\r\n     * @description Get if entity is alive\r\n     * @return {boolean}\r\n     */\r\n    IsAlive() {\r\n        return !this.isDead();\r\n    }\r\n\r\n    /**\r\n     * @description Get if entity exist\r\n     * @return {boolean}\r\n     */\r\n    Exist() {\r\n        return Boolean(DoesEntityExist(this.id));\r\n    }\r\n\r\n    /**\r\n     * @description Delete entity\r\n     * @return {void}\r\n     */\r\n    Delete() {\r\n        SetEntityAsMissionEntity(this.id, false, true);\r\n        DeleteEntity(this.id);\r\n    }\r\n\r\n    /**\r\n     * @param {string} boneName\r\n     * @return {number}\r\n     */\r\n    GetBoneIndex(boneName) {\r\n        return GetEntityBoneIndexByName(this.id, boneName);\r\n    }\r\n\r\n    /**\r\n     * @description Set as mission\r\n     * @param {function} callback\r\n     * @return void\r\n     */\r\n    AsMission(callback) {\r\n        let waiting = 0;\r\n        let self    = this;\r\n        let timer   = setInterval(function() {\r\n            if (NetworkHasControlOfEntity(self.id)) {\r\n                SetEntityAsMissionEntity(self.id);\r\n                if (IsEntityAMissionEntity(self.id)) {\r\n                    clearInterval(timer);\r\n                    callback(true);\r\n                }\r\n            } else {\r\n                NetworkRequestControlOfEntity(this.id);\r\n            }\r\n\r\n            if (waiting === 10) {\r\n                clearInterval(timer);\r\n                callback(false);\r\n            }\r\n            waiting++;\r\n        }, 20);\r\n    }\r\n\r\n    /**\r\n     * @description Register as networked\r\n     * @param {function} callback\r\n     * @return {void}\r\n     */\r\n    AsNetworked(callback) {\r\n        let netId   = false;\r\n        let waiting = 0;\r\n        let self    = this;\r\n        let timer   = setInterval(function() {\r\n            if (NetworkHasControlOfEntity(self.id)) {\r\n                NetworkRegisterEntityAsNetworked(self.id);\r\n                netId = self.networkId;\r\n                if (netId) {\r\n                    SetNetworkIdCanMigrate(netId, true);\r\n                    SetNetworkIdExistsOnAllMachines(netId, true);\r\n                    if (NetworkDoesNetworkIdExist(netId)) {\r\n                        clearInterval(timer);\r\n                        callback(netId);\r\n                    }\r\n                }\r\n            } else {\r\n                NetworkRequestControlOfEntity(this.id);\r\n            }\r\n\r\n            if (waiting === 10) {\r\n                clearInterval(timer);\r\n                callback(false);\r\n            }\r\n            waiting++;\r\n        }, 20);\r\n    }\r\n\r\n    /**\r\n     * @description Set coords\r\n     * @return {void}\r\n     */\r\n     SetCoords(x, y, z) {\r\n        this.coords = { x: x, y: y, z: z }\r\n    }\r\n\r\n}",
     "static": true,
     "longname": "D:/Projects/project-island/fivem/resources/[fivemtools]/ft_core/src/class/entity.class.js",
     "access": "public",
@@ -583,7 +583,7 @@
     "longname": "src/class/entity.class.js~Entity",
     "access": "public",
     "export": false,
-    "importPath": "./src/class/entity.class.js",
+    "importPath": "@fivemtools/ft_core/src/class/entity.class.js",
     "importStyle": null,
     "description": "Creates a new Entity.",
     "examples": [
@@ -724,6 +724,45 @@
   },
   {
     "__docId__": 56,
+    "kind": "method",
+    "name": "SetModelByName",
+    "memberof": "src/class/entity.class.js~Entity",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/entity.class.js~Entity#SetModelByName",
+    "access": "public",
+    "description": "",
+    "lineNumber": 47,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Get model hash by name"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "name",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 58,
     "kind": "get",
     "name": "health",
     "memberof": "src/class/entity.class.js~Entity",
@@ -733,7 +772,7 @@
     "longname": "src/class/entity.class.js~Entity#health",
     "access": "public",
     "description": "",
-    "lineNumber": 46,
+    "lineNumber": 55,
     "unknown": [
       {
         "tagName": "@description",
@@ -755,7 +794,7 @@
     }
   },
   {
-    "__docId__": 57,
+    "__docId__": 59,
     "kind": "member",
     "name": "_health",
     "memberof": "src/class/entity.class.js~Entity",
@@ -763,7 +802,7 @@
     "longname": "src/class/entity.class.js~Entity#_health",
     "access": "private",
     "description": null,
-    "lineNumber": 47,
+    "lineNumber": 56,
     "undocument": true,
     "type": {
       "types": [
@@ -772,7 +811,7 @@
     }
   },
   {
-    "__docId__": 58,
+    "__docId__": 60,
     "kind": "set",
     "name": "health",
     "memberof": "src/class/entity.class.js~Entity",
@@ -782,7 +821,7 @@
     "longname": "src/class/entity.class.js~Entity#health",
     "access": "public",
     "description": "",
-    "lineNumber": 56,
+    "lineNumber": 65,
     "unknown": [
       {
         "tagName": "@description",
@@ -811,7 +850,7 @@
     }
   },
   {
-    "__docId__": 60,
+    "__docId__": 62,
     "kind": "get",
     "name": "maxHealth",
     "memberof": "src/class/entity.class.js~Entity",
@@ -821,7 +860,7 @@
     "longname": "src/class/entity.class.js~Entity#maxHealth",
     "access": "public",
     "description": "",
-    "lineNumber": 65,
+    "lineNumber": 74,
     "unknown": [
       {
         "tagName": "@description",
@@ -843,7 +882,7 @@
     }
   },
   {
-    "__docId__": 61,
+    "__docId__": 63,
     "kind": "member",
     "name": "_maxHealth",
     "memberof": "src/class/entity.class.js~Entity",
@@ -851,7 +890,7 @@
     "longname": "src/class/entity.class.js~Entity#_maxHealth",
     "access": "private",
     "description": null,
-    "lineNumber": 66,
+    "lineNumber": 75,
     "undocument": true,
     "type": {
       "types": [
@@ -860,7 +899,7 @@
     }
   },
   {
-    "__docId__": 62,
+    "__docId__": 64,
     "kind": "set",
     "name": "maxHealth",
     "memberof": "src/class/entity.class.js~Entity",
@@ -870,7 +909,7 @@
     "longname": "src/class/entity.class.js~Entity#maxHealth",
     "access": "public",
     "description": "",
-    "lineNumber": 75,
+    "lineNumber": 84,
     "unknown": [
       {
         "tagName": "@description",
@@ -899,7 +938,7 @@
     }
   },
   {
-    "__docId__": 64,
+    "__docId__": 66,
     "kind": "get",
     "name": "coords",
     "memberof": "src/class/entity.class.js~Entity",
@@ -909,7 +948,7 @@
     "longname": "src/class/entity.class.js~Entity#coords",
     "access": "public",
     "description": "",
-    "lineNumber": 84,
+    "lineNumber": 93,
     "unknown": [
       {
         "tagName": "@description",
@@ -931,7 +970,7 @@
     }
   },
   {
-    "__docId__": 65,
+    "__docId__": 67,
     "kind": "member",
     "name": "_coords",
     "memberof": "src/class/entity.class.js~Entity",
@@ -939,7 +978,7 @@
     "longname": "src/class/entity.class.js~Entity#_coords",
     "access": "private",
     "description": null,
-    "lineNumber": 86,
+    "lineNumber": 95,
     "undocument": true,
     "type": {
       "types": [
@@ -948,7 +987,7 @@
     }
   },
   {
-    "__docId__": 66,
+    "__docId__": 68,
     "kind": "set",
     "name": "coords",
     "memberof": "src/class/entity.class.js~Entity",
@@ -958,7 +997,7 @@
     "longname": "src/class/entity.class.js~Entity#coords",
     "access": "public",
     "description": "",
-    "lineNumber": 95,
+    "lineNumber": 104,
     "unknown": [
       {
         "tagName": "@description",
@@ -987,7 +1026,7 @@
     }
   },
   {
-    "__docId__": 68,
+    "__docId__": 70,
     "kind": "set",
     "name": "coordsNoOffset",
     "memberof": "src/class/entity.class.js~Entity",
@@ -997,7 +1036,7 @@
     "longname": "src/class/entity.class.js~Entity#coordsNoOffset",
     "access": "public",
     "description": "",
-    "lineNumber": 105,
+    "lineNumber": 114,
     "unknown": [
       {
         "tagName": "@description",
@@ -1026,7 +1065,7 @@
     }
   },
   {
-    "__docId__": 70,
+    "__docId__": 72,
     "kind": "get",
     "name": "heading",
     "memberof": "src/class/entity.class.js~Entity",
@@ -1036,7 +1075,7 @@
     "longname": "src/class/entity.class.js~Entity#heading",
     "access": "public",
     "description": "",
-    "lineNumber": 114,
+    "lineNumber": 123,
     "unknown": [
       {
         "tagName": "@description",
@@ -1058,7 +1097,7 @@
     }
   },
   {
-    "__docId__": 71,
+    "__docId__": 73,
     "kind": "member",
     "name": "_heading",
     "memberof": "src/class/entity.class.js~Entity",
@@ -1066,7 +1105,7 @@
     "longname": "src/class/entity.class.js~Entity#_heading",
     "access": "private",
     "description": null,
-    "lineNumber": 115,
+    "lineNumber": 124,
     "undocument": true,
     "type": {
       "types": [
@@ -1075,7 +1114,7 @@
     }
   },
   {
-    "__docId__": 72,
+    "__docId__": 74,
     "kind": "set",
     "name": "heading",
     "memberof": "src/class/entity.class.js~Entity",
@@ -1085,7 +1124,7 @@
     "longname": "src/class/entity.class.js~Entity#heading",
     "access": "public",
     "description": "",
-    "lineNumber": 124,
+    "lineNumber": 133,
     "unknown": [
       {
         "tagName": "@description",
@@ -1114,7 +1153,7 @@
     }
   },
   {
-    "__docId__": 74,
+    "__docId__": 76,
     "kind": "get",
     "name": "collision",
     "memberof": "src/class/entity.class.js~Entity",
@@ -1124,7 +1163,7 @@
     "longname": "src/class/entity.class.js~Entity#collision",
     "access": "public",
     "description": "",
-    "lineNumber": 133,
+    "lineNumber": 142,
     "unknown": [
       {
         "tagName": "@description",
@@ -1146,7 +1185,7 @@
     }
   },
   {
-    "__docId__": 75,
+    "__docId__": 77,
     "kind": "member",
     "name": "_collision",
     "memberof": "src/class/entity.class.js~Entity",
@@ -1154,7 +1193,7 @@
     "longname": "src/class/entity.class.js~Entity#_collision",
     "access": "private",
     "description": null,
-    "lineNumber": 134,
+    "lineNumber": 143,
     "undocument": true,
     "type": {
       "types": [
@@ -1163,7 +1202,7 @@
     }
   },
   {
-    "__docId__": 76,
+    "__docId__": 78,
     "kind": "set",
     "name": "collision",
     "memberof": "src/class/entity.class.js~Entity",
@@ -1173,7 +1212,7 @@
     "longname": "src/class/entity.class.js~Entity#collision",
     "access": "public",
     "description": "",
-    "lineNumber": 143,
+    "lineNumber": 152,
     "unknown": [
       {
         "tagName": "@description",
@@ -1202,7 +1241,7 @@
     }
   },
   {
-    "__docId__": 78,
+    "__docId__": 80,
     "kind": "get",
     "name": "networkId",
     "memberof": "src/class/entity.class.js~Entity",
@@ -1212,7 +1251,7 @@
     "longname": "src/class/entity.class.js~Entity#networkId",
     "access": "public",
     "description": "",
-    "lineNumber": 152,
+    "lineNumber": 161,
     "unknown": [
       {
         "tagName": "@description",
@@ -1234,7 +1273,7 @@
     }
   },
   {
-    "__docId__": 79,
+    "__docId__": 81,
     "kind": "member",
     "name": "_networkId",
     "memberof": "src/class/entity.class.js~Entity",
@@ -1242,7 +1281,7 @@
     "longname": "src/class/entity.class.js~Entity#_networkId",
     "access": "private",
     "description": null,
-    "lineNumber": 153,
+    "lineNumber": 162,
     "undocument": true,
     "type": {
       "types": [
@@ -1251,7 +1290,7 @@
     }
   },
   {
-    "__docId__": 80,
+    "__docId__": 82,
     "kind": "method",
     "name": "GetByNetworkId",
     "memberof": "src/class/entity.class.js~Entity",
@@ -1261,7 +1300,7 @@
     "longname": "src/class/entity.class.js~Entity#GetByNetworkId",
     "access": "public",
     "description": "",
-    "lineNumber": 161,
+    "lineNumber": 170,
     "params": [
       {
         "nullable": null,
@@ -1284,7 +1323,7 @@
     }
   },
   {
-    "__docId__": 83,
+    "__docId__": 85,
     "kind": "method",
     "name": "IsDead",
     "memberof": "src/class/entity.class.js~Entity",
@@ -1294,7 +1333,7 @@
     "longname": "src/class/entity.class.js~Entity#IsDead",
     "access": "public",
     "description": "",
-    "lineNumber": 170,
+    "lineNumber": 179,
     "unknown": [
       {
         "tagName": "@description",
@@ -1312,7 +1351,7 @@
     "params": []
   },
   {
-    "__docId__": 84,
+    "__docId__": 86,
     "kind": "method",
     "name": "IsAlive",
     "memberof": "src/class/entity.class.js~Entity",
@@ -1322,7 +1361,7 @@
     "longname": "src/class/entity.class.js~Entity#IsAlive",
     "access": "public",
     "description": "",
-    "lineNumber": 178,
+    "lineNumber": 187,
     "unknown": [
       {
         "tagName": "@description",
@@ -1340,7 +1379,7 @@
     "params": []
   },
   {
-    "__docId__": 85,
+    "__docId__": 87,
     "kind": "method",
     "name": "Exist",
     "memberof": "src/class/entity.class.js~Entity",
@@ -1350,7 +1389,7 @@
     "longname": "src/class/entity.class.js~Entity#Exist",
     "access": "public",
     "description": "",
-    "lineNumber": 186,
+    "lineNumber": 195,
     "unknown": [
       {
         "tagName": "@description",
@@ -1368,7 +1407,7 @@
     "params": []
   },
   {
-    "__docId__": 86,
+    "__docId__": 88,
     "kind": "method",
     "name": "Delete",
     "memberof": "src/class/entity.class.js~Entity",
@@ -1378,7 +1417,7 @@
     "longname": "src/class/entity.class.js~Entity#Delete",
     "access": "public",
     "description": "",
-    "lineNumber": 194,
+    "lineNumber": 203,
     "unknown": [
       {
         "tagName": "@description",
@@ -1396,7 +1435,7 @@
     "params": []
   },
   {
-    "__docId__": 87,
+    "__docId__": 89,
     "kind": "method",
     "name": "GetBoneIndex",
     "memberof": "src/class/entity.class.js~Entity",
@@ -1406,7 +1445,7 @@
     "longname": "src/class/entity.class.js~Entity#GetBoneIndex",
     "access": "public",
     "description": "",
-    "lineNumber": 203,
+    "lineNumber": 212,
     "params": [
       {
         "nullable": null,
@@ -1429,7 +1468,7 @@
     }
   },
   {
-    "__docId__": 88,
+    "__docId__": 90,
     "kind": "method",
     "name": "AsMission",
     "memberof": "src/class/entity.class.js~Entity",
@@ -1439,7 +1478,7 @@
     "longname": "src/class/entity.class.js~Entity#AsMission",
     "access": "public",
     "description": "",
-    "lineNumber": 212,
+    "lineNumber": 221,
     "unknown": [
       {
         "tagName": "@description",
@@ -1468,7 +1507,7 @@
     }
   },
   {
-    "__docId__": 89,
+    "__docId__": 91,
     "kind": "method",
     "name": "AsNetworked",
     "memberof": "src/class/entity.class.js~Entity",
@@ -1478,7 +1517,7 @@
     "longname": "src/class/entity.class.js~Entity#AsNetworked",
     "access": "public",
     "description": "",
-    "lineNumber": 239,
+    "lineNumber": 248,
     "unknown": [
       {
         "tagName": "@description",
@@ -1507,7 +1546,716 @@
     }
   },
   {
-    "__docId__": 90,
+    "__docId__": 92,
+    "kind": "method",
+    "name": "SetCoords",
+    "memberof": "src/class/entity.class.js~Entity",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/entity.class.js~Entity#SetCoords",
+    "access": "public",
+    "description": "",
+    "lineNumber": 280,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Set coords"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "params": [
+      {
+        "name": "x",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "y",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "z",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 94,
+    "kind": "file",
+    "name": "src/class/ped.class.js",
+    "content": "/*\r\n * @Project: FivemTools\r\n * @Author: Samuelds\r\n * @License: GNU General Public License v3.0\r\n * @Source: https://github.com/FivemTools/ft_core\r\n*/\r\n\r\n/**\r\n * Creates a new Entity.\r\n * @example\r\n * let ped = new Ped();\r\n */\r\nclass Ped extends Entity {\r\n\r\n    /**\r\n     * @description Get ped id for player id\r\n     * @param {number} playerId\r\n     * @return {void}\r\n     */\r\n    GetPlayer(playerId) {\r\n        this.id = GetPlayerPed(playerId);\r\n    }\r\n\r\n    /**\r\n     * @description Set default component variation\r\n     * @return {void}\r\n     */\r\n    SetDefaultComponentVariation() {\r\n        SetPedDefaultComponentVariation(this.id);\r\n    }\r\n\r\n    /**\r\n     * @description Set component variation on a ped\r\n     * @param {number} componentId\r\n     * @param {number} drawableId\r\n     * @param {number} textureId\r\n     * @return {void}\r\n     */\r\n    SetComponentVariation(componentId, drawableId, textureId) {\r\n        SetPedComponentVariation(this.id, componentId, drawableId, textureId, 0);\r\n    }\r\n\r\n    /**\r\n     * @description Get if ped play anim\r\n     * @param {string} animDictionary\r\n     * @param {string} animationName\r\n     * @param {number} flag\r\n     * @returns {boolean}\r\n     * @constructor\r\n     */\r\n    IsPlayingAnim(animDictionary, animationName, flag = 3) {\r\n        return IsEntityPlayingAnim(this.id, animDictionary, animationName, flag);\r\n    }\r\n\r\n    /**\r\n     * @description Play animation on ped\r\n     * @param {string} animDictionary\r\n     * @param {string} animationName\r\n     * @param {function} callback\r\n     * @param {number} blendInSpeed\r\n     * @param {number} blendOutSpeed\r\n     * @param {number} duration\r\n     * @param {number} flag\r\n     * @param {number} playbackRate\r\n     * @param {boolean} lockX\r\n     * @param {boolean} lockY\r\n     * @param {boolean} lockZ\r\n     * @return {void}\r\n     */\r\n    TaskPlayAnim(animDictionary, animationName, duration = -1, flag = 0, callback, playbackRate = 0, blendInSpeed = 8.0, blendOutSpeed = 8.0, lockX = false, lockY = false, lockZ = false) {\r\n        if (DoesAnimDictExist(animDictionary)) {\r\n            RequestAnimDict(animDictionary);\r\n            let self = this;\r\n            let timer = setInterval(function () {\r\n                if (HasAnimDictLoaded(animDictionary)) {\r\n                    clearInterval(timer);\r\n                    if (duration === -1 && flag === 0) {\r\n                        duration = GetAnimDuration(animDictionary, animationName);\r\n                        setTimeout(function () {\r\n                            callback();\r\n                        }, duration * 1000);\r\n                    }\r\n                    TaskPlayAnim(self.id, animDictionary, animationName, blendInSpeed, blendOutSpeed, duration, flag, playbackRate, lockX, lockY, lockZ);\r\n                }\r\n            }, 10);\r\n        } else {\r\n            console.log(\"Anim \" + animDictionary + \" not exist !\");\r\n        }\r\n    }\r\n\r\n    /**\r\n     * @description Play animation on ped\r\n     * @param {string} animDictionary\r\n     * @param {string} animationName\r\n     * @param {number} posX\r\n     * @param {number} posY\r\n     * @param {number} posZ\r\n     * @param {number} rotX\r\n     * @param {number} rotY\r\n     * @param {number} rotZ\r\n     * @param {number} duration\r\n     * @param {number} flag\r\n     * @param {function} callback\r\n     * @param {number} speed\r\n     * @param {number} speedMultiplier\r\n     * @param {number} animTime\r\n     * @constructor\r\n     */\r\n    TaskPlayAnimAdvanced(animDictionary, animationName, posX, posY, posZ, rotX, rotY, rotZ, duration = -1, flag = 0, callback, speed = 8.0, speedMultiplier = 8.0, animTime = 0) {\r\n        if (DoesAnimDictExist(animDictionary)) {\r\n            RequestAnimDict(animDictionary);\r\n            let self = this;\r\n            let timer = setInterval(function () {\r\n                if (HasAnimDictLoaded(animDictionary)) {\r\n                    clearInterval(timer);\r\n                    if (duration === -1 && flag === 0) {\r\n                        duration = GetAnimDuration(animDictionary, animationName);\r\n                        setTimeout(function () {\r\n                            callback();\r\n                        }, duration * 1000);\r\n                    }\r\n                    TaskPlayAnimAdvanced(self.id, animDictionary, animationName, posX, posY, posZ, rotX, rotY, rotZ, speed, speedMultiplier, duration, flag, animTime);\r\n                }\r\n            }, 10);\r\n        } else {\r\n            console.log(\"Anim \" + animDictionary + \" not exist !\");\r\n        }\r\n    }\r\n\r\n    /**\r\n     * @description Clear primary tasks\r\n     */\r\n    ClearPrimaryTasks() {\r\n        ClearPedTasks(this.id);\r\n    }\r\n\r\n    /**\r\n     * @description Clear secondary tasks\r\n     */\r\n    ClearSecondaryTasks() {\r\n        ClearPedSecondaryTask(this.id);\r\n    }\r\n\r\n    /**\r\n     * @description Clear all tasks\r\n     */\r\n    ClearAllTasks() {\r\n        this.ClearPrimaryTasks();\r\n        this.ClearSecondaryTasks();\r\n    }\r\n\r\n    /**\r\n     *\r\n     * @param {function} callback\r\n     * @param {boolean} isNetwork\r\n     * @param {boolean} thisScriptCheck\r\n     * @constructor\r\n     */\r\n    Spawn(callback, isNetwork = false, thisScriptCheck = false) {\r\n        if (IsModelAPed(this._model)) {\r\n            let waiting = 0;\r\n            let self = this;\r\n            RequestModel(this._model);\r\n            let timer = setInterval(function () {\r\n                if (HasModelLoaded(self._model)) {\r\n                    clearInterval(timer);\r\n                    self.id = CreatePed(2, self._model, self._coords.x, self._coords.y, self._coords.z, self._heading, isNetwork, thisScriptCheck);\r\n                    SetModelAsNoLongerNeeded(self._model);\r\n                    callback(self.id);\r\n                }\r\n\r\n                if (waiting === 50) {\r\n                    clearInterval(timer);\r\n                    callback(false);\r\n                }\r\n                waiting++;\r\n            }, 20);\r\n\r\n        } else {\r\n            callback(false);\r\n        }\r\n    }\r\n}",
+    "static": true,
+    "longname": "D:/Projects/project-island/fivem/resources/[fivemtools]/ft_core/src/class/ped.class.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 95,
+    "kind": "class",
+    "name": "Ped",
+    "memberof": "src/class/ped.class.js",
+    "static": true,
+    "longname": "src/class/ped.class.js~Ped",
+    "access": "public",
+    "export": false,
+    "importPath": "@fivemtools/ft_core/src/class/ped.class.js",
+    "importStyle": null,
+    "description": "Creates a new Entity.",
+    "examples": [
+      "let ped = new Ped();"
+    ],
+    "lineNumber": 13,
+    "interface": false,
+    "extends": [
+      "Entity"
+    ]
+  },
+  {
+    "__docId__": 96,
+    "kind": "method",
+    "name": "GetPlayer",
+    "memberof": "src/class/ped.class.js~Ped",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/ped.class.js~Ped#GetPlayer",
+    "access": "public",
+    "description": "",
+    "lineNumber": 20,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Get ped id for player id"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "playerId",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 97,
+    "kind": "member",
+    "name": "id",
+    "memberof": "src/class/ped.class.js~Ped",
+    "static": false,
+    "longname": "src/class/ped.class.js~Ped#id",
+    "access": "public",
+    "description": null,
+    "lineNumber": 21,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 98,
+    "kind": "method",
+    "name": "SetDefaultComponentVariation",
+    "memberof": "src/class/ped.class.js~Ped",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/ped.class.js~Ped#SetDefaultComponentVariation",
+    "access": "public",
+    "description": "",
+    "lineNumber": 28,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Set default component variation"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "params": []
+  },
+  {
+    "__docId__": 99,
+    "kind": "method",
+    "name": "SetComponentVariation",
+    "memberof": "src/class/ped.class.js~Ped",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/ped.class.js~Ped#SetComponentVariation",
+    "access": "public",
+    "description": "",
+    "lineNumber": 39,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Set component variation on a ped"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "componentId",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "drawableId",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "textureId",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 100,
+    "kind": "method",
+    "name": "IsPlayingAnim",
+    "memberof": "src/class/ped.class.js~Ped",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/ped.class.js~Ped#IsPlayingAnim",
+    "access": "public",
+    "description": "",
+    "lineNumber": 51,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Get if ped play anim"
+      },
+      {
+        "tagName": "@returns",
+        "tagValue": "{boolean}"
+      },
+      {
+        "tagName": "@constructor",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "animDictionary",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "animationName",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "flag",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "boolean"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 101,
+    "kind": "method",
+    "name": "TaskPlayAnim",
+    "memberof": "src/class/ped.class.js~Ped",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/ped.class.js~Ped#TaskPlayAnim",
+    "access": "public",
+    "description": "",
+    "lineNumber": 70,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Play animation on ped"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "animDictionary",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "animationName",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "callback",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "blendInSpeed",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "blendOutSpeed",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "duration",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "flag",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "playbackRate",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "boolean"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "lockX",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "boolean"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "lockY",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "boolean"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "lockZ",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 102,
+    "kind": "method",
+    "name": "TaskPlayAnimAdvanced",
+    "memberof": "src/class/ped.class.js~Ped",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/ped.class.js~Ped#TaskPlayAnimAdvanced",
+    "access": "public",
+    "description": "",
+    "lineNumber": 109,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Play animation on ped"
+      },
+      {
+        "tagName": "@constructor",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "animDictionary",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "animationName",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "posX",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "posY",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "posZ",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "rotX",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "rotY",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "rotZ",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "duration",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "flag",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "callback",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "speed",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "speedMultiplier",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "animTime",
+        "description": ""
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 103,
+    "kind": "method",
+    "name": "ClearPrimaryTasks",
+    "memberof": "src/class/ped.class.js~Ped",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/ped.class.js~Ped#ClearPrimaryTasks",
+    "access": "public",
+    "description": "",
+    "lineNumber": 133,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Clear primary tasks"
+      }
+    ],
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 104,
+    "kind": "method",
+    "name": "ClearSecondaryTasks",
+    "memberof": "src/class/ped.class.js~Ped",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/ped.class.js~Ped#ClearSecondaryTasks",
+    "access": "public",
+    "description": "",
+    "lineNumber": 140,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Clear secondary tasks"
+      }
+    ],
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 105,
+    "kind": "method",
+    "name": "ClearAllTasks",
+    "memberof": "src/class/ped.class.js~Ped",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/ped.class.js~Ped#ClearAllTasks",
+    "access": "public",
+    "description": "",
+    "lineNumber": 147,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Clear all tasks"
+      }
+    ],
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 106,
+    "kind": "method",
+    "name": "Spawn",
+    "memberof": "src/class/ped.class.js~Ped",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/ped.class.js~Ped#Spawn",
+    "access": "public",
+    "description": "",
+    "lineNumber": 159,
+    "unknown": [
+      {
+        "tagName": "@constructor",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "callback",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "boolean"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "isNetwork",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "boolean"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "thisScriptCheck",
+        "description": ""
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 107,
     "kind": "file",
     "name": "src/load.client.js",
     "content": "//\r\n// @Project: FivemTools\r\n// @Author: Samuelds\r\n// @License: GNU General Public License v3.0\r\n// @Source: https://github.com/FivemTools/ft_core\r\n//\r\n\r\nlet _onReady = [];\r\n\r\n/**\r\n * @description Add function to run on client ready\r\n * @param {function} callback\r\n * @return {void}\r\n */\r\nfunction OnClientReady(callback) {\r\n    _onReady.push(callback);\r\n}\r\n\r\nconst _loadingClientTimer = setInterval(function () {\r\n    if (NetworkIsSessionStarted()) {\r\n        clearInterval(_loadingClientTimer);\r\n        _onReady.forEach(function (callback) {\r\n            callback();\r\n        })\r\n    }\r\n}, 10);\r\n\r\n// Event send by spawn manager\r\nRegisterServerEvent('playerSpawned');\r\nAddEventHandler('playerSpawned', function () {\r\n    TriggerServerEvent('ft_core:playerSpawned');\r\n});",
@@ -1518,7 +2266,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 91,
+    "__docId__": 108,
     "kind": "variable",
     "name": "_onReady",
     "memberof": "src/load.client.js",
@@ -1526,7 +2274,7 @@
     "longname": "src/load.client.js~_onReady",
     "access": "private",
     "export": false,
-    "importPath": "./src/load.client.js",
+    "importPath": "@fivemtools/ft_core/src/load.client.js",
     "importStyle": null,
     "description": null,
     "lineNumber": 8,
@@ -1538,7 +2286,7 @@
     }
   },
   {
-    "__docId__": 92,
+    "__docId__": 109,
     "kind": "function",
     "name": "OnClientReady",
     "memberof": "src/load.client.js",
@@ -1548,7 +2296,7 @@
     "longname": "src/load.client.js~OnClientReady",
     "access": "public",
     "export": false,
-    "importPath": "./src/load.client.js",
+    "importPath": "@fivemtools/ft_core/src/load.client.js",
     "importStyle": null,
     "description": "",
     "lineNumber": 15,
@@ -1580,7 +2328,7 @@
     }
   },
   {
-    "__docId__": 93,
+    "__docId__": 110,
     "kind": "variable",
     "name": "_loadingClientTimer",
     "memberof": "src/load.client.js",
@@ -1588,7 +2336,7 @@
     "longname": "src/load.client.js~_loadingClientTimer",
     "access": "private",
     "export": false,
-    "importPath": "./src/load.client.js",
+    "importPath": "@fivemtools/ft_core/src/load.client.js",
     "importStyle": null,
     "description": null,
     "lineNumber": 19,
@@ -1609,9 +2357,9 @@
   },
   {
     "kind": "packageJSON",
-    "content": "",
-    "longname": "",
-    "name": "",
+    "content": "{\n  \"name\": \"@fivemtools/ft_core\",\n  \"version\": \"1.1.3\",\n  \"description\": \"Libs for Fivem\",\n  \"main\": \"index.js\",\n  \"directories\": {\n    \"doc\": \"docs\"\n  },\n  \"dependencies\": {},\n  \"devDependencies\": {\n    \"esdoc\": \"^1.1.0\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"esdoc-es7-plugin\": \"^0.0.3\"\n  },\n  \"scripts\": {\n    \"test\": \"echo \\\"Error: no test specified\\\" && exit 1\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git+https://github.com/FivemTools/ft_core.git\"\n  },\n  \"author\": \"samuelds\",\n  \"license\": \"GPL-3.0\",\n  \"bugs\": {\n    \"url\": \"https://github.com/FivemTools/ft_core/issues\"\n  },\n  \"homepage\": \"https://github.com/FivemTools/ft_core#readme\"\n}\n",
+    "longname": "D:\\Projects\\project-island\\fivem\\resources\\[fivemtools]\\ft_core\\package.json",
+    "name": "package.json",
     "static": true,
     "access": "public"
   }

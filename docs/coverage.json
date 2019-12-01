@@ -1,20 +1,27 @@
 {
-  "coverage": "71.42%",
-  "expectCount": 35,
-  "actualCount": 25,
+  "coverage": "77.55%",
+  "expectCount": 49,
+  "actualCount": 38,
   "files": {
     "src/class/entity.class.js": {
-      "expectCount": 32,
-      "actualCount": 24,
+      "expectCount": 34,
+      "actualCount": 26,
       "undocumentLines": [
         19,
         28,
-        47,
-        66,
-        86,
-        115,
-        134,
-        153
+        56,
+        75,
+        95,
+        124,
+        143,
+        162
+      ]
+    },
+    "src/class/ped.class.js": {
+      "expectCount": 12,
+      "actualCount": 11,
+      "undocumentLines": [
+        21
       ]
     },
     "src/load.client.js": {

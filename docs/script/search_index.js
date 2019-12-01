@@ -1,26 +1,32 @@
 window.esdocSearchIndex = [
   [
-    "./src/class/entity.class.js~entity",
+    "@fivemtools/ft_core/src/class/entity.class.js~entity",
     "class/src/class/entity.class.js~Entity.html",
-    "<span>Entity</span> <span class=\"search-result-import-path\">./src/class/entity.class.js</span>",
+    "<span>Entity</span> <span class=\"search-result-import-path\">@fivemtools/ft_core/src/class/entity.class.js</span>",
     "class"
   ],
   [
-    "./src/load.client.js~onclientready",
+    "@fivemtools/ft_core/src/load.client.js~onclientready",
     "function/index.html#static-function-OnClientReady",
-    "<span>OnClientReady</span> <span class=\"search-result-import-path\">./src/load.client.js</span>",
+    "<span>OnClientReady</span> <span class=\"search-result-import-path\">@fivemtools/ft_core/src/load.client.js</span>",
     "function"
   ],
   [
-    "./src/load.client.js~_loadingclienttimer",
+    "@fivemtools/ft_core/src/class/ped.class.js~ped",
+    "class/src/class/ped.class.js~Ped.html",
+    "<span>Ped</span> <span class=\"search-result-import-path\">@fivemtools/ft_core/src/class/ped.class.js</span>",
+    "class"
+  ],
+  [
+    "@fivemtools/ft_core/src/load.client.js~_loadingclienttimer",
     "variable/index.html#static-variable-_loadingClientTimer",
-    "<span>_loadingClientTimer</span> <span class=\"search-result-import-path\">./src/load.client.js</span>",
+    "<span>_loadingClientTimer</span> <span class=\"search-result-import-path\">@fivemtools/ft_core/src/load.client.js</span>",
     "variable"
   ],
   [
-    "./src/load.client.js~_onready",
+    "@fivemtools/ft_core/src/load.client.js~_onready",
     "variable/index.html#static-variable-_onReady",
-    "<span>_onReady</span> <span class=\"search-result-import-path\">./src/load.client.js</span>",
+    "<span>_onReady</span> <span class=\"search-result-import-path\">@fivemtools/ft_core/src/load.client.js</span>",
     "variable"
   ],
   [
@@ -360,6 +366,18 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/class/entity.class.js~entity#setcoords",
+    "class/src/class/entity.class.js~Entity.html#instance-method-SetCoords",
+    "src/class/entity.class.js~Entity#SetCoords",
+    "method"
+  ],
+  [
+    "src/class/entity.class.js~entity#setmodelbyname",
+    "class/src/class/entity.class.js~Entity.html#instance-method-SetModelByName",
+    "src/class/entity.class.js~Entity#SetModelByName",
+    "method"
+  ],
+  [
     "src/class/entity.class.js~entity#_collision",
     "class/src/class/entity.class.js~Entity.html#instance-member-_collision",
     "src/class/entity.class.js~Entity#_collision",
@@ -439,13 +457,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/class/entity.class.js~entity#heading",
-    "class/src/class/entity.class.js~Entity.html#instance-get-heading",
+    "class/src/class/entity.class.js~Entity.html#instance-set-heading",
     "src/class/entity.class.js~Entity#heading",
     "member"
   ],
   [
     "src/class/entity.class.js~entity#heading",
-    "class/src/class/entity.class.js~Entity.html#instance-set-heading",
+    "class/src/class/entity.class.js~Entity.html#instance-get-heading",
     "src/class/entity.class.js~Entity#heading",
     "member"
   ],
@@ -495,6 +513,78 @@ window.esdocSearchIndex = [
     "src/class/entity.class.js~entity#networkid",
     "class/src/class/entity.class.js~Entity.html#instance-get-networkId",
     "src/class/entity.class.js~Entity#networkId",
+    "member"
+  ],
+  [
+    "src/class/ped.class.js",
+    "file/src/class/ped.class.js.html",
+    "src/class/ped.class.js",
+    "file"
+  ],
+  [
+    "src/class/ped.class.js~ped#clearalltasks",
+    "class/src/class/ped.class.js~Ped.html#instance-method-ClearAllTasks",
+    "src/class/ped.class.js~Ped#ClearAllTasks",
+    "method"
+  ],
+  [
+    "src/class/ped.class.js~ped#clearprimarytasks",
+    "class/src/class/ped.class.js~Ped.html#instance-method-ClearPrimaryTasks",
+    "src/class/ped.class.js~Ped#ClearPrimaryTasks",
+    "method"
+  ],
+  [
+    "src/class/ped.class.js~ped#clearsecondarytasks",
+    "class/src/class/ped.class.js~Ped.html#instance-method-ClearSecondaryTasks",
+    "src/class/ped.class.js~Ped#ClearSecondaryTasks",
+    "method"
+  ],
+  [
+    "src/class/ped.class.js~ped#getplayer",
+    "class/src/class/ped.class.js~Ped.html#instance-method-GetPlayer",
+    "src/class/ped.class.js~Ped#GetPlayer",
+    "method"
+  ],
+  [
+    "src/class/ped.class.js~ped#isplayinganim",
+    "class/src/class/ped.class.js~Ped.html#instance-method-IsPlayingAnim",
+    "src/class/ped.class.js~Ped#IsPlayingAnim",
+    "method"
+  ],
+  [
+    "src/class/ped.class.js~ped#setcomponentvariation",
+    "class/src/class/ped.class.js~Ped.html#instance-method-SetComponentVariation",
+    "src/class/ped.class.js~Ped#SetComponentVariation",
+    "method"
+  ],
+  [
+    "src/class/ped.class.js~ped#setdefaultcomponentvariation",
+    "class/src/class/ped.class.js~Ped.html#instance-method-SetDefaultComponentVariation",
+    "src/class/ped.class.js~Ped#SetDefaultComponentVariation",
+    "method"
+  ],
+  [
+    "src/class/ped.class.js~ped#spawn",
+    "class/src/class/ped.class.js~Ped.html#instance-method-Spawn",
+    "src/class/ped.class.js~Ped#Spawn",
+    "method"
+  ],
+  [
+    "src/class/ped.class.js~ped#taskplayanim",
+    "class/src/class/ped.class.js~Ped.html#instance-method-TaskPlayAnim",
+    "src/class/ped.class.js~Ped#TaskPlayAnim",
+    "method"
+  ],
+  [
+    "src/class/ped.class.js~ped#taskplayanimadvanced",
+    "class/src/class/ped.class.js~Ped.html#instance-method-TaskPlayAnimAdvanced",
+    "src/class/ped.class.js~Ped#TaskPlayAnimAdvanced",
+    "method"
+  ],
+  [
+    "src/class/ped.class.js~ped#id",
+    "class/src/class/ped.class.js~Ped.html#instance-member-id",
+    "src/class/ped.class.js~Ped#id",
     "member"
   ],
   [
