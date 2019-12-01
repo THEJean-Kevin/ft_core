@@ -5,12 +5,24 @@
  * @Source: https://github.com/FivemTools/ft_core
 */
 
+import { Entity } from "./";
+
 /**
  * Creates a new Vehicle.
  * @example
  * let vehicle = new Vehicle();
  */
-class Vehicle extends Entity {
+export class Vehicle extends Entity {
+
+    constructor(){
+        this.windowsIndex = [
+            'window_lf',
+            'window_rf',
+            'window_lr',
+            'window_rr'
+        ];
+    }
+
 
     /**
      * @description Get body health
@@ -899,16 +911,7 @@ class Vehicle extends Entity {
         }
     }
 
-    /**
-     * @description Return all windows name
-     * @type {array}
-     */
-     windowsIndex = [
-        'window_lf',
-        'window_rf',
-        'window_lr',
-        'window_rr'
-    ];
+
 
     /**
      * @description Get is widows is intact

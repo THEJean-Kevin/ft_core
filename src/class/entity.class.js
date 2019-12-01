@@ -10,7 +10,7 @@
  * @example
  * let entity = new Entity();
  */
-class Entity {
+export class Entity {
 
     /**
      * @param {number} entityId

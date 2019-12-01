@@ -2,7 +2,7 @@
   "name": "@fivemtools/ft_core",
   "version": "1.1.3",
   "description": "Libs for Fivem",
-  "main": "index.js",
+  "main": "src/index.js",
   "directories": {
     "doc": "docs"
   },
@@ -24,5 +24,8 @@
   "bugs": {
     "url": "https://github.com/FivemTools/ft_core/issues"
   },
-  "homepage": "https://github.com/FivemTools/ft_core#readme"
+  "homepage": "https://github.com/FivemTools/ft_core#readme",
+  "files":[
+  	"src/**/*"
+  ]
 }
