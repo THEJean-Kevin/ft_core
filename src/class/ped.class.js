@@ -30,6 +30,17 @@ class Ped extends Entity {
     }
 
     /**
+     * @description Set component variation on a ped
+     * @param {number} componentId
+     * @param {number} drawableId
+     * @param {number} textureId
+     * @return {void}
+     */
+    SetComponentVariation(componentId, drawableId, textureId) {
+        SetPedComponentVariation(this.id, componentId, drawableId, textureId, 0);
+    }
+
+    /**
      * @description Get if ped play anim
      * @param {string} animDictionary
      * @param {string} animationName
