@@ -12,7 +12,7 @@ let _onReady = [];
  * @param {function} callback
  * @return {void}
  */
-function OnClientReady(callback) {
+export function OnClientReady(callback) {
     _onReady.push(callback);
 }
 
