@@ -4,67 +4,67 @@
     "filePath": "src/class/ped.class.js",
     "lines": [
       {
-        "lineNumber": 54,
+        "lineNumber": 56,
         "line": "    /**\r"
       },
       {
-        "lineNumber": 55,
+        "lineNumber": 57,
         "line": "     * @description Play animation on ped\r"
       },
       {
-        "lineNumber": 56,
+        "lineNumber": 58,
         "line": "     * @param {string} animDictionary\r"
       },
       {
-        "lineNumber": 57,
+        "lineNumber": 59,
         "line": "     * @param {string} animationName\r"
       },
       {
-        "lineNumber": 58,
+        "lineNumber": 60,
         "line": "     * @param {function} callback\r"
       },
       {
-        "lineNumber": 59,
+        "lineNumber": 61,
         "line": "     * @param {number} blendInSpeed\r"
       },
       {
-        "lineNumber": 60,
+        "lineNumber": 62,
         "line": "     * @param {number} blendOutSpeed\r"
       },
       {
-        "lineNumber": 61,
+        "lineNumber": 63,
         "line": "     * @param {number} duration\r"
       },
       {
-        "lineNumber": 62,
+        "lineNumber": 64,
         "line": "     * @param {number} flag\r"
       },
       {
-        "lineNumber": 63,
+        "lineNumber": 65,
         "line": "     * @param {number} playbackRate\r"
       },
       {
-        "lineNumber": 64,
+        "lineNumber": 66,
         "line": "     * @param {boolean} lockX\r"
       },
       {
-        "lineNumber": 65,
+        "lineNumber": 67,
         "line": "     * @param {boolean} lockY\r"
       },
       {
-        "lineNumber": 66,
+        "lineNumber": 68,
         "line": "     * @param {boolean} lockZ\r"
       },
       {
-        "lineNumber": 67,
+        "lineNumber": 69,
         "line": "     * @return {void}\r"
       },
       {
-        "lineNumber": 68,
+        "lineNumber": 70,
         "line": "     */\r"
       },
       {
-        "lineNumber": 69,
+        "lineNumber": 71,
         "line": "    TaskPlayAnim(animDictionary, animationName, duration = -1, flag = 0, callback, playbackRate = 0, blendInSpeed = 8.0, blendOutSpeed = 8.0, lockX = false, lockY = false, lockZ = false) {\r"
       }
     ],

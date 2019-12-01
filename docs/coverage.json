@@ -1,7 +1,7 @@
 {
-  "coverage": "77.55%",
-  "expectCount": 49,
-  "actualCount": 38,
+  "coverage": "72.51%",
+  "expectCount": 171,
+  "actualCount": 124,
   "files": {
     "src/class/entity.class.js": {
       "expectCount": 34,
@@ -21,7 +21,49 @@
       "expectCount": 12,
       "actualCount": 11,
       "undocumentLines": [
-        21
+        23
+      ]
+    },
+    "src/class/vehicle.class.js": {
+      "expectCount": 122,
+      "actualCount": 86,
+      "undocumentLines": [
+        17,
+        18,
+        32,
+        52,
+        63,
+        90,
+        98,
+        125,
+        133,
+        152,
+        172,
+        191,
+        213,
+        233,
+        243,
+        270,
+        279,
+        298,
+        317,
+        337,
+        357,
+        375,
+        394,
+        413,
+        433,
+        453,
+        472,
+        492,
+        512,
+        530,
+        549,
+        634,
+        677,
+        748,
+        792,
+        817
       ]
     },
     "src/load.client.js": {

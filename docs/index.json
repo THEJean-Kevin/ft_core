@@ -567,7 +567,7 @@
     "__docId__": 48,
     "kind": "file",
     "name": "src/class/entity.class.js",
-    "content": "/*\r\n * @Project: FivemTools\r\n * @Author: Samuelds\r\n * @License: GNU General Public License v3.0\r\n * @Source: https://github.com/FivemTools/ft_core\r\n*/\r\n\r\n/**\r\n * Creates a new Entity.\r\n * @example\r\n * let entity = new Entity();\r\n */\r\nclass Entity {\r\n\r\n    /**\r\n     * @param {number} entityId\r\n     */\r\n    constructor(entityId = 0) {\r\n        this.id = entityId;\r\n    }\r\n\r\n    /**\r\n     * @description Get entity model\r\n     * @return {string}\r\n     */\r\n    get model() {\r\n        if (this._model === undefined) {\r\n            this._model = GetEntityModel(this.id);\r\n        }\r\n        return this._model;\r\n    }\r\n\r\n    /**\r\n     * @description Set entity model value\r\n     * @param {string} value\r\n     * @return {void}\r\n     */\r\n    set model(value) {\r\n        this._model = value;\r\n    }\r\n\r\n    /**\r\n     * @description Get model hash by name\r\n     * @param {string} name\r\n     * @return {void}\r\n     */\r\n    SetModelByName(name) {\r\n        this.model = GetHashKey(name);\r\n    }\r\n\r\n    /**\r\n     * @description Get entity health\r\n     * @return {number}\r\n     */\r\n    get health() {\r\n        this._health = GetEntityHealth(this.id);\r\n        return this._health;\r\n    }\r\n\r\n    /**\r\n     * @description Set entity health\r\n     * @param amount\r\n     * @return {void}\r\n     */\r\n    set health(amount) {\r\n        this._health = amount;\r\n        SetEntityHealth(this.id, amount);\r\n    }\r\n\r\n    /**\r\n     * @description Get max health\r\n     * @return {number}\r\n     */\r\n    get maxHealth() {\r\n        this._maxHealth = GetEntityMaxHealth(this.id);\r\n        return this._maxHealth;\r\n    }\r\n\r\n    /**\r\n     * @description Set max health\r\n     * @param {number} amount\r\n     * @return {void}\r\n     */\r\n    set maxHealth(amount) {\r\n        this._maxHealth = amount;\r\n        SetEntityMaxHealth(this.id, this._maxHealth);\r\n    }\r\n\r\n    /**\r\n     * @description Get coords\r\n     * @return {object} coords\r\n     */\r\n    get coords() {\r\n        const coords = GetEntityCoords(this.id);\r\n        this._coords = { x : coords[0], y : coords[1], z : coords[2] };\r\n        return this._coords;\r\n    }\r\n\r\n    /**\r\n     * @description Set coords\r\n     * @param {object} coords\r\n     * @return {void}\r\n     */\r\n    set coords(coords) {\r\n        this._coords = coords;\r\n        SetEntityCoords(this.id, coords.x, coords.y, coords.z, false, false, false, true);\r\n    }\r\n\r\n    /**\r\n     * @description Set coords no offset\r\n     * @param {object} coords\r\n     * @return {void}\r\n     */\r\n    set coordsNoOffset(coords) {\r\n        this._coords = coords;\r\n        SetEntityCoordsNoOffset(this.id, coords.x, coords.y, coords.z, true, true, true);\r\n    }\r\n\r\n    /**\r\n     * @description Get heading\r\n     * @return {number}\r\n     */\r\n    get heading() {\r\n        this._heading = GetEntityHeading(this.id);\r\n        return this._heading;\r\n    }\r\n\r\n    /**\r\n     * @description Set heading\r\n     * @param heading\r\n     * @return {void}\r\n     */\r\n    set heading(heading) {\r\n        this._heading = heading;\r\n        SetEntityHeading(this.id, heading);\r\n    }\r\n\r\n    /**\r\n     * @description Get collision status\r\n     * @return {boolean}\r\n     */\r\n    get collision() {\r\n        this._collision = !GetEntityCollisionDisabled(this.id);\r\n        return this._collision;\r\n    }\r\n\r\n    /**\r\n     * @description Set collision\r\n     * @param status\r\n     * @return {void}\r\n     */\r\n    set collision(status) {\r\n        this._collision = value;\r\n        SetEntityCollision(this.id, status, false);\r\n    }\r\n\r\n    /**\r\n     * @description Get network id\r\n     * @return {number}\r\n     */\r\n    get networkId() {\r\n        this._networkId = NetworkGetNetworkIdFromEntity(this.id);\r\n        return this._networkId;\r\n    }\r\n\r\n    /**\r\n     * @param {number} netId\r\n     * @return {void}\r\n     */\r\n    GetByNetworkId(netId) {\r\n        this.id         = NetworkGetEntityFromNetworkId(netId);\r\n        this._networkId = netId;\r\n    }\r\n\r\n    /**\r\n     * @description Get if entity is dead\r\n     * @return {boolean}\r\n     */\r\n    IsDead() {\r\n        return Boolean(IsEntityDead(this.id));\r\n    }\r\n\r\n    /**\r\n     * @description Get if entity is alive\r\n     * @return {boolean}\r\n     */\r\n    IsAlive() {\r\n        return !this.isDead();\r\n    }\r\n\r\n    /**\r\n     * @description Get if entity exist\r\n     * @return {boolean}\r\n     */\r\n    Exist() {\r\n        return Boolean(DoesEntityExist(this.id));\r\n    }\r\n\r\n    /**\r\n     * @description Delete entity\r\n     * @return {void}\r\n     */\r\n    Delete() {\r\n        SetEntityAsMissionEntity(this.id, false, true);\r\n        DeleteEntity(this.id);\r\n    }\r\n\r\n    /**\r\n     * @param {string} boneName\r\n     * @return {number}\r\n     */\r\n    GetBoneIndex(boneName) {\r\n        return GetEntityBoneIndexByName(this.id, boneName);\r\n    }\r\n\r\n    /**\r\n     * @description Set as mission\r\n     * @param {function} callback\r\n     * @return void\r\n     */\r\n    AsMission(callback) {\r\n        let waiting = 0;\r\n        let self    = this;\r\n        let timer   = setInterval(function() {\r\n            if (NetworkHasControlOfEntity(self.id)) {\r\n                SetEntityAsMissionEntity(self.id);\r\n                if (IsEntityAMissionEntity(self.id)) {\r\n                    clearInterval(timer);\r\n                    callback(true);\r\n                }\r\n            } else {\r\n                NetworkRequestControlOfEntity(this.id);\r\n            }\r\n\r\n            if (waiting === 10) {\r\n                clearInterval(timer);\r\n                callback(false);\r\n            }\r\n            waiting++;\r\n        }, 20);\r\n    }\r\n\r\n    /**\r\n     * @description Register as networked\r\n     * @param {function} callback\r\n     * @return {void}\r\n     */\r\n    AsNetworked(callback) {\r\n        let netId   = false;\r\n        let waiting = 0;\r\n        let self    = this;\r\n        let timer   = setInterval(function() {\r\n            if (NetworkHasControlOfEntity(self.id)) {\r\n                NetworkRegisterEntityAsNetworked(self.id);\r\n                netId = self.networkId;\r\n                if (netId) {\r\n                    SetNetworkIdCanMigrate(netId, true);\r\n                    SetNetworkIdExistsOnAllMachines(netId, true);\r\n                    if (NetworkDoesNetworkIdExist(netId)) {\r\n                        clearInterval(timer);\r\n                        callback(netId);\r\n                    }\r\n                }\r\n            } else {\r\n                NetworkRequestControlOfEntity(this.id);\r\n            }\r\n\r\n            if (waiting === 10) {\r\n                clearInterval(timer);\r\n                callback(false);\r\n            }\r\n            waiting++;\r\n        }, 20);\r\n    }\r\n\r\n    /**\r\n     * @description Set coords\r\n     * @return {void}\r\n     */\r\n     SetCoords(x, y, z) {\r\n        this.coords = { x: x, y: y, z: z }\r\n    }\r\n\r\n}",
+    "content": "/*\r\n * @Project: FivemTools\r\n * @Author: Samuelds\r\n * @License: GNU General Public License v3.0\r\n * @Source: https://github.com/FivemTools/ft_core\r\n*/\r\n\r\n/**\r\n * Creates a new Entity.\r\n * @example\r\n * let entity = new Entity();\r\n */\r\nexport class Entity {\r\n\r\n    /**\r\n     * @param {number} entityId\r\n     */\r\n    constructor(entityId = 0) {\r\n        this.id = entityId;\r\n    }\r\n\r\n    /**\r\n     * @description Get entity model\r\n     * @return {string}\r\n     */\r\n    get model() {\r\n        if (this._model === undefined) {\r\n            this._model = GetEntityModel(this.id);\r\n        }\r\n        return this._model;\r\n    }\r\n\r\n    /**\r\n     * @description Set entity model value\r\n     * @param {string} value\r\n     * @return {void}\r\n     */\r\n    set model(value) {\r\n        this._model = value;\r\n    }\r\n\r\n    /**\r\n     * @description Get model hash by name\r\n     * @param {string} name\r\n     * @return {void}\r\n     */\r\n    SetModelByName(name) {\r\n        this.model = GetHashKey(name);\r\n    }\r\n\r\n    /**\r\n     * @description Get entity health\r\n     * @return {number}\r\n     */\r\n    get health() {\r\n        this._health = GetEntityHealth(this.id);\r\n        return this._health;\r\n    }\r\n\r\n    /**\r\n     * @description Set entity health\r\n     * @param amount\r\n     * @return {void}\r\n     */\r\n    set health(amount) {\r\n        this._health = amount;\r\n        SetEntityHealth(this.id, amount);\r\n    }\r\n\r\n    /**\r\n     * @description Get max health\r\n     * @return {number}\r\n     */\r\n    get maxHealth() {\r\n        this._maxHealth = GetEntityMaxHealth(this.id);\r\n        return this._maxHealth;\r\n    }\r\n\r\n    /**\r\n     * @description Set max health\r\n     * @param {number} amount\r\n     * @return {void}\r\n     */\r\n    set maxHealth(amount) {\r\n        this._maxHealth = amount;\r\n        SetEntityMaxHealth(this.id, this._maxHealth);\r\n    }\r\n\r\n    /**\r\n     * @description Get coords\r\n     * @return {object} coords\r\n     */\r\n    get coords() {\r\n        const coords = GetEntityCoords(this.id);\r\n        this._coords = { x : coords[0], y : coords[1], z : coords[2] };\r\n        return this._coords;\r\n    }\r\n\r\n    /**\r\n     * @description Set coords\r\n     * @param {object} coords\r\n     * @return {void}\r\n     */\r\n    set coords(coords) {\r\n        this._coords = coords;\r\n        SetEntityCoords(this.id, coords.x, coords.y, coords.z, false, false, false, true);\r\n    }\r\n\r\n    /**\r\n     * @description Set coords no offset\r\n     * @param {object} coords\r\n     * @return {void}\r\n     */\r\n    set coordsNoOffset(coords) {\r\n        this._coords = coords;\r\n        SetEntityCoordsNoOffset(this.id, coords.x, coords.y, coords.z, true, true, true);\r\n    }\r\n\r\n    /**\r\n     * @description Get heading\r\n     * @return {number}\r\n     */\r\n    get heading() {\r\n        this._heading = GetEntityHeading(this.id);\r\n        return this._heading;\r\n    }\r\n\r\n    /**\r\n     * @description Set heading\r\n     * @param heading\r\n     * @return {void}\r\n     */\r\n    set heading(heading) {\r\n        this._heading = heading;\r\n        SetEntityHeading(this.id, heading);\r\n    }\r\n\r\n    /**\r\n     * @description Get collision status\r\n     * @return {boolean}\r\n     */\r\n    get collision() {\r\n        this._collision = !GetEntityCollisionDisabled(this.id);\r\n        return this._collision;\r\n    }\r\n\r\n    /**\r\n     * @description Set collision\r\n     * @param status\r\n     * @return {void}\r\n     */\r\n    set collision(status) {\r\n        this._collision = value;\r\n        SetEntityCollision(this.id, status, false);\r\n    }\r\n\r\n    /**\r\n     * @description Get network id\r\n     * @return {number}\r\n     */\r\n    get networkId() {\r\n        this._networkId = NetworkGetNetworkIdFromEntity(this.id);\r\n        return this._networkId;\r\n    }\r\n\r\n    /**\r\n     * @param {number} netId\r\n     * @return {void}\r\n     */\r\n    GetByNetworkId(netId) {\r\n        this.id         = NetworkGetEntityFromNetworkId(netId);\r\n        this._networkId = netId;\r\n    }\r\n\r\n    /**\r\n     * @description Get if entity is dead\r\n     * @return {boolean}\r\n     */\r\n    IsDead() {\r\n        return Boolean(IsEntityDead(this.id));\r\n    }\r\n\r\n    /**\r\n     * @description Get if entity is alive\r\n     * @return {boolean}\r\n     */\r\n    IsAlive() {\r\n        return !this.isDead();\r\n    }\r\n\r\n    /**\r\n     * @description Get if entity exist\r\n     * @return {boolean}\r\n     */\r\n    Exist() {\r\n        return Boolean(DoesEntityExist(this.id));\r\n    }\r\n\r\n    /**\r\n     * @description Delete entity\r\n     * @return {void}\r\n     */\r\n    Delete() {\r\n        SetEntityAsMissionEntity(this.id, false, true);\r\n        DeleteEntity(this.id);\r\n    }\r\n\r\n    /**\r\n     * @param {string} boneName\r\n     * @return {number}\r\n     */\r\n    GetBoneIndex(boneName) {\r\n        return GetEntityBoneIndexByName(this.id, boneName);\r\n    }\r\n\r\n    /**\r\n     * @description Set as mission\r\n     * @param {function} callback\r\n     * @return void\r\n     */\r\n    AsMission(callback) {\r\n        let waiting = 0;\r\n        let self    = this;\r\n        let timer   = setInterval(function() {\r\n            if (NetworkHasControlOfEntity(self.id)) {\r\n                SetEntityAsMissionEntity(self.id);\r\n                if (IsEntityAMissionEntity(self.id)) {\r\n                    clearInterval(timer);\r\n                    callback(true);\r\n                }\r\n            } else {\r\n                NetworkRequestControlOfEntity(this.id);\r\n            }\r\n\r\n            if (waiting === 10) {\r\n                clearInterval(timer);\r\n                callback(false);\r\n            }\r\n            waiting++;\r\n        }, 20);\r\n    }\r\n\r\n    /**\r\n     * @description Register as networked\r\n     * @param {function} callback\r\n     * @return {void}\r\n     */\r\n    AsNetworked(callback) {\r\n        let netId   = false;\r\n        let waiting = 0;\r\n        let self    = this;\r\n        let timer   = setInterval(function() {\r\n            if (NetworkHasControlOfEntity(self.id)) {\r\n                NetworkRegisterEntityAsNetworked(self.id);\r\n                netId = self.networkId;\r\n                if (netId) {\r\n                    SetNetworkIdCanMigrate(netId, true);\r\n                    SetNetworkIdExistsOnAllMachines(netId, true);\r\n                    if (NetworkDoesNetworkIdExist(netId)) {\r\n                        clearInterval(timer);\r\n                        callback(netId);\r\n                    }\r\n                }\r\n            } else {\r\n                NetworkRequestControlOfEntity(this.id);\r\n            }\r\n\r\n            if (waiting === 10) {\r\n                clearInterval(timer);\r\n                callback(false);\r\n            }\r\n            waiting++;\r\n        }, 20);\r\n    }\r\n\r\n    /**\r\n     * @description Set coords\r\n     * @return {void}\r\n     */\r\n     SetCoords(x, y, z) {\r\n        this.coords = { x: x, y: y, z: z }\r\n    }\r\n\r\n}",
     "static": true,
     "longname": "D:/Projects/project-island/fivem/resources/[fivemtools]/ft_core/src/class/entity.class.js",
     "access": "public",
@@ -582,9 +582,9 @@
     "static": true,
     "longname": "src/class/entity.class.js~Entity",
     "access": "public",
-    "export": false,
+    "export": true,
     "importPath": "@fivemtools/ft_core/src/class/entity.class.js",
-    "importStyle": null,
+    "importStyle": "{Entity}",
     "description": "Creates a new Entity.",
     "examples": [
       "let entity = new Entity();"
@@ -1595,8 +1595,19 @@
   {
     "__docId__": 94,
     "kind": "file",
+    "name": "src/class/index.js",
+    "content": "export * from \"./entity.class\";\r\nexport * from \"./ped.class\";\r\nexport * from \"./vehicle.class\";\r\n\r\n",
+    "static": true,
+    "longname": "D:/Projects/project-island/fivem/resources/[fivemtools]/ft_core/src/class/index.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 95,
+    "kind": "file",
     "name": "src/class/ped.class.js",
-    "content": "/*\r\n * @Project: FivemTools\r\n * @Author: Samuelds\r\n * @License: GNU General Public License v3.0\r\n * @Source: https://github.com/FivemTools/ft_core\r\n*/\r\n\r\n/**\r\n * Creates a new Entity.\r\n * @example\r\n * let ped = new Ped();\r\n */\r\nclass Ped extends Entity {\r\n\r\n    /**\r\n     * @description Get ped id for player id\r\n     * @param {number} playerId\r\n     * @return {void}\r\n     */\r\n    GetPlayer(playerId) {\r\n        this.id = GetPlayerPed(playerId);\r\n    }\r\n\r\n    /**\r\n     * @description Set default component variation\r\n     * @return {void}\r\n     */\r\n    SetDefaultComponentVariation() {\r\n        SetPedDefaultComponentVariation(this.id);\r\n    }\r\n\r\n    /**\r\n     * @description Set component variation on a ped\r\n     * @param {number} componentId\r\n     * @param {number} drawableId\r\n     * @param {number} textureId\r\n     * @return {void}\r\n     */\r\n    SetComponentVariation(componentId, drawableId, textureId) {\r\n        SetPedComponentVariation(this.id, componentId, drawableId, textureId, 0);\r\n    }\r\n\r\n    /**\r\n     * @description Get if ped play anim\r\n     * @param {string} animDictionary\r\n     * @param {string} animationName\r\n     * @param {number} flag\r\n     * @returns {boolean}\r\n     * @constructor\r\n     */\r\n    IsPlayingAnim(animDictionary, animationName, flag = 3) {\r\n        return IsEntityPlayingAnim(this.id, animDictionary, animationName, flag);\r\n    }\r\n\r\n    /**\r\n     * @description Play animation on ped\r\n     * @param {string} animDictionary\r\n     * @param {string} animationName\r\n     * @param {function} callback\r\n     * @param {number} blendInSpeed\r\n     * @param {number} blendOutSpeed\r\n     * @param {number} duration\r\n     * @param {number} flag\r\n     * @param {number} playbackRate\r\n     * @param {boolean} lockX\r\n     * @param {boolean} lockY\r\n     * @param {boolean} lockZ\r\n     * @return {void}\r\n     */\r\n    TaskPlayAnim(animDictionary, animationName, duration = -1, flag = 0, callback, playbackRate = 0, blendInSpeed = 8.0, blendOutSpeed = 8.0, lockX = false, lockY = false, lockZ = false) {\r\n        if (DoesAnimDictExist(animDictionary)) {\r\n            RequestAnimDict(animDictionary);\r\n            let self = this;\r\n            let timer = setInterval(function () {\r\n                if (HasAnimDictLoaded(animDictionary)) {\r\n                    clearInterval(timer);\r\n                    if (duration === -1 && flag === 0) {\r\n                        duration = GetAnimDuration(animDictionary, animationName);\r\n                        setTimeout(function () {\r\n                            callback();\r\n                        }, duration * 1000);\r\n                    }\r\n                    TaskPlayAnim(self.id, animDictionary, animationName, blendInSpeed, blendOutSpeed, duration, flag, playbackRate, lockX, lockY, lockZ);\r\n                }\r\n            }, 10);\r\n        } else {\r\n            console.log(\"Anim \" + animDictionary + \" not exist !\");\r\n        }\r\n    }\r\n\r\n    /**\r\n     * @description Play animation on ped\r\n     * @param {string} animDictionary\r\n     * @param {string} animationName\r\n     * @param {number} posX\r\n     * @param {number} posY\r\n     * @param {number} posZ\r\n     * @param {number} rotX\r\n     * @param {number} rotY\r\n     * @param {number} rotZ\r\n     * @param {number} duration\r\n     * @param {number} flag\r\n     * @param {function} callback\r\n     * @param {number} speed\r\n     * @param {number} speedMultiplier\r\n     * @param {number} animTime\r\n     * @constructor\r\n     */\r\n    TaskPlayAnimAdvanced(animDictionary, animationName, posX, posY, posZ, rotX, rotY, rotZ, duration = -1, flag = 0, callback, speed = 8.0, speedMultiplier = 8.0, animTime = 0) {\r\n        if (DoesAnimDictExist(animDictionary)) {\r\n            RequestAnimDict(animDictionary);\r\n            let self = this;\r\n            let timer = setInterval(function () {\r\n                if (HasAnimDictLoaded(animDictionary)) {\r\n                    clearInterval(timer);\r\n                    if (duration === -1 && flag === 0) {\r\n                        duration = GetAnimDuration(animDictionary, animationName);\r\n                        setTimeout(function () {\r\n                            callback();\r\n                        }, duration * 1000);\r\n                    }\r\n                    TaskPlayAnimAdvanced(self.id, animDictionary, animationName, posX, posY, posZ, rotX, rotY, rotZ, speed, speedMultiplier, duration, flag, animTime);\r\n                }\r\n            }, 10);\r\n        } else {\r\n            console.log(\"Anim \" + animDictionary + \" not exist !\");\r\n        }\r\n    }\r\n\r\n    /**\r\n     * @description Clear primary tasks\r\n     */\r\n    ClearPrimaryTasks() {\r\n        ClearPedTasks(this.id);\r\n    }\r\n\r\n    /**\r\n     * @description Clear secondary tasks\r\n     */\r\n    ClearSecondaryTasks() {\r\n        ClearPedSecondaryTask(this.id);\r\n    }\r\n\r\n    /**\r\n     * @description Clear all tasks\r\n     */\r\n    ClearAllTasks() {\r\n        this.ClearPrimaryTasks();\r\n        this.ClearSecondaryTasks();\r\n    }\r\n\r\n    /**\r\n     *\r\n     * @param {function} callback\r\n     * @param {boolean} isNetwork\r\n     * @param {boolean} thisScriptCheck\r\n     * @constructor\r\n     */\r\n    Spawn(callback, isNetwork = false, thisScriptCheck = false) {\r\n        if (IsModelAPed(this._model)) {\r\n            let waiting = 0;\r\n            let self = this;\r\n            RequestModel(this._model);\r\n            let timer = setInterval(function () {\r\n                if (HasModelLoaded(self._model)) {\r\n                    clearInterval(timer);\r\n                    self.id = CreatePed(2, self._model, self._coords.x, self._coords.y, self._coords.z, self._heading, isNetwork, thisScriptCheck);\r\n                    SetModelAsNoLongerNeeded(self._model);\r\n                    callback(self.id);\r\n                }\r\n\r\n                if (waiting === 50) {\r\n                    clearInterval(timer);\r\n                    callback(false);\r\n                }\r\n                waiting++;\r\n            }, 20);\r\n\r\n        } else {\r\n            callback(false);\r\n        }\r\n    }\r\n}",
+    "content": "/*\r\n * @Project: FivemTools\r\n * @Author: Samuelds\r\n * @License: GNU General Public License v3.0\r\n * @Source: https://github.com/FivemTools/ft_core\r\n*/\r\n\r\nimport { Entity } from './';\r\n\r\n/**\r\n * Creates a new Entity.\r\n * @example\r\n * let ped = new Ped();\r\n */\r\nexport class Ped extends Entity {\r\n\r\n    /**\r\n     * @description Get ped id for player id\r\n     * @param {number} playerId\r\n     * @return {void}\r\n     */\r\n    GetPlayer(playerId) {\r\n        this.id = GetPlayerPed(playerId);\r\n    }\r\n\r\n    /**\r\n     * @description Set default component variation\r\n     * @return {void}\r\n     */\r\n    SetDefaultComponentVariation() {\r\n        SetPedDefaultComponentVariation(this.id);\r\n    }\r\n\r\n    /**\r\n     * @description Set component variation on a ped\r\n     * @param {number} componentId\r\n     * @param {number} drawableId\r\n     * @param {number} textureId\r\n     * @return {void}\r\n     */\r\n    SetComponentVariation(componentId, drawableId, textureId) {\r\n        SetPedComponentVariation(this.id, componentId, drawableId, textureId, 0);\r\n    }\r\n\r\n    /**\r\n     * @description Get if ped play anim\r\n     * @param {string} animDictionary\r\n     * @param {string} animationName\r\n     * @param {number} flag\r\n     * @returns {boolean}\r\n     * @constructor\r\n     */\r\n    IsPlayingAnim(animDictionary, animationName, flag = 3) {\r\n        return IsEntityPlayingAnim(this.id, animDictionary, animationName, flag);\r\n    }\r\n\r\n    /**\r\n     * @description Play animation on ped\r\n     * @param {string} animDictionary\r\n     * @param {string} animationName\r\n     * @param {function} callback\r\n     * @param {number} blendInSpeed\r\n     * @param {number} blendOutSpeed\r\n     * @param {number} duration\r\n     * @param {number} flag\r\n     * @param {number} playbackRate\r\n     * @param {boolean} lockX\r\n     * @param {boolean} lockY\r\n     * @param {boolean} lockZ\r\n     * @return {void}\r\n     */\r\n    TaskPlayAnim(animDictionary, animationName, duration = -1, flag = 0, callback, playbackRate = 0, blendInSpeed = 8.0, blendOutSpeed = 8.0, lockX = false, lockY = false, lockZ = false) {\r\n        if (DoesAnimDictExist(animDictionary)) {\r\n            RequestAnimDict(animDictionary);\r\n            let self = this;\r\n            let timer = setInterval(function () {\r\n                if (HasAnimDictLoaded(animDictionary)) {\r\n                    clearInterval(timer);\r\n                    if (duration === -1 && flag === 0) {\r\n                        duration = GetAnimDuration(animDictionary, animationName);\r\n                        setTimeout(function () {\r\n                            callback();\r\n                        }, duration * 1000);\r\n                    }\r\n                    TaskPlayAnim(self.id, animDictionary, animationName, blendInSpeed, blendOutSpeed, duration, flag, playbackRate, lockX, lockY, lockZ);\r\n                }\r\n            }, 10);\r\n        } else {\r\n            console.log(\"Anim \" + animDictionary + \" not exist !\");\r\n        }\r\n    }\r\n\r\n    /**\r\n     * @description Play animation on ped\r\n     * @param {string} animDictionary\r\n     * @param {string} animationName\r\n     * @param {number} posX\r\n     * @param {number} posY\r\n     * @param {number} posZ\r\n     * @param {number} rotX\r\n     * @param {number} rotY\r\n     * @param {number} rotZ\r\n     * @param {number} duration\r\n     * @param {number} flag\r\n     * @param {function} callback\r\n     * @param {number} speed\r\n     * @param {number} speedMultiplier\r\n     * @param {number} animTime\r\n     * @constructor\r\n     */\r\n    TaskPlayAnimAdvanced(animDictionary, animationName, posX, posY, posZ, rotX, rotY, rotZ, duration = -1, flag = 0, callback, speed = 8.0, speedMultiplier = 8.0, animTime = 0) {\r\n        if (DoesAnimDictExist(animDictionary)) {\r\n            RequestAnimDict(animDictionary);\r\n            let self = this;\r\n            let timer = setInterval(function () {\r\n                if (HasAnimDictLoaded(animDictionary)) {\r\n                    clearInterval(timer);\r\n                    if (duration === -1 && flag === 0) {\r\n                        duration = GetAnimDuration(animDictionary, animationName);\r\n                        setTimeout(function () {\r\n                            callback();\r\n                        }, duration * 1000);\r\n                    }\r\n                    TaskPlayAnimAdvanced(self.id, animDictionary, animationName, posX, posY, posZ, rotX, rotY, rotZ, speed, speedMultiplier, duration, flag, animTime);\r\n                }\r\n            }, 10);\r\n        } else {\r\n            console.log(\"Anim \" + animDictionary + \" not exist !\");\r\n        }\r\n    }\r\n\r\n    /**\r\n     * @description Clear primary tasks\r\n     */\r\n    ClearPrimaryTasks() {\r\n        ClearPedTasks(this.id);\r\n    }\r\n\r\n    /**\r\n     * @description Clear secondary tasks\r\n     */\r\n    ClearSecondaryTasks() {\r\n        ClearPedSecondaryTask(this.id);\r\n    }\r\n\r\n    /**\r\n     * @description Clear all tasks\r\n     */\r\n    ClearAllTasks() {\r\n        this.ClearPrimaryTasks();\r\n        this.ClearSecondaryTasks();\r\n    }\r\n\r\n    /**\r\n     *\r\n     * @param {function} callback\r\n     * @param {boolean} isNetwork\r\n     * @param {boolean} thisScriptCheck\r\n     * @constructor\r\n     */\r\n    Spawn(callback, isNetwork = false, thisScriptCheck = false) {\r\n        if (IsModelAPed(this._model)) {\r\n            let waiting = 0;\r\n            let self = this;\r\n            RequestModel(this._model);\r\n            let timer = setInterval(function () {\r\n                if (HasModelLoaded(self._model)) {\r\n                    clearInterval(timer);\r\n                    self.id = CreatePed(2, self._model, self._coords.x, self._coords.y, self._coords.z, self._heading, isNetwork, thisScriptCheck);\r\n                    SetModelAsNoLongerNeeded(self._model);\r\n                    callback(self.id);\r\n                }\r\n\r\n                if (waiting === 50) {\r\n                    clearInterval(timer);\r\n                    callback(false);\r\n                }\r\n                waiting++;\r\n            }, 20);\r\n\r\n        } else {\r\n            callback(false);\r\n        }\r\n    }\r\n}",
     "static": true,
     "longname": "D:/Projects/project-island/fivem/resources/[fivemtools]/ft_core/src/class/ped.class.js",
     "access": "public",
@@ -1604,28 +1615,28 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 95,
+    "__docId__": 96,
     "kind": "class",
     "name": "Ped",
     "memberof": "src/class/ped.class.js",
     "static": true,
     "longname": "src/class/ped.class.js~Ped",
     "access": "public",
-    "export": false,
+    "export": true,
     "importPath": "@fivemtools/ft_core/src/class/ped.class.js",
-    "importStyle": null,
+    "importStyle": "{Ped}",
     "description": "Creates a new Entity.",
     "examples": [
       "let ped = new Ped();"
     ],
-    "lineNumber": 13,
+    "lineNumber": 15,
     "interface": false,
     "extends": [
-      "Entity"
+      "src/class/.js~Entity"
     ]
   },
   {
-    "__docId__": 96,
+    "__docId__": 97,
     "kind": "method",
     "name": "GetPlayer",
     "memberof": "src/class/ped.class.js~Ped",
@@ -1635,7 +1646,7 @@
     "longname": "src/class/ped.class.js~Ped#GetPlayer",
     "access": "public",
     "description": "",
-    "lineNumber": 20,
+    "lineNumber": 22,
     "unknown": [
       {
         "tagName": "@description",
@@ -1664,7 +1675,7 @@
     }
   },
   {
-    "__docId__": 97,
+    "__docId__": 98,
     "kind": "member",
     "name": "id",
     "memberof": "src/class/ped.class.js~Ped",
@@ -1672,7 +1683,7 @@
     "longname": "src/class/ped.class.js~Ped#id",
     "access": "public",
     "description": null,
-    "lineNumber": 21,
+    "lineNumber": 23,
     "undocument": true,
     "type": {
       "types": [
@@ -1681,7 +1692,7 @@
     }
   },
   {
-    "__docId__": 98,
+    "__docId__": 99,
     "kind": "method",
     "name": "SetDefaultComponentVariation",
     "memberof": "src/class/ped.class.js~Ped",
@@ -1691,7 +1702,7 @@
     "longname": "src/class/ped.class.js~Ped#SetDefaultComponentVariation",
     "access": "public",
     "description": "",
-    "lineNumber": 28,
+    "lineNumber": 30,
     "unknown": [
       {
         "tagName": "@description",
@@ -1709,7 +1720,7 @@
     "params": []
   },
   {
-    "__docId__": 99,
+    "__docId__": 100,
     "kind": "method",
     "name": "SetComponentVariation",
     "memberof": "src/class/ped.class.js~Ped",
@@ -1719,7 +1730,7 @@
     "longname": "src/class/ped.class.js~Ped#SetComponentVariation",
     "access": "public",
     "description": "",
-    "lineNumber": 39,
+    "lineNumber": 41,
     "unknown": [
       {
         "tagName": "@description",
@@ -1768,7 +1779,7 @@
     }
   },
   {
-    "__docId__": 100,
+    "__docId__": 101,
     "kind": "method",
     "name": "IsPlayingAnim",
     "memberof": "src/class/ped.class.js~Ped",
@@ -1778,7 +1789,7 @@
     "longname": "src/class/ped.class.js~Ped#IsPlayingAnim",
     "access": "public",
     "description": "",
-    "lineNumber": 51,
+    "lineNumber": 53,
     "unknown": [
       {
         "tagName": "@description",
@@ -1835,7 +1846,7 @@
     }
   },
   {
-    "__docId__": 101,
+    "__docId__": 102,
     "kind": "method",
     "name": "TaskPlayAnim",
     "memberof": "src/class/ped.class.js~Ped",
@@ -1845,7 +1856,7 @@
     "longname": "src/class/ped.class.js~Ped#TaskPlayAnim",
     "access": "public",
     "description": "",
-    "lineNumber": 70,
+    "lineNumber": 72,
     "unknown": [
       {
         "tagName": "@description",
@@ -1974,7 +1985,7 @@
     }
   },
   {
-    "__docId__": 102,
+    "__docId__": 103,
     "kind": "method",
     "name": "TaskPlayAnimAdvanced",
     "memberof": "src/class/ped.class.js~Ped",
@@ -1984,7 +1995,7 @@
     "longname": "src/class/ped.class.js~Ped#TaskPlayAnimAdvanced",
     "access": "public",
     "description": "",
-    "lineNumber": 109,
+    "lineNumber": 111,
     "unknown": [
       {
         "tagName": "@description",
@@ -2140,7 +2151,7 @@
     "return": null
   },
   {
-    "__docId__": 103,
+    "__docId__": 104,
     "kind": "method",
     "name": "ClearPrimaryTasks",
     "memberof": "src/class/ped.class.js~Ped",
@@ -2150,7 +2161,7 @@
     "longname": "src/class/ped.class.js~Ped#ClearPrimaryTasks",
     "access": "public",
     "description": "",
-    "lineNumber": 133,
+    "lineNumber": 135,
     "unknown": [
       {
         "tagName": "@description",
@@ -2161,7 +2172,7 @@
     "return": null
   },
   {
-    "__docId__": 104,
+    "__docId__": 105,
     "kind": "method",
     "name": "ClearSecondaryTasks",
     "memberof": "src/class/ped.class.js~Ped",
@@ -2171,7 +2182,7 @@
     "longname": "src/class/ped.class.js~Ped#ClearSecondaryTasks",
     "access": "public",
     "description": "",
-    "lineNumber": 140,
+    "lineNumber": 142,
     "unknown": [
       {
         "tagName": "@description",
@@ -2182,7 +2193,7 @@
     "return": null
   },
   {
-    "__docId__": 105,
+    "__docId__": 106,
     "kind": "method",
     "name": "ClearAllTasks",
     "memberof": "src/class/ped.class.js~Ped",
@@ -2192,7 +2203,7 @@
     "longname": "src/class/ped.class.js~Ped#ClearAllTasks",
     "access": "public",
     "description": "",
-    "lineNumber": 147,
+    "lineNumber": 149,
     "unknown": [
       {
         "tagName": "@description",
@@ -2203,7 +2214,7 @@
     "return": null
   },
   {
-    "__docId__": 106,
+    "__docId__": 107,
     "kind": "method",
     "name": "Spawn",
     "memberof": "src/class/ped.class.js~Ped",
@@ -2213,7 +2224,7 @@
     "longname": "src/class/ped.class.js~Ped#Spawn",
     "access": "public",
     "description": "",
-    "lineNumber": 159,
+    "lineNumber": 161,
     "unknown": [
       {
         "tagName": "@constructor",
@@ -2255,10 +2266,3827 @@
     "return": null
   },
   {
-    "__docId__": 107,
+    "__docId__": 108,
+    "kind": "file",
+    "name": "src/class/vehicle.class.js",
+    "content": "/*\r\n * @Project: FivemTools\r\n * @Author: Samuelds\r\n * @License: GNU General Public License v3.0\r\n * @Source: https://github.com/FivemTools/ft_core\r\n*/\r\n\r\nimport { Entity } from \"./\";\r\n\r\n/**\r\n * Creates a new Vehicle.\r\n * @example\r\n * let vehicle = new Vehicle();\r\n */\r\nexport class Vehicle extends Entity {\r\n\r\n    constructor(){\r\n        this.windowsIndex = [\r\n            'window_lf',\r\n            'window_rf',\r\n            'window_lr',\r\n            'window_rr'\r\n        ];\r\n    }\r\n\r\n\r\n    /**\r\n     * @description Get body health\r\n     * @return {number}\r\n     */\r\n    get bodyHealth() {\r\n        this._bodyHealth = GetVehicleBodyHealth(this.id);\r\n        return this._bodyHealth;\r\n    }\r\n\r\n    /**\r\n     * @description Set body health\r\n     * @param {number} amount\r\n     * @return {void}\r\n     */\r\n    set bodyHealth(amount) {\r\n        this._bodyHealth = Number(amount);\r\n        SetVehicleBodyHealth(this.id, Number(amount));\r\n    }\r\n\r\n    /**\r\n     * @description Get class\r\n     * @return {string}\r\n     */\r\n    get class() {\r\n        if (this._class === undefined) {\r\n            this._class = GetVehicleClass(this.id);\r\n        }\r\n        return this._class;\r\n    }\r\n\r\n    /**\r\n     * @description Get colours\r\n     * @returns {object}\r\n     */\r\n    get colours() {\r\n        const colours = GetVehicleColours(this.id);\r\n        this._colours = { primary: colours[0], secondary: colours[1] };\r\n        return this._colours;\r\n    }\r\n\r\n    /**\r\n     * @description Set colours\r\n     * @param {object} colours\r\n     * @return {void}\r\n     */\r\n    set colours(colours) {\r\n        this._colours = colours;\r\n        SetVehicleColours(this.id, colours.primary, colours.secondary);\r\n    }\r\n\r\n    /**\r\n     * @description Get custom tires\r\n     * @return {boolean}\r\n     */\r\n    get customTires() {\r\n        return this._customTires;\r\n    }\r\n\r\n    /**\r\n     * @description Set custom tires\r\n     * @param value\r\n     */\r\n    set customTires(value) {\r\n        this._customTires = value;\r\n    }\r\n\r\n    /**\r\n     * @description Get dirt level\r\n     * @returns {number}\r\n     */\r\n    get dirtLevel() {\r\n        this._dirtLevel = GetVehicleDirtLevel(this.id);\r\n        return this._dirtLevel;\r\n    }\r\n\r\n    /**\r\n     * @description Set dirt level\r\n     * @param {number} level\r\n     * @return {void}\r\n     */\r\n    set dirtLevel(level) {\r\n        this._dirtLevel = Number(level);\r\n        SetVehicleDirtLevel(this.id, Number(level));\r\n    }\r\n\r\n    /**\r\n     * @description Return all doors\r\n     * @{*} {object}\r\n     */\r\n    get doors() {\r\n        return this._doors;\r\n    }\r\n\r\n    /**\r\n     * @description Set all doors\r\n     * @param {object} values\r\n     */\r\n    set doors(values) {\r\n        this._doors = values;\r\n    }\r\n\r\n    /**\r\n     * @description Get engine health\r\n     * @return {number}\r\n     */\r\n    get engineHealth() {\r\n        this._engineHealth = GetVehicleEngineHealth(this.id);\r\n        return this._engineHealth;\r\n    }\r\n\r\n    /**\r\n     * @description Set engine health\r\n     * @param {number} amount\r\n     * @return {void}\r\n     */\r\n    set engineHealth(amount) {\r\n        this._engineHealth = Number(amount);\r\n        SetVehicleEngineHealth(this.id, Number(amount));\r\n    }\r\n\r\n    /**\r\n     * @description Get engine is running\r\n     * @return {boolean}\r\n     */\r\n    get engineIsRunning() {\r\n        this._engineIsRunning = GetIsVehicleEngineRunning(this.id);\r\n        return this._engineIsRunning;\r\n    }\r\n\r\n    /**\r\n     * @description Set engine is running\r\n     * @param {boolean} status\r\n     * @return {void}\r\n     */\r\n    set engineIsRunning(status) {\r\n        this._engineIsRunning = Boolean(status);\r\n        SetVehicleEngineOn(this.id, this._engineIsRunning, true, true);\r\n    }\r\n\r\n    /**\r\n     * @description Get extra colours\r\n     * @returns {object}\r\n     */\r\n    get extraColours() {\r\n        const extraColours = GetVehicleExtraColours(this.id);\r\n        this._extraColours = { pearlescent: extraColours[0], wheel: extraColours[1] };\r\n        return this._extraColours;\r\n    }\r\n\r\n    /**\r\n     * @description Set extra colours\r\n     * @param {object} extraColours\r\n     * @return {void}\r\n     */\r\n    set extraColours(extraColours) {\r\n        this._extraColours = extraColours;\r\n        SetVehicleExtraColours(this.id, extraColours.pearlescent, extraColours.wheel);\r\n    }\r\n\r\n    /**\r\n     * @description Get Extras\r\n     * @return {object}\r\n     */\r\n    get extras() {\r\n        this._extras = {};\r\n        for (let index = 0; index < 14; index++) {\r\n            this._extras[index] = Boolean(this.IsVehicleExtraTurnedOn(index));\r\n        }\r\n        return this._extras;\r\n    }\r\n\r\n    /**\r\n     * @description Set extras\r\n     * @param {object} values\r\n     * @return {void}\r\n     */\r\n    set extras(values) {\r\n        this._extras[values.extra] = values.state;\r\n        SetVehicleExtra(this.id, values.extra, values.state);\r\n    }\r\n\r\n    /**\r\n     * @description Get fuel level\r\n     * @{*} {number}\r\n     */\r\n    get fuelLevel() {\r\n        this._fuelLevel = GetVehicleFuelLevel(this.id);\r\n        return this._fuelLevel;\r\n    }\r\n\r\n    /**\r\n     * @description Set fuel level\r\n     * @param {number} amount\r\n     * @return {void}\r\n     */\r\n    set fuelLevel(amount) {\r\n        this._fuelLevel = Number(amount);\r\n        SetVehicleFuelLevel(this.id, this._fuelLevel);\r\n    }\r\n\r\n    /**\r\n     * @description Set light multiplier\r\n     * @param {number} amount\r\n     * @return {void}\r\n     */\r\n    set lightMultiplier(amount) {\r\n        this._lightMultiplier = Number(amount);\r\n        SetVehicleLightMultiplier(this.id, this._lightMultiplier);\r\n    }\r\n\r\n    /**\r\n     * @description Get lights\r\n     * @return {object}\r\n     */\r\n    get lights() {\r\n        const state = GetVehicleLightsState(this.id);\r\n        this._lights = state[1] + state[2];\r\n        return this._lights;\r\n    }\r\n\r\n    /**\r\n     * TODO\r\n     */\r\n    /*set lights(state) {\r\n        this._lights = state;\r\n        if (this._lights === 2) {\r\n            SetVehicleLights(this.id, 2);\r\n            SetVehicleFullbeam(this.id, true);\r\n            this.lightsMode = 0;\r\n        } else if (this._lights === 1) {\r\n            SetVehicleLights(this.id, 2);\r\n            this.lightsMode = 0;\r\n        } else {\r\n            SetVehicleLights(this.id, 0);\r\n        }\r\n    }*/\r\n\r\n    /**\r\n     * @description Set lights mode\r\n     * @param {number} amount\r\n     * @return {void}\r\n     */\r\n    set lightsMode(amount) {\r\n        this._lightsMode = Number(amount);\r\n        SetVehicleLightsMode(this.id, this._lightsMode);\r\n    }\r\n\r\n    /**\r\n     * @description Get livery\r\n     * @return {number}\r\n     */\r\n    get livery() {\r\n        this._livery = GetVehicleLivery(this.id);\r\n        return this._livery;\r\n    }\r\n\r\n    /**\r\n     * @description Set livery\r\n     * @param {number} value\r\n     * @return {void}\r\n     */\r\n    set livery(value) {\r\n        this._livery = value;\r\n        SetVehicleLivery(this.id, value);\r\n    }\r\n\r\n    /**\r\n     * @description Get look status\r\n     * @{*} {boolean}\r\n     */\r\n    get lookStatus() {\r\n        this._lookStatus = GetVehicleDoorLockStatus(this.id);\r\n        return this._lookStatus;\r\n    }\r\n\r\n    /**\r\n     * @description Set look status\r\n     * @param status\r\n     */\r\n    set lookStatus(status) {\r\n        this._lookStatus = Boolean(status);\r\n        SetVehicleDoorsLocked(this.id, Boolean(status));\r\n    }\r\n\r\n    /**\r\n     * @description Get mod color 1\r\n     * @returns {object}\r\n     */\r\n    get modColor1() {\r\n        const color = GetVehicleModColor_1(this.id);\r\n        this._modColor1 = { paintType: color[0], color: color[1], pearlescent: color[2] };\r\n        return this._modColor1;\r\n    }\r\n\r\n    /**\r\n     * @description Set mod color 1\r\n     * @param {object} color\r\n     * @return {void}\r\n     */\r\n    set modColor1(color) {\r\n        this._modColor1 = color;\r\n        SetVehicleModColor_1(this.id, color.paintType, color.color, color.pearlescent);\r\n    }\r\n\r\n    /**\r\n     * @description Get mod color 2\r\n     * @return {object}\r\n     */\r\n    get modColor2() {\r\n        const color = GetVehicleModColor_2(this.id);\r\n        this._modColor2 = { paintType: color[0], color: color[1] };\r\n        return this._modColor2;\r\n    }\r\n\r\n    /**\r\n     * @description Set mod color 2\r\n     * @param {object} color\r\n     * @return {void}\r\n     */\r\n    set modColor2(color) {\r\n        this._modColor2 = color;\r\n        SetVehicleModColor_2(this.id, color.paintType, color.color);\r\n    }\r\n\r\n    /**\r\n     * @description Get neon colour\r\n     * @return {object}\r\n     */\r\n    get neonColour() {\r\n        const colours = GetVehicleNeonLightsColour(this.id);\r\n        this._neonColour = { red: colours[0], green: colours[1], blue: colours[2] };\r\n        return this._neonColour;\r\n    }\r\n\r\n    /**\r\n     * @description Set neon colour\r\n     * @param {object} colour\r\n     */\r\n    set neonColour(colour) {\r\n        this._neonColour = colour;\r\n        SetVehicleNeonLightsColour(this.id, colour.red, colour.green, colour.blue);\r\n    }\r\n\r\n    /**\r\n     * @description Get petrol tank health\r\n     * @return {number}\r\n     */\r\n    get petrolTankHealth() {\r\n        this._petrolTankHealth = GetVehiclePetrolTankHealth(this.id);\r\n        return this._petrolTankHealth;\r\n    }\r\n\r\n    /**\r\n     * @description Set petrol tank health\r\n     * @param {number} amount\r\n     * @return {void}\r\n     */\r\n    set petrolTankHealth(amount) {\r\n        this._petrolTankHealth = Number(amount);\r\n        SetVehiclePetrolTankHealth(this.id, this._petrolTankHealth);\r\n    }\r\n\r\n    /**\r\n     * @description Get plate style\r\n     * @returns {number}\r\n     */\r\n    get plateStyle() {\r\n        this._plateStyle = GetVehicleNumberPlateTextIndex(this.id);\r\n        return this._plateStyle;\r\n    }\r\n\r\n    /**\r\n     * @description Set plate style\r\n     * @param style\r\n     * @return {void}\r\n     */\r\n    set plateStyle(style) {\r\n        this._plateStyle = Number(style);\r\n        SetVehicleNumberPlateTextIndex(this.id, this._plateStyle);\r\n    }\r\n\r\n    /**\r\n     * @description Get plate text\r\n     * @returns {string}\r\n     */\r\n    get plateText() {\r\n        this._plateText = GetVehicleNumberPlateText(this.id);\r\n        return this._plateText;\r\n    }\r\n\r\n    /**\r\n     * @description Set plate text\r\n     * @param {string} text\r\n     * @return {void}\r\n     */\r\n    set plateText(text) {\r\n        this._plateText = text;\r\n        SetVehicleNumberPlateText(this.id, this._plateText);\r\n    }\r\n\r\n    /**\r\n     * @description Get primary colour\r\n     * @returns {object}\r\n     */\r\n    get primaryColour() {\r\n        const color = GetVehicleCustomPrimaryColour(this.id);\r\n        this._primaryColour = {red: color[0], green: color[1], blue: color[2]};\r\n        return this._primaryColour;\r\n    }\r\n\r\n    /**\r\n     * @description Set primary colour\r\n     * @param {object} colour\r\n     * @return {void}\r\n     */\r\n    set primaryColour(colour) {\r\n        this._primaryColour = colour;\r\n        SetVehicleCustomPrimaryColour(this.id, colour.red, colour.green, colour.blue);\r\n    }\r\n\r\n    /**\r\n     * @description Get secondary colour\r\n     * @returns {object}\r\n     */\r\n    get secondaryColour() {\r\n        const colour = GetVehicleCustomSecondaryColour(this.id);\r\n        this._secondaryColour = {red: colour[0], green: colour[1], blue: colour[2]};\r\n        return this._secondaryColour;\r\n    }\r\n\r\n    /**\r\n     * @description Set secondary colour\r\n     * @param {object} colour\r\n     * @return {void}\r\n     */\r\n    set secondaryColour(colour) {\r\n        this._secondaryColour = colour;\r\n        SetVehicleCustomSecondaryColour(this.id, colour.red, colour.green, colour.blue);\r\n    }\r\n\r\n    /**\r\n     * @description Get is siren is On\r\n     * @returns {boolean}\r\n     */\r\n    get siren() {\r\n        this._siren = IsVehicleSirenOn(this.id);\r\n        return this._siren;\r\n    }\r\n\r\n    /**\r\n     * @description Get is siren is On\r\n     * @param {boolean} status\r\n     * @returns {void}\r\n     */\r\n    set siren(status) {\r\n        this._siren = status;\r\n        SetVehicleSiren(this.id, status);\r\n    }\r\n\r\n    /**\r\n     * @description Get traier\r\n     * @return {number}\r\n     */\r\n    get trailer() {\r\n        const trailer = GetVehicleTrailerVehicle(this.id);\r\n        this._trailer = trailer[1];\r\n        return this._trailer;\r\n    }\r\n\r\n    /**\r\n     * @description Set trailler\r\n     * @param {number} trailerId\r\n     * @return {void}\r\n     */\r\n    set trailer(trailerId) {\r\n        this._trailer = trailerId;\r\n        AttachVehicleToTrailer(this.id, trailerId);\r\n    }\r\n\r\n    /**\r\n     * @description Get tyre smoke color\r\n     * @return {object}\r\n     */\r\n    get tyreSmokeColor() {\r\n        const color = GetVehicleTyreSmokeColor(this.id);\r\n        this._tyreSmoke = { red: color[0], green: color[1], blue: color[2] };\r\n        return this._tyreSmoke;\r\n    }\r\n\r\n    /**\r\n     * @description Set tyre smoke color\r\n     * @param {object} color\r\n     */\r\n    set tyreSmokeColor(color) {\r\n        this._tyreSmoke = color;\r\n        SetVehicleTyreSmokeColor(this.id, color.red, color.green, color.blue);\r\n    }\r\n\r\n    /**\r\n     * @description Get wheel type\r\n     * @returns {number}\r\n     */\r\n    get wheelType() {\r\n        this._wheelType = GetVehicleWheelType(this.id);\r\n        return this._wheelType;\r\n    }\r\n\r\n    /**\r\n     * @description Set wheel type\r\n     * @param {number} type\r\n     * @return {number}\r\n     */\r\n    set wheelType(type) {\r\n        this._wheelType = type;\r\n        SetVehicleWheelType(this.id, type);\r\n    }\r\n\r\n    /**\r\n     * @description Get window tint\r\n     * @return {number}\r\n     */\r\n    get windowTint() {\r\n        this._windowTint = GetVehicleWindowTint(this.id);\r\n        return this._windowTint;\r\n    }\r\n\r\n    /**\r\n     * @description Set window tint\r\n     * @param value\r\n     */\r\n    set windowTint(value) {\r\n        this._windowTint = value;\r\n        SetVehicleWindowTint(this.id, value);\r\n    }\r\n\r\n    /**\r\n     * @description Get all door state\r\n     * @return {object}\r\n     */\r\n    GetAllDoorState() {\r\n        this._doors = {};\r\n        for (let index = 0; index < this.GetNumberDoors(); index++) {\r\n            this.GetDoorState(index);\r\n        }\r\n        return this._doors;\r\n    }\r\n\r\n    /**\r\n     * @description Set multiple door state\r\n     * @param {object} states\r\n     * @return {void}\r\n     */\r\n    SetAllDoorsState(states) {\r\n        for (let index in states) {\r\n            this.SetDoorState(index, states[index]);\r\n        }\r\n    }\r\n\r\n    /**\r\n     * @description Get all mods\r\n     * @return {object}\r\n     */\r\n    GetAllMod() {\r\n        for (let index = 0; index < 49; index++) {\r\n            this.GetMod(index);\r\n        }\r\n        return this._mod;\r\n    }\r\n\r\n    /**\r\n     * @description Set multiple mods\r\n     * @param {object} status\r\n     * @return {void}\r\n     */\r\n    SetAllMod(status) {\r\n        for (let index in status) {\r\n            this.SetMod(index, status[index]);\r\n        }\r\n    }\r\n\r\n    /**\r\n     * @description Get all neon light\r\n     * @return {object}\r\n     */\r\n    GetAllNeonLight() {\r\n        for (let index = 0; index < 3; index++) {\r\n            this.GetNeonLight(index);\r\n        }\r\n        return this._neonLight;\r\n    }\r\n\r\n    /**\r\n     * @description Set multiple neon light\r\n     * @param {object} status\r\n     * @return {void}\r\n     */\r\n    SetAllNeonLight(status) {\r\n        for (let index in status) {\r\n            this.SetNeonLight(index, status[index]);\r\n        }\r\n    }\r\n\r\n    /**\r\n     * @description Get all tyre burst bone\r\n     * @return {object}\r\n     */\r\n    GetAllTyreBurst() {\r\n        this._tyreBurst = {};\r\n\r\n        const tireIndex = {\r\n            \"wheel_lf\": 0,\r\n            \"wheel_rf\": 1,\r\n            \"wheel_lm1\": 2,\r\n            \"wheel_rm1\": 3,\r\n            \"wheel_lr\": 4,\r\n            \"wheel_rr\": 5,\r\n            \"wheel_lm2\": 45,\r\n            \"wheel_rm2\": 47,\r\n            \"wheel_lm3\": 46,\r\n            \"wheel_rm3\": 48,\r\n        };\r\n\r\n        for (let index in tireIndex) {\r\n            if (GetEntityBoneIndexByName(this.id, index) !== -1 && IsVehicleTyreBurst(this.id, tireIndex[index], false)) {\r\n                this._tyreBurst[tireIndex[index]] = true;\r\n            }\r\n        }\r\n\r\n        return this._tyreBurst;\r\n    }\r\n\r\n    /**\r\n     * @description Set tyre burst\r\n     * @param {number} index\r\n     * @param {boolean} state\r\n     * @param {number} p3\r\n     */\r\n    SetTyreBurst(index, state, p3 = 1000.0) {\r\n        if (this._tyreBurst === undefined) {\r\n            this._tyreBurst = {};\r\n        }\r\n        SetVehicleTyreBurst(this.id, Number(index), Boolean(state), p3);\r\n        this._tyreBurst[Number(index)] = Boolean(state);\r\n    }\r\n\r\n    /**\r\n     * @description Get all window state\r\n     * @return {object}\r\n     */\r\n    GetAllWindowState() {\r\n        this.__windows = {};\r\n\r\n        for (let index in this.windowsIndex) {\r\n            this.GetWindowIsIntact(index);\r\n        }\r\n\r\n        return this.__windows;\r\n    }\r\n\r\n    /**\r\n     * @description return door angle\r\n     * @param {number} index\r\n     * @return {number}\r\n     */\r\n    GetDoorAngleRatio(index) {\r\n        return GetVehicleDoorAngleRatio(this.id, Number(index));\r\n    }\r\n\r\n    /**\r\n     * @description Get door state\r\n     * @param {number} index\r\n     * @return {number}\r\n     */\r\n    GetDoorState(index) {\r\n        if (this._doors === undefined) {\r\n            this._doors = {};\r\n        }\r\n\r\n        let door;\r\n        if (this.IsDoorDamaged(index)) {\r\n            door = -1;\r\n        } else {\r\n            door = this.GetDoorAngleRatio(index);\r\n        }\r\n\r\n        this._doors[Number(index)] = door;\r\n        return door;\r\n    }\r\n\r\n    /**\r\n     * @description Set door state\r\n     * @param {number} index\r\n     * @param {number} state\r\n     * @return {void}\r\n     */\r\n    SetDoorState(index, state) {\r\n        if (this._doors === undefined) {\r\n            this._doors = {};\r\n        }\r\n\r\n        if (Number(state) === -1) {\r\n            this.SetDoorBroken(index, true);\r\n        } else if (Number(state) === 0) {\r\n            this.SetDoorShut(index, true);\r\n        } else {\r\n            this.SetDoorOpen(index, false, true);\r\n            let self = this;\r\n            setTimeout(function () {\r\n                self.SetDoorLatched(index, false, true);\r\n            }, 100);\r\n        }\r\n        this._doors[Number(index)] = state;\r\n    }\r\n\r\n    /**\r\n     * @description Get specific mod\r\n     * @param {number} index\r\n     * @return {object}\r\n     */\r\n    GetMod(index) {\r\n        if (this._mod === undefined) {\r\n            this._mod = {};\r\n        }\r\n\r\n        if (index >= 17 && index <= 22) {\r\n            this._mod[Number(index)] = Boolean(IsToggleModOn(this.id, Number(index)));\r\n        } else {\r\n            this._mod[Number(index)] = GetVehicleMod(this.id, Number(index));\r\n        }\r\n        return this._mod;\r\n    }\r\n\r\n    /**\r\n     * @description Set specific mod\r\n     * @param {number} type\r\n     * @param {number} index\r\n     * @return {void}\r\n     */\r\n    SetMod(type, index) {\r\n        if (this._mod === undefined) {\r\n            this._mod = {};\r\n            SetVehicleModKit(this.id, 0);\r\n        }\r\n\r\n        if (this._customTires === undefined) {\r\n            this._customTires = false;\r\n        }\r\n\r\n        // Convert string to number\r\n        if (Number(type) >= 17 && Number(type) <= 22) {\r\n            ToggleVehicleMod(this.id, Number(type), Boolean(index));\r\n            this._mod[Number(type)] = Boolean(index);\r\n        } else {\r\n            SetVehicleMod(this.id, Number(type), Number(index), this._customTires);\r\n            this._mod[Number(type)] = Number(index);\r\n        }\r\n    }\r\n\r\n    /**\r\n     * @description Get neon light\r\n     * @param {number} index\r\n     * @return {void}\r\n     */\r\n    GetNeonLight(index) {\r\n        if (this._neonLight === undefined) {\r\n            this._neonLight = {};\r\n        }\r\n        this._neonLight[index] = Boolean(IsVehicleNeonLightEnabled(this.id, index));\r\n    }\r\n\r\n    /**\r\n     * @description Set neon light\r\n     * @param {number} index\r\n     * @param {boolean} state\r\n     * @return {void}\r\n     */\r\n    SetNeonLight(index, state) {\r\n        if (this._neonLight === undefined) {\r\n            this._neonLight = {};\r\n        }\r\n        this._neonLight[Number(index)] = Boolean(state);\r\n        SetVehicleNeonLightEnabled(this.id, Number(index), Boolean(state));\r\n    }\r\n\r\n    /**\r\n     * @description Get number doors\r\n     * @return {number}\r\n     */\r\n    GetNumberDoors() {\r\n        if (this._maxDoors === undefined) {\r\n            this._maxDoors = GetNumberOfVehicleDoors(this.id);\r\n        }\r\n        return this._maxDoors;\r\n    }\r\n\r\n    /**\r\n     * @description return neon light is enabled\r\n     * @param {number} index\r\n     * @return {boolean}\r\n     */\r\n    IsNeonLightEnabled(index) {\r\n        return Boolean(IsVehicleNeonLightEnabled(this.id, Boolean(index)));\r\n    }\r\n\r\n    /**\r\n     * @description return if door id damaged\r\n     * @param {number} index\r\n     * @return {boolean}\r\n     */\r\n    IsDoorDamaged(index) {\r\n        return IsVehicleDoorDamaged(this.id, Number(index));\r\n    }\r\n\r\n    /**\r\n     * @description Is vehicle extra turned on\r\n     * @param {number} index\r\n     * @return {boolean}\r\n     */\r\n    IsVehicleExtraTurnedOn(index) {\r\n        return IsVehicleExtraTurnedOn(this.id, index);\r\n    }\r\n\r\n    /**\r\n     * @description Set door is broken\r\n     * @param {number} index\r\n     * @param {boolean} remove\r\n     * @return {void}\r\n     */\r\n    SetDoorBroken(index, remove) {\r\n        SetVehicleDoorBroken(this.id, Number(index), Boolean(remove));\r\n        this._doors[Number(index)] = -1;\r\n    }\r\n\r\n    /**\r\n     * @description Set door shut\r\n     * @param {number} index\r\n     * @param {boolean} instantly\r\n     * @return {void}\r\n     */\r\n    SetDoorShut(index, instantly) {\r\n        SetVehicleDoorShut(this.id, Number(index), Boolean(instantly));\r\n        this._doors[Number(index)] = 0;\r\n    }\r\n\r\n    /**\r\n     * @description Set door open\r\n     * @param {number} index\r\n     * @param {boolean} loose\r\n     * @param {boolean} instantly\r\n     * @return {void}\r\n     */\r\n    SetDoorOpen(index, loose, instantly) {\r\n        SetVehicleDoorOpen(this.id, Number(index), Boolean(loose), Boolean(instantly));\r\n    }\r\n\r\n    /**\r\n     * @description Set door control\r\n     * @param {number} index\r\n     * @param {number} speed\r\n     * @param {number} angle\r\n     * @return {void}\r\n     */\r\n    SetDoorControl(index, speed, angle) {\r\n        SetVehicleDoorControl(this.id, Number(index), Number(speed), Number(angle));\r\n    }\r\n\r\n    /**\r\n     * @description Set door control\r\n     * @param {number} index\r\n     * @param {boolean} force\r\n     * @param {boolean} lock\r\n     * @return {void}\r\n     */\r\n    SetDoorLatched(index, force, lock) {\r\n        SetVehicleDoorLatched(this.id, Number(index), Boolean(force), Boolean(lock));\r\n    }\r\n\r\n    /**\r\n     * @description Set multiple tyre burst\r\n     * @param {object} states\r\n     */\r\n    SetAllTyreBurst(states) {\r\n        for (let index in states) {\r\n            this.SetTyreBurst(index, states[index]);\r\n        }\r\n    }\r\n\r\n\r\n\r\n    /**\r\n     * @description Get is widows is intact\r\n     * @param {number} index\r\n     * @returns {boolean}\r\n     */\r\n    GetWindowIsIntact(index) {\r\n        if (this.__windows === undefined) {\r\n            this.__windows = {};\r\n        }\r\n\r\n        const windowName = this.windowsIndex[index];\r\n        if (GetEntityBoneIndexByName(this.id, windowName) !== -1) {\r\n            this.__windows[windowName] = Boolean(IsVehicleWindowIntact(this.id, Number(index)));\r\n            return this.__windows[windowName];\r\n        } else {\r\n            return false;\r\n        }\r\n    }\r\n\r\n    /**\r\n     * @description Smash window\r\n     * @param {number} index\r\n     * @return {void}\r\n     */\r\n    SmashWindow(index) {\r\n        SmashVehicleWindow(this.id, Number(index));\r\n        this.__windows[Number(index)] = false;\r\n    }\r\n\r\n    /**\r\n     * @description Set multiple window state\r\n     * @param {object} states\r\n     */\r\n    SetAllWindowState(states) {\r\n        if (this.__windows === undefined) {\r\n            this.__windows = {};\r\n        }\r\n\r\n        for (let window in states) {\r\n            if (states[window] === false) {\r\n                for (let index in this.windowsIndex) {\r\n                    if (this.windowsIndex[index] === window) {\r\n                        this.SmashWindow(index);\r\n                        break;\r\n                    }\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n    /**\r\n     * @description Get vehicle id for ped\r\n     * @param {number} pedId\r\n     * @return {number}\r\n     */\r\n    GetVehiclePed(pedId) {\r\n        return this.id = GetVehiclePedIsUsing(pedId);\r\n    }\r\n\r\n    /**\r\n     * @description Spawn\r\n     * @param {function} callback\r\n     * @param {boolean} isNetwork\r\n     * @param {boolean} thisScriptCheck\r\n     * @return {void}\r\n     */\r\n    Spawn(callback, isNetwork = false, thisScriptCheck = false) {\r\n        if (IsModelAVehicle(this._model)) {\r\n\r\n            let waiting = 0;\r\n            let self = this;\r\n            RequestModel(this._model);\r\n            let timer = setInterval(function () {\r\n                if (HasModelLoaded(self._model)) {\r\n                    clearInterval(timer);\r\n                    self.id = CreateVehicle(self._model, self._coords.x, self._coords.y, self._coords.z, self._heading, isNetwork, thisScriptCheck);\r\n\r\n                    const exclude = [\"id\", \"_model\", \"_coords\", \"_heading\", \"_networkId\", \"_mod\", \"_neonLight\", \"_doors\", \"_tyreBurst\", \"__windows\"];\r\n                    for (let key in self) {\r\n                        if (!exclude.includes(key)) {\r\n                            self[key.substring(1)] = self[key];\r\n                        }\r\n                    }\r\n\r\n                    if (self._mod !== undefined) {\r\n                        SetVehicleModKit(self.id, 0);\r\n                        self.SetAllMod(self._mod);\r\n                    }\r\n\r\n                    if (self._neonLight !== undefined) {\r\n                        self.SetAllNeonLight(self._neonLight);\r\n                    }\r\n\r\n                    if (self._doors !== undefined) {\r\n                        self.SetAllDoorsState(self._doors);\r\n                    }\r\n\r\n                    if (self._tyreBurst !== undefined) {\r\n                        self.SetAllTyreBurst(self._tyreBurst);\r\n                    }\r\n\r\n                    if (self.__windows !== undefined) {\r\n                        self.SetAllWindowState(self.__windows);\r\n                    }\r\n\r\n                    SetModelAsNoLongerNeeded(self._model);\r\n                    callback(self.id);\r\n                }\r\n\r\n                if (waiting === 50) {\r\n                    clearInterval(timer);\r\n                    callback(false);\r\n                }\r\n                waiting++;\r\n            }, 20);\r\n\r\n        } else {\r\n            callback(false);\r\n        }\r\n    }\r\n}",
+    "static": true,
+    "longname": "D:/Projects/project-island/fivem/resources/[fivemtools]/ft_core/src/class/vehicle.class.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 109,
+    "kind": "class",
+    "name": "Vehicle",
+    "memberof": "src/class/vehicle.class.js",
+    "static": true,
+    "longname": "src/class/vehicle.class.js~Vehicle",
+    "access": "public",
+    "export": true,
+    "importPath": "@fivemtools/ft_core/src/class/vehicle.class.js",
+    "importStyle": "{Vehicle}",
+    "description": "Creates a new Vehicle.",
+    "examples": [
+      "let vehicle = new Vehicle();"
+    ],
+    "lineNumber": 15,
+    "interface": false,
+    "extends": [
+      "src/class/.js~Entity"
+    ]
+  },
+  {
+    "__docId__": 110,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 17,
+    "undocument": true
+  },
+  {
+    "__docId__": 111,
+    "kind": "member",
+    "name": "windowsIndex",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#windowsIndex",
+    "access": "public",
+    "description": null,
+    "lineNumber": 18,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string[]"
+      ]
+    }
+  },
+  {
+    "__docId__": 112,
+    "kind": "get",
+    "name": "bodyHealth",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#bodyHealth",
+    "access": "public",
+    "description": "",
+    "lineNumber": 31,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Get body health"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "number"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 113,
+    "kind": "member",
+    "name": "_bodyHealth",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#_bodyHealth",
+    "access": "private",
+    "description": null,
+    "lineNumber": 32,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 114,
+    "kind": "set",
+    "name": "bodyHealth",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#bodyHealth",
+    "access": "public",
+    "description": "",
+    "lineNumber": 41,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Set body health"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "amount",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 116,
+    "kind": "get",
+    "name": "class",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#class",
+    "access": "public",
+    "description": "",
+    "lineNumber": 50,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Get class"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 117,
+    "kind": "member",
+    "name": "_class",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#_class",
+    "access": "private",
+    "description": null,
+    "lineNumber": 52,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 118,
+    "kind": "get",
+    "name": "colours",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#colours",
+    "access": "public",
+    "description": "",
+    "lineNumber": 61,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Get colours"
+      },
+      {
+        "tagName": "@returns",
+        "tagValue": "{object}"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "object"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 119,
+    "kind": "member",
+    "name": "_colours",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#_colours",
+    "access": "private",
+    "description": null,
+    "lineNumber": 63,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"primary\": *, \"secondary\": *}"
+      ]
+    }
+  },
+  {
+    "__docId__": 120,
+    "kind": "set",
+    "name": "colours",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#colours",
+    "access": "public",
+    "description": "",
+    "lineNumber": 72,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Set colours"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "colours",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 122,
+    "kind": "get",
+    "name": "customTires",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#customTires",
+    "access": "public",
+    "description": "",
+    "lineNumber": 81,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Get custom tires"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "boolean"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 123,
+    "kind": "set",
+    "name": "customTires",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#customTires",
+    "access": "public",
+    "description": "",
+    "lineNumber": 89,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Set custom tires"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "value",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 124,
+    "kind": "member",
+    "name": "_customTires",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#_customTires",
+    "access": "private",
+    "description": null,
+    "lineNumber": 90,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 125,
+    "kind": "get",
+    "name": "dirtLevel",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#dirtLevel",
+    "access": "public",
+    "description": "",
+    "lineNumber": 97,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Get dirt level"
+      },
+      {
+        "tagName": "@returns",
+        "tagValue": "{number}"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "number"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 126,
+    "kind": "member",
+    "name": "_dirtLevel",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#_dirtLevel",
+    "access": "private",
+    "description": null,
+    "lineNumber": 98,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 127,
+    "kind": "set",
+    "name": "dirtLevel",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#dirtLevel",
+    "access": "public",
+    "description": "",
+    "lineNumber": 107,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Set dirt level"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "level",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 129,
+    "kind": "get",
+    "name": "doors",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#doors",
+    "access": "public",
+    "description": "",
+    "lineNumber": 116,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Return all doors\n@{*} {object}"
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 130,
+    "kind": "set",
+    "name": "doors",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#doors",
+    "access": "public",
+    "description": "",
+    "lineNumber": 124,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Set all doors"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "values",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 131,
+    "kind": "member",
+    "name": "_doors",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#_doors",
+    "access": "private",
+    "description": null,
+    "lineNumber": 125,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 132,
+    "kind": "get",
+    "name": "engineHealth",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#engineHealth",
+    "access": "public",
+    "description": "",
+    "lineNumber": 132,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Get engine health"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "number"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 133,
+    "kind": "member",
+    "name": "_engineHealth",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#_engineHealth",
+    "access": "private",
+    "description": null,
+    "lineNumber": 133,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 134,
+    "kind": "set",
+    "name": "engineHealth",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#engineHealth",
+    "access": "public",
+    "description": "",
+    "lineNumber": 142,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Set engine health"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "amount",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 136,
+    "kind": "get",
+    "name": "engineIsRunning",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#engineIsRunning",
+    "access": "public",
+    "description": "",
+    "lineNumber": 151,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Get engine is running"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "boolean"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 137,
+    "kind": "member",
+    "name": "_engineIsRunning",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#_engineIsRunning",
+    "access": "private",
+    "description": null,
+    "lineNumber": 152,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 138,
+    "kind": "set",
+    "name": "engineIsRunning",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#engineIsRunning",
+    "access": "public",
+    "description": "",
+    "lineNumber": 161,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Set engine is running"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "boolean"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "status",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 140,
+    "kind": "get",
+    "name": "extraColours",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#extraColours",
+    "access": "public",
+    "description": "",
+    "lineNumber": 170,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Get extra colours"
+      },
+      {
+        "tagName": "@returns",
+        "tagValue": "{object}"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "object"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 141,
+    "kind": "member",
+    "name": "_extraColours",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#_extraColours",
+    "access": "private",
+    "description": null,
+    "lineNumber": 172,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"pearlescent\": *, \"wheel\": *}"
+      ]
+    }
+  },
+  {
+    "__docId__": 142,
+    "kind": "set",
+    "name": "extraColours",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#extraColours",
+    "access": "public",
+    "description": "",
+    "lineNumber": 181,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Set extra colours"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "extraColours",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 144,
+    "kind": "get",
+    "name": "extras",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#extras",
+    "access": "public",
+    "description": "",
+    "lineNumber": 190,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Get Extras"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "object"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 145,
+    "kind": "member",
+    "name": "_extras",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#_extras",
+    "access": "private",
+    "description": null,
+    "lineNumber": 191,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{}"
+      ]
+    }
+  },
+  {
+    "__docId__": 146,
+    "kind": "set",
+    "name": "extras",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#extras",
+    "access": "public",
+    "description": "",
+    "lineNumber": 203,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Set extras"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "values",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 147,
+    "kind": "get",
+    "name": "fuelLevel",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#fuelLevel",
+    "access": "public",
+    "description": "",
+    "lineNumber": 212,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Get fuel level\n@{*} {number}"
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 148,
+    "kind": "member",
+    "name": "_fuelLevel",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#_fuelLevel",
+    "access": "private",
+    "description": null,
+    "lineNumber": 213,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 149,
+    "kind": "set",
+    "name": "fuelLevel",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#fuelLevel",
+    "access": "public",
+    "description": "",
+    "lineNumber": 222,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Set fuel level"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "amount",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 151,
+    "kind": "set",
+    "name": "lightMultiplier",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#lightMultiplier",
+    "access": "public",
+    "description": "",
+    "lineNumber": 232,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Set light multiplier"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "amount",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 152,
+    "kind": "member",
+    "name": "_lightMultiplier",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#_lightMultiplier",
+    "access": "private",
+    "description": null,
+    "lineNumber": 233,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 153,
+    "kind": "get",
+    "name": "lights",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#lights",
+    "access": "public",
+    "description": "",
+    "lineNumber": 241,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Get lights"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "object"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 154,
+    "kind": "member",
+    "name": "_lights",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#_lights",
+    "access": "private",
+    "description": null,
+    "lineNumber": 243,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 155,
+    "kind": "set",
+    "name": "lightsMode",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#lightsMode",
+    "access": "public",
+    "description": "",
+    "lineNumber": 269,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Set lights mode"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "amount",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 156,
+    "kind": "member",
+    "name": "_lightsMode",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#_lightsMode",
+    "access": "private",
+    "description": null,
+    "lineNumber": 270,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 157,
+    "kind": "get",
+    "name": "livery",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#livery",
+    "access": "public",
+    "description": "",
+    "lineNumber": 278,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Get livery"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "number"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 158,
+    "kind": "member",
+    "name": "_livery",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#_livery",
+    "access": "private",
+    "description": null,
+    "lineNumber": 279,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 159,
+    "kind": "set",
+    "name": "livery",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#livery",
+    "access": "public",
+    "description": "",
+    "lineNumber": 288,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Set livery"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "value",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 161,
+    "kind": "get",
+    "name": "lookStatus",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#lookStatus",
+    "access": "public",
+    "description": "",
+    "lineNumber": 297,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Get look status\n@{*} {boolean}"
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 162,
+    "kind": "member",
+    "name": "_lookStatus",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#_lookStatus",
+    "access": "private",
+    "description": null,
+    "lineNumber": 298,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 163,
+    "kind": "set",
+    "name": "lookStatus",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#lookStatus",
+    "access": "public",
+    "description": "",
+    "lineNumber": 306,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Set look status"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "status",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 165,
+    "kind": "get",
+    "name": "modColor1",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#modColor1",
+    "access": "public",
+    "description": "",
+    "lineNumber": 315,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Get mod color 1"
+      },
+      {
+        "tagName": "@returns",
+        "tagValue": "{object}"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "object"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 166,
+    "kind": "member",
+    "name": "_modColor1",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#_modColor1",
+    "access": "private",
+    "description": null,
+    "lineNumber": 317,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"paintType\": *, \"color\": *, \"pearlescent\": *}"
+      ]
+    }
+  },
+  {
+    "__docId__": 167,
+    "kind": "set",
+    "name": "modColor1",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#modColor1",
+    "access": "public",
+    "description": "",
+    "lineNumber": 326,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Set mod color 1"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "color",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 169,
+    "kind": "get",
+    "name": "modColor2",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#modColor2",
+    "access": "public",
+    "description": "",
+    "lineNumber": 335,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Get mod color 2"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "object"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 170,
+    "kind": "member",
+    "name": "_modColor2",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#_modColor2",
+    "access": "private",
+    "description": null,
+    "lineNumber": 337,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"paintType\": *, \"color\": *}"
+      ]
+    }
+  },
+  {
+    "__docId__": 171,
+    "kind": "set",
+    "name": "modColor2",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#modColor2",
+    "access": "public",
+    "description": "",
+    "lineNumber": 346,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Set mod color 2"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "color",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 173,
+    "kind": "get",
+    "name": "neonColour",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#neonColour",
+    "access": "public",
+    "description": "",
+    "lineNumber": 355,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Get neon colour"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "object"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 174,
+    "kind": "member",
+    "name": "_neonColour",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#_neonColour",
+    "access": "private",
+    "description": null,
+    "lineNumber": 357,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"red\": *, \"green\": *, \"blue\": *}"
+      ]
+    }
+  },
+  {
+    "__docId__": 175,
+    "kind": "set",
+    "name": "neonColour",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#neonColour",
+    "access": "public",
+    "description": "",
+    "lineNumber": 365,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Set neon colour"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "colour",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 177,
+    "kind": "get",
+    "name": "petrolTankHealth",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#petrolTankHealth",
+    "access": "public",
+    "description": "",
+    "lineNumber": 374,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Get petrol tank health"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "number"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 178,
+    "kind": "member",
+    "name": "_petrolTankHealth",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#_petrolTankHealth",
+    "access": "private",
+    "description": null,
+    "lineNumber": 375,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 179,
+    "kind": "set",
+    "name": "petrolTankHealth",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#petrolTankHealth",
+    "access": "public",
+    "description": "",
+    "lineNumber": 384,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Set petrol tank health"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "amount",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 181,
+    "kind": "get",
+    "name": "plateStyle",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#plateStyle",
+    "access": "public",
+    "description": "",
+    "lineNumber": 393,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Get plate style"
+      },
+      {
+        "tagName": "@returns",
+        "tagValue": "{number}"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "number"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 182,
+    "kind": "member",
+    "name": "_plateStyle",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#_plateStyle",
+    "access": "private",
+    "description": null,
+    "lineNumber": 394,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 183,
+    "kind": "set",
+    "name": "plateStyle",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#plateStyle",
+    "access": "public",
+    "description": "",
+    "lineNumber": 403,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Set plate style"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "style",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 185,
+    "kind": "get",
+    "name": "plateText",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#plateText",
+    "access": "public",
+    "description": "",
+    "lineNumber": 412,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Get plate text"
+      },
+      {
+        "tagName": "@returns",
+        "tagValue": "{string}"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 186,
+    "kind": "member",
+    "name": "_plateText",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#_plateText",
+    "access": "private",
+    "description": null,
+    "lineNumber": 413,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 187,
+    "kind": "set",
+    "name": "plateText",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#plateText",
+    "access": "public",
+    "description": "",
+    "lineNumber": 422,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Set plate text"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "text",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 189,
+    "kind": "get",
+    "name": "primaryColour",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#primaryColour",
+    "access": "public",
+    "description": "",
+    "lineNumber": 431,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Get primary colour"
+      },
+      {
+        "tagName": "@returns",
+        "tagValue": "{object}"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "object"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 190,
+    "kind": "member",
+    "name": "_primaryColour",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#_primaryColour",
+    "access": "private",
+    "description": null,
+    "lineNumber": 433,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"red\": *, \"green\": *, \"blue\": *}"
+      ]
+    }
+  },
+  {
+    "__docId__": 191,
+    "kind": "set",
+    "name": "primaryColour",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#primaryColour",
+    "access": "public",
+    "description": "",
+    "lineNumber": 442,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Set primary colour"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "colour",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 193,
+    "kind": "get",
+    "name": "secondaryColour",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#secondaryColour",
+    "access": "public",
+    "description": "",
+    "lineNumber": 451,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Get secondary colour"
+      },
+      {
+        "tagName": "@returns",
+        "tagValue": "{object}"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "object"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 194,
+    "kind": "member",
+    "name": "_secondaryColour",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#_secondaryColour",
+    "access": "private",
+    "description": null,
+    "lineNumber": 453,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"red\": *, \"green\": *, \"blue\": *}"
+      ]
+    }
+  },
+  {
+    "__docId__": 195,
+    "kind": "set",
+    "name": "secondaryColour",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#secondaryColour",
+    "access": "public",
+    "description": "",
+    "lineNumber": 462,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Set secondary colour"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "colour",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 197,
+    "kind": "get",
+    "name": "siren",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#siren",
+    "access": "public",
+    "description": "",
+    "lineNumber": 471,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Get is siren is On"
+      },
+      {
+        "tagName": "@returns",
+        "tagValue": "{boolean}"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "boolean"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 198,
+    "kind": "member",
+    "name": "_siren",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#_siren",
+    "access": "private",
+    "description": null,
+    "lineNumber": 472,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 199,
+    "kind": "set",
+    "name": "siren",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#siren",
+    "access": "public",
+    "description": "",
+    "lineNumber": 481,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Get is siren is On"
+      },
+      {
+        "tagName": "@returns",
+        "tagValue": "{void}"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "boolean"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "status",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 201,
+    "kind": "get",
+    "name": "trailer",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#trailer",
+    "access": "public",
+    "description": "",
+    "lineNumber": 490,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Get traier"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "number"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 202,
+    "kind": "member",
+    "name": "_trailer",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#_trailer",
+    "access": "private",
+    "description": null,
+    "lineNumber": 492,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 203,
+    "kind": "set",
+    "name": "trailer",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#trailer",
+    "access": "public",
+    "description": "",
+    "lineNumber": 501,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Set trailler"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "trailerId",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 205,
+    "kind": "get",
+    "name": "tyreSmokeColor",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#tyreSmokeColor",
+    "access": "public",
+    "description": "",
+    "lineNumber": 510,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Get tyre smoke color"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "object"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 206,
+    "kind": "member",
+    "name": "_tyreSmoke",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#_tyreSmoke",
+    "access": "private",
+    "description": null,
+    "lineNumber": 512,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"red\": *, \"green\": *, \"blue\": *}"
+      ]
+    }
+  },
+  {
+    "__docId__": 207,
+    "kind": "set",
+    "name": "tyreSmokeColor",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#tyreSmokeColor",
+    "access": "public",
+    "description": "",
+    "lineNumber": 520,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Set tyre smoke color"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "color",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 209,
+    "kind": "get",
+    "name": "wheelType",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#wheelType",
+    "access": "public",
+    "description": "",
+    "lineNumber": 529,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Get wheel type"
+      },
+      {
+        "tagName": "@returns",
+        "tagValue": "{number}"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "number"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 210,
+    "kind": "member",
+    "name": "_wheelType",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#_wheelType",
+    "access": "private",
+    "description": null,
+    "lineNumber": 530,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 211,
+    "kind": "set",
+    "name": "wheelType",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#wheelType",
+    "access": "public",
+    "description": "",
+    "lineNumber": 539,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Set wheel type"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "type",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "number"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 213,
+    "kind": "get",
+    "name": "windowTint",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#windowTint",
+    "access": "public",
+    "description": "",
+    "lineNumber": 548,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Get window tint"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "number"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 214,
+    "kind": "member",
+    "name": "_windowTint",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#_windowTint",
+    "access": "private",
+    "description": null,
+    "lineNumber": 549,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 215,
+    "kind": "set",
+    "name": "windowTint",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#windowTint",
+    "access": "public",
+    "description": "",
+    "lineNumber": 557,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Set window tint"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "value",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 217,
+    "kind": "method",
+    "name": "GetAllDoorState",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#GetAllDoorState",
+    "access": "public",
+    "description": "",
+    "lineNumber": 566,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Get all door state"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "object"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "params": []
+  },
+  {
+    "__docId__": 219,
+    "kind": "method",
+    "name": "SetAllDoorsState",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#SetAllDoorsState",
+    "access": "public",
+    "description": "",
+    "lineNumber": 579,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Set multiple door state"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "states",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 220,
+    "kind": "method",
+    "name": "GetAllMod",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#GetAllMod",
+    "access": "public",
+    "description": "",
+    "lineNumber": 589,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Get all mods"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "object"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "params": []
+  },
+  {
+    "__docId__": 221,
+    "kind": "method",
+    "name": "SetAllMod",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#SetAllMod",
+    "access": "public",
+    "description": "",
+    "lineNumber": 601,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Set multiple mods"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "status",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 222,
+    "kind": "method",
+    "name": "GetAllNeonLight",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#GetAllNeonLight",
+    "access": "public",
+    "description": "",
+    "lineNumber": 611,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Get all neon light"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "object"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "params": []
+  },
+  {
+    "__docId__": 223,
+    "kind": "method",
+    "name": "SetAllNeonLight",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#SetAllNeonLight",
+    "access": "public",
+    "description": "",
+    "lineNumber": 623,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Set multiple neon light"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "status",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 224,
+    "kind": "method",
+    "name": "GetAllTyreBurst",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#GetAllTyreBurst",
+    "access": "public",
+    "description": "",
+    "lineNumber": 633,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Get all tyre burst bone"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "object"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "params": []
+  },
+  {
+    "__docId__": 225,
+    "kind": "member",
+    "name": "_tyreBurst",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#_tyreBurst",
+    "access": "private",
+    "description": null,
+    "lineNumber": 634,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{}"
+      ]
+    }
+  },
+  {
+    "__docId__": 226,
+    "kind": "method",
+    "name": "SetTyreBurst",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#SetTyreBurst",
+    "access": "public",
+    "description": "",
+    "lineNumber": 664,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Set tyre burst"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "index",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "boolean"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "state",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "p3",
+        "description": ""
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 228,
+    "kind": "method",
+    "name": "GetAllWindowState",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#GetAllWindowState",
+    "access": "public",
+    "description": "",
+    "lineNumber": 676,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Get all window state"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "object"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "params": []
+  },
+  {
+    "__docId__": 229,
+    "kind": "member",
+    "name": "__windows",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#__windows",
+    "access": "private",
+    "description": null,
+    "lineNumber": 677,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{}"
+      ]
+    }
+  },
+  {
+    "__docId__": 230,
+    "kind": "method",
+    "name": "GetDoorAngleRatio",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#GetDoorAngleRatio",
+    "access": "public",
+    "description": "",
+    "lineNumber": 691,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "return door angle"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "index",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "number"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 231,
+    "kind": "method",
+    "name": "GetDoorState",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#GetDoorState",
+    "access": "public",
+    "description": "",
+    "lineNumber": 700,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Get door state"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "index",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "number"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 233,
+    "kind": "method",
+    "name": "SetDoorState",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#SetDoorState",
+    "access": "public",
+    "description": "",
+    "lineNumber": 722,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Set door state"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "index",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "state",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 235,
+    "kind": "method",
+    "name": "GetMod",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#GetMod",
+    "access": "public",
+    "description": "",
+    "lineNumber": 746,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Get specific mod"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "index",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "object"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 236,
+    "kind": "member",
+    "name": "_mod",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#_mod",
+    "access": "private",
+    "description": null,
+    "lineNumber": 748,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{}"
+      ]
+    }
+  },
+  {
+    "__docId__": 237,
+    "kind": "method",
+    "name": "SetMod",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#SetMod",
+    "access": "public",
+    "description": "",
+    "lineNumber": 765,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Set specific mod"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "type",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "index",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 240,
+    "kind": "method",
+    "name": "GetNeonLight",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#GetNeonLight",
+    "access": "public",
+    "description": "",
+    "lineNumber": 790,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Get neon light"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "index",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 241,
+    "kind": "member",
+    "name": "_neonLight",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#_neonLight",
+    "access": "private",
+    "description": null,
+    "lineNumber": 792,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{}"
+      ]
+    }
+  },
+  {
+    "__docId__": 242,
+    "kind": "method",
+    "name": "SetNeonLight",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#SetNeonLight",
+    "access": "public",
+    "description": "",
+    "lineNumber": 803,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Set neon light"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "index",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "boolean"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "state",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 244,
+    "kind": "method",
+    "name": "GetNumberDoors",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#GetNumberDoors",
+    "access": "public",
+    "description": "",
+    "lineNumber": 815,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Get number doors"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "number"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "params": []
+  },
+  {
+    "__docId__": 245,
+    "kind": "member",
+    "name": "_maxDoors",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#_maxDoors",
+    "access": "private",
+    "description": null,
+    "lineNumber": 817,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 246,
+    "kind": "method",
+    "name": "IsNeonLightEnabled",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#IsNeonLightEnabled",
+    "access": "public",
+    "description": "",
+    "lineNumber": 827,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "return neon light is enabled"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "index",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "boolean"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 247,
+    "kind": "method",
+    "name": "IsDoorDamaged",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#IsDoorDamaged",
+    "access": "public",
+    "description": "",
+    "lineNumber": 836,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "return if door id damaged"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "index",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "boolean"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 248,
+    "kind": "method",
+    "name": "IsVehicleExtraTurnedOn",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#IsVehicleExtraTurnedOn",
+    "access": "public",
+    "description": "",
+    "lineNumber": 845,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Is vehicle extra turned on"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "index",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "boolean"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 249,
+    "kind": "method",
+    "name": "SetDoorBroken",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#SetDoorBroken",
+    "access": "public",
+    "description": "",
+    "lineNumber": 855,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Set door is broken"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "index",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "boolean"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "remove",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 250,
+    "kind": "method",
+    "name": "SetDoorShut",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#SetDoorShut",
+    "access": "public",
+    "description": "",
+    "lineNumber": 866,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Set door shut"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "index",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "boolean"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "instantly",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 251,
+    "kind": "method",
+    "name": "SetDoorOpen",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#SetDoorOpen",
+    "access": "public",
+    "description": "",
+    "lineNumber": 878,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Set door open"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "index",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "boolean"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "loose",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "boolean"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "instantly",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 252,
+    "kind": "method",
+    "name": "SetDoorControl",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#SetDoorControl",
+    "access": "public",
+    "description": "",
+    "lineNumber": 889,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Set door control"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "index",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "speed",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "angle",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 253,
+    "kind": "method",
+    "name": "SetDoorLatched",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#SetDoorLatched",
+    "access": "public",
+    "description": "",
+    "lineNumber": 900,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Set door control"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "index",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "boolean"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "force",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "boolean"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "lock",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 254,
+    "kind": "method",
+    "name": "SetAllTyreBurst",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#SetAllTyreBurst",
+    "access": "public",
+    "description": "",
+    "lineNumber": 908,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Set multiple tyre burst"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "states",
+        "description": ""
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 255,
+    "kind": "method",
+    "name": "GetWindowIsIntact",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#GetWindowIsIntact",
+    "access": "public",
+    "description": "",
+    "lineNumber": 921,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Get is widows is intact"
+      },
+      {
+        "tagName": "@returns",
+        "tagValue": "{boolean}"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "index",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "boolean"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 257,
+    "kind": "method",
+    "name": "SmashWindow",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#SmashWindow",
+    "access": "public",
+    "description": "",
+    "lineNumber": 940,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Smash window"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "index",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 258,
+    "kind": "method",
+    "name": "SetAllWindowState",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#SetAllWindowState",
+    "access": "public",
+    "description": "",
+    "lineNumber": 949,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Set multiple window state"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "states",
+        "description": ""
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 260,
+    "kind": "method",
+    "name": "GetVehiclePed",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#GetVehiclePed",
+    "access": "public",
+    "description": "",
+    "lineNumber": 971,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Get vehicle id for ped"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "pedId",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "number"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 261,
+    "kind": "method",
+    "name": "Spawn",
+    "memberof": "src/class/vehicle.class.js~Vehicle",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/class/vehicle.class.js~Vehicle#Spawn",
+    "access": "public",
+    "description": "",
+    "lineNumber": 982,
+    "unknown": [
+      {
+        "tagName": "@description",
+        "tagValue": "Spawn"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "callback",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "boolean"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "isNetwork",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "boolean"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "thisScriptCheck",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "void"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 262,
+    "kind": "file",
+    "name": "src/index.js",
+    "content": "export * from \"./class\"\r\nexport * from \"./load.client\"",
+    "static": true,
+    "longname": "D:/Projects/project-island/fivem/resources/[fivemtools]/ft_core/src/index.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 263,
     "kind": "file",
     "name": "src/load.client.js",
-    "content": "//\r\n// @Project: FivemTools\r\n// @Author: Samuelds\r\n// @License: GNU General Public License v3.0\r\n// @Source: https://github.com/FivemTools/ft_core\r\n//\r\n\r\nlet _onReady = [];\r\n\r\n/**\r\n * @description Add function to run on client ready\r\n * @param {function} callback\r\n * @return {void}\r\n */\r\nfunction OnClientReady(callback) {\r\n    _onReady.push(callback);\r\n}\r\n\r\nconst _loadingClientTimer = setInterval(function () {\r\n    if (NetworkIsSessionStarted()) {\r\n        clearInterval(_loadingClientTimer);\r\n        _onReady.forEach(function (callback) {\r\n            callback();\r\n        })\r\n    }\r\n}, 10);\r\n\r\n// Event send by spawn manager\r\nRegisterServerEvent('playerSpawned');\r\nAddEventHandler('playerSpawned', function () {\r\n    TriggerServerEvent('ft_core:playerSpawned');\r\n});",
+    "content": "//\r\n// @Project: FivemTools\r\n// @Author: Samuelds\r\n// @License: GNU General Public License v3.0\r\n// @Source: https://github.com/FivemTools/ft_core\r\n//\r\n\r\nlet _onReady = [];\r\n\r\n/**\r\n * @description Add function to run on client ready\r\n * @param {function} callback\r\n * @return {void}\r\n */\r\nexport function OnClientReady(callback) {\r\n    _onReady.push(callback);\r\n}\r\n\r\nconst _loadingClientTimer = setInterval(function () {\r\n    if (NetworkIsSessionStarted()) {\r\n        clearInterval(_loadingClientTimer);\r\n        _onReady.forEach(function (callback) {\r\n            callback();\r\n        })\r\n    }\r\n}, 10);\r\n\r\n// Event send by spawn manager\r\nRegisterServerEvent('playerSpawned');\r\nAddEventHandler('playerSpawned', function () {\r\n    TriggerServerEvent('ft_core:playerSpawned');\r\n});",
     "static": true,
     "longname": "D:/Projects/project-island/fivem/resources/[fivemtools]/ft_core/src/load.client.js",
     "access": "public",
@@ -2266,7 +6094,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 108,
+    "__docId__": 264,
     "kind": "variable",
     "name": "_onReady",
     "memberof": "src/load.client.js",
@@ -2286,7 +6114,7 @@
     }
   },
   {
-    "__docId__": 109,
+    "__docId__": 265,
     "kind": "function",
     "name": "OnClientReady",
     "memberof": "src/load.client.js",
@@ -2295,9 +6123,9 @@
     "static": true,
     "longname": "src/load.client.js~OnClientReady",
     "access": "public",
-    "export": false,
+    "export": true,
     "importPath": "@fivemtools/ft_core/src/load.client.js",
-    "importStyle": null,
+    "importStyle": "{OnClientReady}",
     "description": "",
     "lineNumber": 15,
     "unknown": [
@@ -2328,7 +6156,7 @@
     }
   },
   {
-    "__docId__": 110,
+    "__docId__": 266,
     "kind": "variable",
     "name": "_loadingClientTimer",
     "memberof": "src/load.client.js",
@@ -2349,7 +6177,7 @@
   },
   {
     "kind": "index",
-    "content": "# ft_core\r\nTo create resources on FiveM\r\n\r\n### Prerequisites\r\n\r\nNothing\r\n\r\n### Installing\r\n\r\nPut the folder where you want it and add it to the server.cfg file :\r\n\r\nExample:\r\n\r\n```\r\nstart ft_core\r\n```\r\n\r\nor put in to dependencies in __resource.lua :\r\n\r\n```\r\ndependency 'ft_core'\r\n\r\nor\r\n\r\ndependencies {\r\n  ...\r\n  'ft_core',\r\n  ...\r\n}\r\n\r\n```\r\n\r\n### Documentation\r\n\r\n[Online](https://fivemtools-core.readme.io/v1.0/)\r\n\r\n## License\r\n\r\nThis project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details\r\n\r\n## Contributors :\r\n\r\n- Samuelds\r\n- LH-Lawliet\r\n- THEJean-Kevin",
+    "content": "# ft_core\r\nTo create resources on FiveM\r\n\r\n### Prerequisites\r\n\r\n* [Nodejs](https://nodejs.org/)\r\n\r\n### Installing\r\n\r\nCopy `exemple` directory and run `npm install`\r\n\r\n### Documentation\r\n\r\n- Online : https://ft_core.fivem.tools\r\n- Local : `docs` directory\r\n\r\n## License\r\n\r\nThis project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details\r\n\r\n## Contributors :\r\n\r\n- Samuelds\r\n- THEJean-Kevin\r\n- LH-Lawliet",
     "longname": "D:\\Projects\\project-island\\fivem\\resources\\[fivemtools]\\ft_core\\README.md",
     "name": "./README.md",
     "static": true,
@@ -2357,7 +6185,7 @@
   },
   {
     "kind": "packageJSON",
-    "content": "{\n  \"name\": \"@fivemtools/ft_core\",\n  \"version\": \"1.1.3\",\n  \"description\": \"Libs for Fivem\",\n  \"main\": \"index.js\",\n  \"directories\": {\n    \"doc\": \"docs\"\n  },\n  \"dependencies\": {},\n  \"devDependencies\": {\n    \"esdoc\": \"^1.1.0\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"esdoc-es7-plugin\": \"^0.0.3\"\n  },\n  \"scripts\": {\n    \"test\": \"echo \\\"Error: no test specified\\\" && exit 1\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git+https://github.com/FivemTools/ft_core.git\"\n  },\n  \"author\": \"samuelds\",\n  \"license\": \"GPL-3.0\",\n  \"bugs\": {\n    \"url\": \"https://github.com/FivemTools/ft_core/issues\"\n  },\n  \"homepage\": \"https://github.com/FivemTools/ft_core#readme\"\n}\n",
+    "content": "{\r\n  \"name\": \"@fivemtools/ft_core\",\r\n  \"version\": \"1.2.0\",\r\n  \"description\": \"Libs for Fivem\",\r\n  \"main\": \"src/index.js\",\r\n  \"directories\": {\r\n    \"doc\": \"docs\"\r\n  },\r\n  \"dependencies\": {},\r\n  \"devDependencies\": {\r\n    \"esdoc\": \"^1.1.0\",\r\n    \"esdoc-standard-plugin\": \"^1.0.0\",\r\n    \"esdoc-es7-plugin\": \"^0.0.3\"\r\n  },\r\n  \"scripts\": {\r\n    \"test\": \"echo \\\"Error: no test specified\\\" && exit 1\"\r\n  },\r\n  \"repository\": {\r\n    \"type\": \"git\",\r\n    \"url\": \"git+https://github.com/FivemTools/ft_core.git\"\r\n  },\r\n  \"author\": \"fivemtools\",\r\n  \"license\": \"GPL-3.0\",\r\n  \"bugs\": {\r\n    \"url\": \"https://github.com/FivemTools/ft_core/issues\"\r\n  },\r\n  \"homepage\": \"https://ft_core.fivem.tools\",\r\n  \"files\": [\r\n    \"src/**/*\"\r\n  ]\r\n}\r\n",
     "longname": "D:\\Projects\\project-island\\fivem\\resources\\[fivemtools]\\ft_core\\package.json",
     "name": "package.json",
     "static": true,
