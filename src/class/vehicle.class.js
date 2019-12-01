@@ -13,17 +13,6 @@
 class Vehicle extends Entity {
 
     /**
-     * @description Get class
-     * @return {string}
-     */
-    get class() {
-        if (this._class === undefined) {
-            this._class = GetVehicleClass(this.id);
-        }
-        return this._class;
-    }
-
-    /**
      * @description Get body health
      * @return {number}
      */
@@ -40,6 +29,88 @@ class Vehicle extends Entity {
     set bodyHealth(amount) {
         this._bodyHealth = Number(amount);
         SetVehicleBodyHealth(this.id, Number(amount));
+    }
+
+    /**
+     * @description Get class
+     * @return {string}
+     */
+    get class() {
+        if (this._class === undefined) {
+            this._class = GetVehicleClass(this.id);
+        }
+        return this._class;
+    }
+
+    /**
+     * @description Get colours
+     * @returns {object}
+     */
+    get colours() {
+        const colours = GetVehicleColours(this.id);
+        this._colours = { primary: colours[0], secondary: colours[1] };
+        return this._colours;
+    }
+
+    /**
+     * @description Set colours
+     * @param {object} colours
+     * @return {void}
+     */
+    set colours(colours) {
+        this._colours = colours;
+        SetVehicleColours(this.id, colours.primary, colours.secondary);
+    }
+
+    /**
+     * @description Get custom tires
+     * @return {boolean}
+     */
+    get customTires() {
+        return this._customTires;
+    }
+
+    /**
+     * @description Set custom tires
+     * @param value
+     */
+    set customTires(value) {
+        this._customTires = value;
+    }
+
+    /**
+     * @description Get dirt level
+     * @returns {number}
+     */
+    get dirtLevel() {
+        this._dirtLevel = GetVehicleDirtLevel(this.id);
+        return this._dirtLevel;
+    }
+
+    /**
+     * @description Set dirt level
+     * @param {number} level
+     * @return {void}
+     */
+    set dirtLevel(level) {
+        this._dirtLevel = Number(level);
+        SetVehicleDirtLevel(this.id, Number(level));
+    }
+
+    /**
+     * @description Return all doors
+     * @{*} {object}
+     */
+    get doors() {
+        return this._doors;
+    }
+
+    /**
+     * @description Set all doors
+     * @param {object} values
+     */
+    set doors(values) {
+        this._doors = values;
     }
 
     /**
@@ -81,22 +152,74 @@ class Vehicle extends Entity {
     }
 
     /**
-     * @description Get petrol tank health
-     * @return {number}
+     * @description Get extra colours
+     * @returns {object}
      */
-    get petrolTankHealth() {
-        this._petrolTankHealth = GetVehiclePetrolTankHealth(this.id);
-        return this._petrolTankHealth;
+    get extraColours() {
+        const extraColours = GetVehicleExtraColours(this.id);
+        this._extraColours = { pearlescent: extraColours[0], wheel: extraColours[1] };
+        return this._extraColours;
     }
 
     /**
-     * @description Set petrol tank health
+     * @description Set extra colours
+     * @param {object} extraColours
+     * @return {void}
+     */
+    set extraColours(extraColours) {
+        this._extraColours = extraColours;
+        SetVehicleExtraColours(this.id, extraColours.pearlescent, extraColours.wheel);
+    }
+
+    /**
+     * @description Get Extras
+     * @return {object}
+     */
+    get extras() {
+        this._extras = {};
+        for (let index = 0; index < 14; index++) {
+            this._extras[index] = Boolean(this.IsVehicleExtraTurnedOn(index));
+        }
+        return this._extras;
+    }
+
+    /**
+     * @description Set extras
+     * @param {object} values
+     * @return {void}
+     */
+    set extras(values) {
+        this._extras[values.extra] = values.state;
+        SetVehicleExtra(this.id, values.extra, values.state);
+    }
+
+    /**
+     * @description Get fuel level
+     * @{*} {number}
+     */
+    get fuelLevel() {
+        this._fuelLevel = GetVehicleFuelLevel(this.id);
+        return this._fuelLevel;
+    }
+
+    /**
+     * @description Set fuel level
      * @param {number} amount
      * @return {void}
      */
-    set petrolTankHealth(amount) {
-        this._petrolTankHealth = Number(amount);
-        SetVehiclePetrolTankHealth(this.id, this._petrolTankHealth);
+    set fuelLevel(amount) {
+        this._fuelLevel = Number(amount);
+        SetVehicleFuelLevel(this.id, this._fuelLevel);
+    }
+
+    /**
+     * @description Set light multiplier
+     * @param {number} amount
+     * @return {void}
+     */
+    set lightMultiplier(amount) {
+        this._lightMultiplier = Number(amount);
+        SetVehicleLightMultiplier(this.id, this._lightMultiplier);
     }
 
     /**
@@ -137,105 +260,22 @@ class Vehicle extends Entity {
     }
 
     /**
-     * @description Set light multiplier
-     * @param {number} amount
+     * @description Get livery
+     * @return {number}
+     */
+    get livery() {
+        this._livery = GetVehicleLivery(this.id);
+        return this._livery;
+    }
+
+    /**
+     * @description Set livery
+     * @param {number} value
      * @return {void}
      */
-    set lightMultiplier(amount) {
-        this._lightMultiplier = Number(amount);
-        SetVehicleLightMultiplier(this.id, this._lightMultiplier);
-    }
-
-    /**
-     * @description Get neon light
-     * @param {number} index
-     * @return {void}
-     */
-    GetNeonLight(index) {
-        if (this._neonLight === undefined) {
-            this._neonLight = {};
-        }
-        this._neonLight[index] = Boolean(IsVehicleNeonLightEnabled(this.id, index));
-    }
-
-    /**
-     * @description Get all neon light
-     * @return {object}
-     */
-    GetAllNeonLight() {
-        for (let index = 0; index < 3; index++) {
-            this.GetNeonLight(index);
-        }
-        return this._neonLight;
-    }
-
-    /**
-     * @description return neon light is enabled
-     * @param {number} index
-     * @return {boolean}
-     */
-    IsNeonLightEnabled(index) {
-        return Boolean(IsVehicleNeonLightEnabled(this.id, Boolean(index)));
-    }
-
-    /**
-     * @description Set neon light
-     * @param {number} index
-     * @param {boolean} state
-     * @return {void}
-     */
-    SetNeonLight(index, state) {
-        if (this._neonLight === undefined) {
-            this._neonLight = {};
-        }
-        this._neonLight[Number(index)] = Boolean(state);
-        SetVehicleNeonLightEnabled(this.id, Number(index), Boolean(state));
-    }
-
-    /**
-     * @description Set multiple neon light
-     * @param {object} status
-     * @return {void}
-     */
-    SetAllNeonLight(status) {
-        for (let index in status) {
-            this.SetNeonLight(index, status[index]);
-        }
-    }
-
-    /**
-     * @description Get neon colour
-     * @return {object}
-     */
-    get neonColour() {
-        const colours = GetVehicleNeonLightsColour(this.id);
-        this._neonColour = { red: colours[0], green: colours[1], blue: colours[2] };
-        return this._neonColour;
-    }
-
-    /**
-     * @description Set neon colour
-     * @param {object} colour
-     */
-    set neonColour(colour) {
-        this._neonColour = colour;
-        SetVehicleNeonLightsColour(this.id, colour.red, colour.green, colour.blue);
-    }
-
-    /**
-     * @description Return all doors
-     * @{*} {object}
-     */
-    get doors() {
-        return this._doors;
-    }
-
-    /**
-     * @description Set all doors
-     * @param {object} values
-     */
-    set doors(values) {
-        this._doors = values;
+    set livery(value) {
+        this._livery = value;
+        SetVehicleLivery(this.id, value);
     }
 
     /**
@@ -254,181 +294,6 @@ class Vehicle extends Entity {
     set lookStatus(status) {
         this._lookStatus = Boolean(status);
         SetVehicleDoorsLocked(this.id, Boolean(status));
-    }
-
-    /**
-     * @description Get fuel level
-     * @{*} {number}
-     */
-    get fuelLevel() {
-        this._fuelLevel = GetVehicleFuelLevel(this.id);
-        return this._fuelLevel;
-    }
-
-    /**
-     * @description Set fuel level
-     * @param {number} amount
-     * @return {void}
-     */
-    set fuelLevel(amount) {
-        this._fuelLevel = Number(amount);
-        SetVehicleFuelLevel(this.id, this._fuelLevel);
-    }
-
-    /**
-     * @description Get plate text
-     * @returns {string}
-     */
-    get plateText() {
-        this._plateText = GetVehicleNumberPlateText(this.id);
-        return this._plateText;
-    }
-
-    /**
-     * @description Set plate text
-     * @param {string} text
-     * @return {void}
-     */
-    set plateText(text) {
-        this._plateText = text;
-        SetVehicleNumberPlateText(this.id, this._plateText);
-    }
-
-    /**
-     * @description Get plate style
-     * @returns {number}
-     */
-    get plateStyle() {
-        this._plateStyle = GetVehicleNumberPlateTextIndex(this.id);
-        return this._plateStyle;
-    }
-
-    /**
-     * @description Set plate style
-     * @param style
-     * @return {void}
-     */
-    set plateStyle(style) {
-        this._plateStyle = Number(style);
-        SetVehicleNumberPlateTextIndex(this.id, this._plateStyle);
-    }
-
-    /**
-     * @description Get dirt level
-     * @returns {number}
-     */
-    get dirtLevel() {
-        this._dirtLevel = GetVehicleDirtLevel(this.id);
-        return this._dirtLevel;
-    }
-
-    /**
-     * @description Set dirt level
-     * @param {number} level
-     * @return {void}
-     */
-    set dirtLevel(level) {
-        this._dirtLevel = Number(level);
-        SetVehicleDirtLevel(this.id, Number(level));
-    }
-
-    /**
-     * @description Get wheel type
-     * @returns {number}
-     */
-    get wheelType() {
-        this._wheelType = GetVehicleWheelType(this.id);
-        return this._wheelType;
-    }
-
-    /**
-     * @description Set wheel type
-     * @param {number} type
-     * @return {number}
-     */
-    set wheelType(type) {
-        this._wheelType = type;
-        SetVehicleWheelType(this.id, type);
-    }
-
-    /**
-     * @description Get colours
-     * @returns {object}
-     */
-    get colours() {
-        const colours = GetVehicleColours(this.id);
-        this._colours = { primary: colours[0], secondary: colours[1] };
-        return this._colours;
-    }
-
-    /**
-     * @description Set colours
-     * @param {object} colours
-     * @return {void}
-     */
-    set colours(colours) {
-        this._colours = colours;
-        SetVehicleColours(this.id, colours.primary, colours.secondary);
-    }
-
-    /**
-     * @description Get primary colour
-     * @returns {object}
-     */
-    get primaryColour() {
-        const color = GetVehicleCustomPrimaryColour(this.id);
-        this._primaryColour = {red: color[0], green: color[1], blue: color[2]};
-        return this._primaryColour;
-    }
-
-    /**
-     * @description Set primary colour
-     * @param {object} colour
-     * @return {void}
-     */
-    set primaryColour(colour) {
-        this._primaryColour = colour;
-        SetVehicleCustomPrimaryColour(this.id, colour.red, colour.green, colour.blue);
-    }
-
-    /**
-     * @description Get secondary colour
-     * @returns {object}
-     */
-    get secondaryColour() {
-        const colour = GetVehicleCustomSecondaryColour(this.id);
-        this._secondaryColour = {red: colour[0], green: colour[1], blue: colour[2]};
-        return this._secondaryColour;
-    }
-
-    /**
-     * @description Set secondary colour
-     * @param {object} colour
-     * @return {void}
-     */
-    set secondaryColour(colour) {
-        this._secondaryColour = colour;
-        SetVehicleCustomSecondaryColour(this.id, colour.red, colour.green, colour.blue);
-    }
-
-    /**
-     * @description Get extra colours
-     * @returns {object}
-     */
-    get extraColours() {
-        const extraColours = GetVehicleExtraColours(this.id);
-        this._extraColours = { pearlescent: extraColours[0], wheel: extraColours[1] };
-        return this._extraColours;
-    }
-
-    /**
-     * @description Set extra colours
-     * @param {object} extraColours
-     * @return {void}
-     */
-    set extraColours(extraColours) {
-        this._extraColours = extraColours;
-        SetVehicleExtraColours(this.id, extraColours.pearlescent, extraColours.wheel);
     }
 
     /**
@@ -472,38 +337,138 @@ class Vehicle extends Entity {
     }
 
     /**
-     * @description Get tyre smoke color
+     * @description Get neon colour
      * @return {object}
      */
-    get tyreSmokeColor() {
-        const color = GetVehicleTyreSmokeColor(this.id);
-        this._tyreSmoke = { red: color[0], green: color[1], blue: color[2] };
-        return this._tyreSmoke;
+    get neonColour() {
+        const colours = GetVehicleNeonLightsColour(this.id);
+        this._neonColour = { red: colours[0], green: colours[1], blue: colours[2] };
+        return this._neonColour;
     }
 
     /**
-     * @description Set tyre smoke color
-     * @param {object} color
+     * @description Set neon colour
+     * @param {object} colour
      */
-    set tyreSmokeColor(color) {
-        this._tyreSmoke = color;
-        SetVehicleTyreSmokeColor(this.id, color.red, color.green, color.blue);
+    set neonColour(colour) {
+        this._neonColour = colour;
+        SetVehicleNeonLightsColour(this.id, colour.red, colour.green, colour.blue);
     }
 
     /**
-     * @description Get custom tires
-     * @return {boolean}
+     * @description Get petrol tank health
+     * @return {number}
      */
-    get customTires() {
-        return this._customTires;
+    get petrolTankHealth() {
+        this._petrolTankHealth = GetVehiclePetrolTankHealth(this.id);
+        return this._petrolTankHealth;
     }
 
     /**
-     * @description Set custom tires
-     * @param value
+     * @description Set petrol tank health
+     * @param {number} amount
+     * @return {void}
      */
-    set customTires(value) {
-        this._customTires = value;
+    set petrolTankHealth(amount) {
+        this._petrolTankHealth = Number(amount);
+        SetVehiclePetrolTankHealth(this.id, this._petrolTankHealth);
+    }
+
+    /**
+     * @description Get plate style
+     * @returns {number}
+     */
+    get plateStyle() {
+        this._plateStyle = GetVehicleNumberPlateTextIndex(this.id);
+        return this._plateStyle;
+    }
+
+    /**
+     * @description Set plate style
+     * @param style
+     * @return {void}
+     */
+    set plateStyle(style) {
+        this._plateStyle = Number(style);
+        SetVehicleNumberPlateTextIndex(this.id, this._plateStyle);
+    }
+
+    /**
+     * @description Get plate text
+     * @returns {string}
+     */
+    get plateText() {
+        this._plateText = GetVehicleNumberPlateText(this.id);
+        return this._plateText;
+    }
+
+    /**
+     * @description Set plate text
+     * @param {string} text
+     * @return {void}
+     */
+    set plateText(text) {
+        this._plateText = text;
+        SetVehicleNumberPlateText(this.id, this._plateText);
+    }
+
+    /**
+     * @description Get primary colour
+     * @returns {object}
+     */
+    get primaryColour() {
+        const color = GetVehicleCustomPrimaryColour(this.id);
+        this._primaryColour = {red: color[0], green: color[1], blue: color[2]};
+        return this._primaryColour;
+    }
+
+    /**
+     * @description Set primary colour
+     * @param {object} colour
+     * @return {void}
+     */
+    set primaryColour(colour) {
+        this._primaryColour = colour;
+        SetVehicleCustomPrimaryColour(this.id, colour.red, colour.green, colour.blue);
+    }
+
+    /**
+     * @description Get secondary colour
+     * @returns {object}
+     */
+    get secondaryColour() {
+        const colour = GetVehicleCustomSecondaryColour(this.id);
+        this._secondaryColour = {red: colour[0], green: colour[1], blue: colour[2]};
+        return this._secondaryColour;
+    }
+
+    /**
+     * @description Set secondary colour
+     * @param {object} colour
+     * @return {void}
+     */
+    set secondaryColour(colour) {
+        this._secondaryColour = colour;
+        SetVehicleCustomSecondaryColour(this.id, colour.red, colour.green, colour.blue);
+    }
+
+    /**
+     * @description Get is siren is On
+     * @returns {boolean}
+     */
+    get siren() {
+        this._siren = IsVehicleSirenOn(this.id);
+        return this._siren;
+    }
+
+    /**
+     * @description Get is siren is On
+     * @param {boolean} status
+     * @returns {void}
+     */
+    set siren(status) {
+        this._siren = status;
+        SetVehicleSiren(this.id, status);
     }
 
     /**
@@ -527,44 +492,41 @@ class Vehicle extends Entity {
     }
 
     /**
-     * @description Get Extras
+     * @description Get tyre smoke color
      * @return {object}
      */
-    get extras() {
-        this._extras = {};
-        for (let index = 0; index < 14; index++) {
-            this._extras[index] = Boolean(this.IsVehicleExtraTurnedOn(index));
-        }
-        return this._extras;
+    get tyreSmokeColor() {
+        const color = GetVehicleTyreSmokeColor(this.id);
+        this._tyreSmoke = { red: color[0], green: color[1], blue: color[2] };
+        return this._tyreSmoke;
     }
 
     /**
-     * @description Set extras
-     * @param {object} values
-     * @return {void}
+     * @description Set tyre smoke color
+     * @param {object} color
      */
-    set extras(values) {
-        this._extras[values.extra] = values.state;
-        SetVehicleExtra(this.id, values.extra, values.state);
+    set tyreSmokeColor(color) {
+        this._tyreSmoke = color;
+        SetVehicleTyreSmokeColor(this.id, color.red, color.green, color.blue);
     }
 
     /**
-     * @description Get livery
+     * @description Get wheel type
+     * @returns {number}
+     */
+    get wheelType() {
+        this._wheelType = GetVehicleWheelType(this.id);
+        return this._wheelType;
+    }
+
+    /**
+     * @description Set wheel type
+     * @param {number} type
      * @return {number}
      */
-    get livery() {
-        this._livery = GetVehicleLivery(this.id);
-        return this._livery;
-    }
-
-    /**
-     * @description Set livery
-     * @param {number} value
-     * @return {void}
-     */
-    set livery(value) {
-        this._livery = value;
-        SetVehicleLivery(this.id, value);
+    set wheelType(type) {
+        this._wheelType = type;
+        SetVehicleWheelType(this.id, type);
     }
 
     /**
@@ -586,42 +548,127 @@ class Vehicle extends Entity {
     }
 
     /**
-     * @description Get is siren is On
-     * @returns {boolean}
+     * @description Get all door state
+     * @return {object}
      */
-    get siren() {
-        this._siren = IsVehicleSirenOn(this.id);
-        return this._siren;
-    }
-
-    /**
-     * @description Get is siren is On
-     * @param {boolean} status
-     * @returns {void}
-     */
-    set siren(status) {
-        this._siren = status;
-        SetVehicleSiren(this.id, status);
-    }
-
-    /**
-     * @description Get number doors
-     * @return {number}
-     */
-    GetNumberDoors() {
-        if (this._maxDoors === undefined) {
-            this._maxDoors = GetNumberOfVehicleDoors(this.id);
+    GetAllDoorState() {
+        this._doors = {};
+        for (let index = 0; index < this.GetNumberDoors(); index++) {
+            this.GetDoorState(index);
         }
-        return this._maxDoors;
+        return this._doors;
     }
 
     /**
-     * @description return if door id damaged
-     * @param {number} index
-     * @return {boolean}
+     * @description Set multiple door state
+     * @param {object} states
+     * @return {void}
      */
-    IsDoorDamaged(index) {
-        return IsVehicleDoorDamaged(this.id, Number(index));
+    SetAllDoorsState(states) {
+        for (let index in states) {
+            this.SetDoorState(index, states[index]);
+        }
+    }
+
+    /**
+     * @description Get all mods
+     * @return {object}
+     */
+    GetAllMod() {
+        for (let index = 0; index < 49; index++) {
+            this.GetMod(index);
+        }
+        return this._mod;
+    }
+
+    /**
+     * @description Set multiple mods
+     * @param {object} status
+     * @return {void}
+     */
+    SetAllMod(status) {
+        for (let index in status) {
+            this.SetMod(index, status[index]);
+        }
+    }
+
+    /**
+     * @description Get all neon light
+     * @return {object}
+     */
+    GetAllNeonLight() {
+        for (let index = 0; index < 3; index++) {
+            this.GetNeonLight(index);
+        }
+        return this._neonLight;
+    }
+
+    /**
+     * @description Set multiple neon light
+     * @param {object} status
+     * @return {void}
+     */
+    SetAllNeonLight(status) {
+        for (let index in status) {
+            this.SetNeonLight(index, status[index]);
+        }
+    }
+
+    /**
+     * @description Get all tyre burst bone
+     * @return {object}
+     */
+    GetAllTyreBurst() {
+        this._tyreBurst = {};
+
+        const tireIndex = {
+            "wheel_lf": 0,
+            "wheel_rf": 1,
+            "wheel_lm1": 2,
+            "wheel_rm1": 3,
+            "wheel_lr": 4,
+            "wheel_rr": 5,
+            "wheel_lm2": 45,
+            "wheel_rm2": 47,
+            "wheel_lm3": 46,
+            "wheel_rm3": 48,
+        };
+
+        for (let index in tireIndex) {
+            if (GetEntityBoneIndexByName(this.id, index) !== -1 && IsVehicleTyreBurst(this.id, tireIndex[index], false)) {
+                this._tyreBurst[tireIndex[index]] = true;
+            }
+        }
+
+        return this._tyreBurst;
+    }
+
+    /**
+     * @description Set tyre burst
+     * @param {number} index
+     * @param {boolean} state
+     * @param {number} p3
+     */
+    SetTyreBurst(index, state, p3 = 1000.0) {
+        if (this._tyreBurst === undefined) {
+            this._tyreBurst = {};
+        }
+        SetVehicleTyreBurst(this.id, Number(index), Boolean(state), p3);
+        this._tyreBurst[Number(index)] = Boolean(state);
+    }
+
+    /**
+     * @description Get all window state
+     * @return {object}
+     */
+    GetAllWindowState() {
+        this.__windows = {};
+
+        for (let index in this.windowsIndex) {
+            this.GetWindowIsIntact(index);
+        }
+
+        return this.__windows;
     }
 
     /**
@@ -655,15 +702,136 @@ class Vehicle extends Entity {
     }
 
     /**
-     * @description Get all door state
+     * @description Set door state
+     * @param {number} index
+     * @param {number} state
+     * @return {void}
+     */
+    SetDoorState(index, state) {
+        if (this._doors === undefined) {
+            this._doors = {};
+        }
+
+        if (Number(state) === -1) {
+            this.SetDoorBroken(index, true);
+        } else if (Number(state) === 0) {
+            this.SetDoorShut(index, true);
+        } else {
+            this.SetDoorOpen(index, false, true);
+            let self = this;
+            setTimeout(function () {
+                self.SetDoorLatched(index, false, true);
+            }, 100);
+        }
+        this._doors[Number(index)] = state;
+    }
+
+    /**
+     * @description Get specific mod
+     * @param {number} index
      * @return {object}
      */
-    GetAllDoorState() {
-        this._doors = {};
-        for (let index = 0; index < this.GetNumberDoors(); index++) {
-            this.GetDoorState(index);
+    GetMod(index) {
+        if (this._mod === undefined) {
+            this._mod = {};
         }
-        return this._doors;
+
+        if (index >= 17 && index <= 22) {
+            this._mod[Number(index)] = Boolean(IsToggleModOn(this.id, Number(index)));
+        } else {
+            this._mod[Number(index)] = GetVehicleMod(this.id, Number(index));
+        }
+        return this._mod;
+    }
+
+    /**
+     * @description Set specific mod
+     * @param {number} type
+     * @param {number} index
+     * @return {void}
+     */
+    SetMod(type, index) {
+        if (this._mod === undefined) {
+            this._mod = {};
+            SetVehicleModKit(this.id, 0);
+        }
+
+        if (this._customTires === undefined) {
+            this._customTires = false;
+        }
+
+        // Convert string to number
+        if (Number(type) >= 17 && Number(type) <= 22) {
+            ToggleVehicleMod(this.id, Number(type), Boolean(index));
+            this._mod[Number(type)] = Boolean(index);
+        } else {
+            SetVehicleMod(this.id, Number(type), Number(index), this._customTires);
+            this._mod[Number(type)] = Number(index);
+        }
+    }
+
+    /**
+     * @description Get neon light
+     * @param {number} index
+     * @return {void}
+     */
+    GetNeonLight(index) {
+        if (this._neonLight === undefined) {
+            this._neonLight = {};
+        }
+        this._neonLight[index] = Boolean(IsVehicleNeonLightEnabled(this.id, index));
+    }
+
+    /**
+     * @description Set neon light
+     * @param {number} index
+     * @param {boolean} state
+     * @return {void}
+     */
+    SetNeonLight(index, state) {
+        if (this._neonLight === undefined) {
+            this._neonLight = {};
+        }
+        this._neonLight[Number(index)] = Boolean(state);
+        SetVehicleNeonLightEnabled(this.id, Number(index), Boolean(state));
+    }
+
+    /**
+     * @description Get number doors
+     * @return {number}
+     */
+    GetNumberDoors() {
+        if (this._maxDoors === undefined) {
+            this._maxDoors = GetNumberOfVehicleDoors(this.id);
+        }
+        return this._maxDoors;
+    }
+
+    /**
+     * @description return neon light is enabled
+     * @param {number} index
+     * @return {boolean}
+     */
+    IsNeonLightEnabled(index) {
+        return Boolean(IsVehicleNeonLightEnabled(this.id, Boolean(index)));
+    }
+
+    /**
+     * @description return if door id damaged
+     * @param {number} index
+     * @return {boolean}
+     */
+    IsDoorDamaged(index) {
+        return IsVehicleDoorDamaged(this.id, Number(index));
+    }
+
+    /**
+     * @description Is vehicle extra turned on
+     * @param {number} index
+     * @return {boolean}
+     */
+    IsVehicleExtraTurnedOn(index) {
+        return IsVehicleExtraTurnedOn(this.id, index);
     }
 
     /**
@@ -722,85 +890,6 @@ class Vehicle extends Entity {
     }
 
     /**
-     * @description Set door state
-     * @param {number} index
-     * @param {number} state
-     * @return {void}
-     */
-    SetDoorState(index, state) {
-        if (this._doors === undefined) {
-            this._doors = {};
-        }
-
-        if (Number(state) === -1) {
-            this.SetDoorBroken(index, true);
-        } else if (Number(state) === 0) {
-            this.SetDoorShut(index, true);
-        } else {
-            this.SetDoorOpen(index, false, true);
-            let self = this;
-            setTimeout(function () {
-                self.SetDoorLatched(index, false, true);
-            }, 100);
-        }
-        this._doors[Number(index)] = state;
-    }
-
-    /**
-     * @description Set multiple door state
-     * @param {object} states
-     * @return {void}
-     */
-    SetAllDoorsState(states) {
-        for (let index in states) {
-            this.SetDoorState(index, states[index]);
-        }
-    }
-
-    /**
-     * @description Get all tyre burst bone
-     * @return {object}
-     */
-    GetAllTyreBurst() {
-        this._tyreBurst = {};
-
-        const tireIndex = {
-            "wheel_lf": 0,
-            "wheel_rf": 1,
-            "wheel_lm1": 2,
-            "wheel_rm1": 3,
-            "wheel_lr": 4,
-            "wheel_rr": 5,
-            "wheel_lm2": 45,
-            "wheel_rm2": 47,
-            "wheel_lm3": 46,
-            "wheel_rm3": 48,
-        };
-
-        for (let index in tireIndex) {
-            if (GetEntityBoneIndexByName(this.id, index) !== -1 && IsVehicleTyreBurst(this.id, tireIndex[index], false)) {
-                this._tyreBurst[tireIndex[index]] = true;
-            }
-        }
-
-        return this._tyreBurst;
-    }
-
-    /**
-     * @description Set tyre burst
-     * @param {number} index
-     * @param {boolean} state
-     * @param {number} p3
-     */
-    SetTyreBurst(index, state, p3 = 1000.0) {
-        if (this._tyreBurst === undefined) {
-            this._tyreBurst = {};
-        }
-        SetVehicleTyreBurst(this.id, Number(index), Boolean(state), p3);
-        this._tyreBurst[Number(index)] = Boolean(state);
-    }
-
-    /**
      * @description Set multiple tyre burst
      * @param {object} states
      */
@@ -820,20 +909,6 @@ class Vehicle extends Entity {
         'window_lr',
         'window_rr'
     ];
-
-    /**
-     * @description Get all window state
-     * @return {object}
-     */
-    GetAllWindowState() {
-        this.__windows = {};
-
-        for (let index in this.windowsIndex) {
-            this.GetWindowIsIntact(index);
-        }
-
-        return this.__windows;
-    }
 
     /**
      * @description Get is widows is intact
@@ -883,81 +958,6 @@ class Vehicle extends Entity {
                 }
             }
         }
-    }
-
-    /**
-     * @description Get specific mod
-     * @param {number} index
-     * @return {object}
-     */
-    GetMod(index) {
-        if (this._mod === undefined) {
-            this._mod = {};
-        }
-
-        if (index >= 17 && index <= 22) {
-            this._mod[Number(index)] = Boolean(IsToggleModOn(this.id, Number(index)));
-        } else {
-            this._mod[Number(index)] = GetVehicleMod(this.id, Number(index));
-        }
-        return this._mod;
-    }
-
-    /**
-     * @description Get all mods
-     * @return {object}
-     */
-    GetAllMod() {
-        for (let index = 0; index < 49; index++) {
-            this.GetMod(index);
-        }
-        return this._mod;
-    }
-
-    /**
-     * @description Set multiple mods
-     * @param {object} status
-     * @return {void}
-     */
-    SetAllMod(status) {
-        for (let index in status) {
-            this.SetMod(index, status[index]);
-        }
-    }
-
-    /**
-     * @description Set specific mod
-     * @param {number} type
-     * @param {number} index
-     * @return {void}
-     */
-    SetMod(type, index) {
-        if (this._mod === undefined) {
-            this._mod = {};
-            SetVehicleModKit(this.id, 0);
-        }
-
-        if (this._customTires === undefined) {
-            this._customTires = false;
-        }
-
-        // Convert string to number
-        if (Number(type) >= 17 && Number(type) <= 22) {
-            ToggleVehicleMod(this.id, Number(type), Boolean(index));
-            this._mod[Number(type)] = Boolean(index);
-        } else {
-            SetVehicleMod(this.id, Number(type), Number(index), this._customTires);
-            this._mod[Number(type)] = Number(index);
-        }
-    }
-
-    /**
-     * @description Is vehicle extra turned on
-     * @param {number} index
-     * @return {boolean}
-     */
-    IsVehicleExtraTurnedOn(index) {
-        return IsVehicleExtraTurnedOn(this.id, index);
     }
 
     /**
