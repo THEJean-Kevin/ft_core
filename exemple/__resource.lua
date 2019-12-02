@@ -5,7 +5,7 @@ client_scripts {
     "node_module/@fivemtools/ft_core/dist/client.js",
 
     -- Local files
-    "src/test.client.js",
+    "src/example.client.js",
 }
 
 server_scripts {}
