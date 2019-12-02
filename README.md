@@ -7,12 +7,17 @@ To create resources on FiveM
 
 ### Installing
 
-Copy `exemple` directory and run `npm install`
+Copy `exemple` directory and rename to `ft_exemple`.
+
+Last add, into the server.cfg file :
+ ```
+    start ft_exemple
+```
 
 ### Documentation
 
 - Online : https://ft_core.fivem.tools
-- Local : `docs` directory
+- Local : `docs` directory (github)
 
 ## License
 

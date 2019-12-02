@@ -1,13 +1,12 @@
 {
   "name": "fivemtool-exemple",
   "version": "1.0.0",
-  "description": "Exemple for ft_core",
+  "description": "Example for ft_core",
   "main": "index.js",
   "keywords": [],
   "author": "Fivemtools",
   "license": "ISC",
   "dependencies": {
-    "@fivemtools/ft_core": "latest",
-    "glob": "^7.1.6"
+    "@fivemtools/ft_core": "^1.*"
   }
 }
