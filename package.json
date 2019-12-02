@@ -17,7 +17,9 @@
   },
   "scripts": {
     "build-client": "webpack --mode production --config client.config.js",
-    "build-server": "webpack --mode production --config server.config.js"
+    "build-server": "webpack --mode production --config server.config.js",
+    "publish": "npm publish --access=public --scope=fivemtools",
+    "docs": "./node_modules/.bin/esdoc"
   },
   "repository": {
     "type": "git",
@@ -31,7 +33,6 @@
   "homepage": "https://ft_core.fivem.tools",
   "files": [
     "src/**/*",
-    "dist/*",
     "LICENSE",
     "VERSION"
   ]
