@@ -12,7 +12,7 @@ const strip = require('gulp-strip-comments');
 const header = require('gulp-header-comment');
 
 function client() {
-    return src('src/client/**/*.js')
+    return src(['src/client/**/*.js', 'src/common/**/*.js'])
         .pipe(concat('client.js'))
         .pipe(uglify())
         .pipe(strip())
@@ -26,7 +26,7 @@ function client() {
 }
 
 function server() {
-    return src('src/server/**/*.js')
+    return src(['src/server/**/*.js', 'src/common/**/*.js'])
         .pipe(concat('server.js'))
         .pipe(uglify())
         .pipe(strip())
