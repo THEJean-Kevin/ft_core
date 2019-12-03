@@ -14,7 +14,6 @@
     "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
     "gulp-header-comment": "^0.6.1",
-    "gulp-rename": "^1.4.0",
     "gulp-strip-comments": "^2.5.2",
     "gulp-uglify-es": "^2.0.0"
   },
