@@ -5,14 +5,12 @@
  * @Source: https://github.com/FivemTools/ft_core
 */
 
-import { Entity } from './';
-
 /**
  * Creates a new Entity.
  * @example
  * let ped = new Ped();
  */
-export class Ped extends Entity {
+class Ped extends Entity {
 
     /**
      * @description Get ped id for player id

@@ -11,13 +11,15 @@
     "esdoc": "^1.1.0",
     "esdoc-es7-plugin": "^0.0.3",
     "esdoc-standard-plugin": "^1.0.0",
-    "glob": "^7.1.6",
-    "webpack": "^4.41.0",
-    "webpack-cli": "^3.3.10"
+    "gulp": "^4.0.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-header-comment": "^0.6.1",
+    "gulp-rename": "^1.4.0",
+    "gulp-strip-comments": "^2.5.2",
+    "gulp-uglify-es": "^2.0.0"
   },
   "scripts": {
-    "build-client": "webpack --mode production --config client.config.js",
-    "build-server": "webpack --mode production --config server.config.js",
+    "dist": "gulp",
     "publish": "npm publish --access=public --scope=fivemtools",
     "docs": "./node_modules/.bin/esdoc"
   },
@@ -32,7 +34,7 @@
   },
   "homepage": "https://ft_core.fivem.tools",
   "files": [
-    "src/**/*",
+    "dist/**/*",
     "LICENSE",
     "VERSION"
   ]

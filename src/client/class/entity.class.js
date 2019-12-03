@@ -10,7 +10,7 @@
  * @example
  * let entity = new Entity();
  */
-export class Entity {
+class Entity {
 
     /**
      * @param {number} entityId
@@ -278,7 +278,7 @@ export class Entity {
      * @return {void}
      */
      SetCoords(x, y, z) {
-        this.coords = { x: x, y: y, z: z }
+        this.coords = { x: x, y: y, z: z };
     }
 
 }

@@ -5,16 +5,15 @@
  * @Source: https://github.com/FivemTools/ft_core
 */
 
-import { Entity } from "./";
-
 /**
  * Creates a new Vehicle.
  * @example
  * let vehicle = new Vehicle();
  */
-export class Vehicle extends Entity {
+class Vehicle extends Entity {
 
     constructor(){
+        super();
         this.windowsIndex = [
             'window_lf',
             'window_rf',
@@ -22,7 +21,6 @@ export class Vehicle extends Entity {
             'window_rr'
         ];
     }
-
 
     /**
      * @description Get body health
