@@ -6,6 +6,9 @@
 
 resource_manifest_version "44febabe-d386-4d18-afbe-5e627f4af937"
 
+-- decoment next line to auto update dependencie in package.json
+--dependency 'yarn' 
+
 client_scripts {
     -- ft_core
     "node_module/@fivemtools/ft_core/dist/client.js",
