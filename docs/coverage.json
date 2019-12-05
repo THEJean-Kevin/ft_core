@@ -1,9 +1,17 @@
 {
-  "coverage": "72.51%",
-  "expectCount": 171,
-  "actualCount": 124,
+  "coverage": "79.64%",
+  "expectCount": 285,
+  "actualCount": 227,
   "files": {
-    "src/class/entity.class.js": {
+    "src/client/class/Audio.js": {
+      "expectCount": 13,
+      "actualCount": 11,
+      "undocumentLines": [
+        20,
+        107
+      ]
+    },
+    "src/client/class/Entity.js": {
       "expectCount": 34,
       "actualCount": 26,
       "undocumentLines": [
@@ -17,61 +25,124 @@
         162
       ]
     },
-    "src/class/ped.class.js": {
-      "expectCount": 12,
-      "actualCount": 11,
+    "src/client/class/Game.js": {
+      "expectCount": 32,
+      "actualCount": 29,
+      "undocumentLines": [
+        84,
+        108,
+        117
+      ]
+    },
+    "src/client/class/Ped.js": {
+      "expectCount": 48,
+      "actualCount": 45,
+      "undocumentLines": [
+        21,
+        269,
+        282
+      ]
+    },
+    "src/client/class/Vehicle.js": {
+      "expectCount": 122,
+      "actualCount": 86,
+      "undocumentLines": [
+        15,
+        17,
+        30,
+        50,
+        61,
+        88,
+        96,
+        123,
+        131,
+        150,
+        170,
+        189,
+        211,
+        231,
+        241,
+        268,
+        277,
+        296,
+        315,
+        335,
+        355,
+        373,
+        392,
+        411,
+        431,
+        451,
+        470,
+        490,
+        510,
+        528,
+        547,
+        632,
+        675,
+        746,
+        790,
+        815
+      ]
+    },
+    "src/client/enum/AudioFlag.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/client/enum/Control.js": {
+      "expectCount": 2,
+      "actualCount": 1,
+      "undocumentLines": [
+        13
+      ]
+    },
+    "src/client/enum/Driving.js": {
+      "expectCount": 2,
+      "actualCount": 1,
       "undocumentLines": [
         23
       ]
     },
-    "src/class/vehicle.class.js": {
-      "expectCount": 122,
-      "actualCount": 86,
+    "src/client/enum/HelmetType.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/client/enum/Language.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/client/enum/RagdollType.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/client/events/OnPlayerSpawn.js": {
+      "expectCount": 2,
+      "actualCount": 2,
+      "undocumentLines": []
+    },
+    "src/client/events/OnSessionStarted.js": {
+      "expectCount": 3,
+      "actualCount": 2,
       "undocumentLines": [
-        17,
-        18,
-        32,
-        52,
-        63,
-        90,
-        98,
-        125,
-        133,
-        152,
-        172,
-        191,
-        213,
-        233,
-        243,
-        270,
-        279,
-        298,
-        317,
-        337,
-        357,
-        375,
-        394,
-        413,
-        433,
-        453,
-        472,
-        492,
-        512,
-        530,
-        549,
-        634,
-        677,
-        748,
-        792,
-        817
+        19
       ]
     },
-    "src/load.client.js": {
-      "expectCount": 3,
+    "src/common/utils/Enum.js": {
+      "expectCount": 1,
       "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/common/utils/Vector3.js": {
+      "expectCount": 22,
+      "actualCount": 19,
       "undocumentLines": [
-        8,
-        19
+        21,
+        22,
+        23
       ]
     }
   }

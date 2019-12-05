@@ -1,70 +1,104 @@
 [
   {
-    "name": "Ped#TaskPlayAnim",
-    "filePath": "src/class/ped.class.js",
+    "name": "Audio#HasSoundFinished",
+    "filePath": "src/client/class/Audio.js",
     "lines": [
       {
-        "lineNumber": 56,
+        "lineNumber": 65,
         "line": "    /**\r"
       },
       {
-        "lineNumber": 57,
-        "line": "     * @description Play animation on ped\r"
-      },
-      {
-        "lineNumber": 58,
-        "line": "     * @param {string} animDictionary\r"
-      },
-      {
-        "lineNumber": 59,
-        "line": "     * @param {string} animationName\r"
-      },
-      {
-        "lineNumber": 60,
-        "line": "     * @param {function} callback\r"
-      },
-      {
-        "lineNumber": 61,
-        "line": "     * @param {number} blendInSpeed\r"
-      },
-      {
-        "lineNumber": 62,
-        "line": "     * @param {number} blendOutSpeed\r"
-      },
-      {
-        "lineNumber": 63,
-        "line": "     * @param {number} duration\r"
-      },
-      {
-        "lineNumber": 64,
-        "line": "     * @param {number} flag\r"
-      },
-      {
-        "lineNumber": 65,
-        "line": "     * @param {number} playbackRate\r"
-      },
-      {
         "lineNumber": 66,
-        "line": "     * @param {boolean} lockX\r"
+        "line": "     * @description check if the sound is finish\r"
       },
       {
         "lineNumber": 67,
-        "line": "     * @param {boolean} lockY\r"
+        "line": "     * @param {Number} soundId\r"
       },
       {
         "lineNumber": 68,
-        "line": "     * @param {boolean} lockZ\r"
+        "line": "     * @returns {Boolean}\r"
       },
       {
         "lineNumber": 69,
-        "line": "     * @return {void}\r"
-      },
-      {
-        "lineNumber": 70,
         "line": "     */\r"
       },
       {
-        "lineNumber": 71,
+        "lineNumber": 70,
+        "line": "    HasSoundFinished() {\r"
+      }
+    ],
+    "codeParams": [],
+    "docParams": [
+      "soundId"
+    ]
+  },
+  {
+    "name": "Ped#TaskPlayAnim",
+    "filePath": "src/client/class/Ped.js",
+    "lines": [
+      {
+        "lineNumber": 54,
+        "line": "    /**\r"
+      },
+      {
+        "lineNumber": 55,
+        "line": "     * @description Play animation on ped\r"
+      },
+      {
+        "lineNumber": 56,
+        "line": "     * @param {string} animDictionary\r"
+      },
+      {
+        "lineNumber": 57,
+        "line": "     * @param {string} animationName\r"
+      },
+      {
+        "lineNumber": 58,
+        "line": "     * @param {function} callback\r"
+      },
+      {
+        "lineNumber": 59,
+        "line": "     * @param {number} blendInSpeed\r"
+      },
+      {
+        "lineNumber": 60,
+        "line": "     * @param {number} blendOutSpeed\r"
+      },
+      {
+        "lineNumber": 61,
+        "line": "     * @param {number} duration\r"
+      },
+      {
+        "lineNumber": 62,
+        "line": "     * @param {number} flag\r"
+      },
+      {
+        "lineNumber": 63,
+        "line": "     * @param {number} playbackRate\r"
+      },
+      {
+        "lineNumber": 64,
+        "line": "     * @param {boolean} lockX\r"
+      },
+      {
+        "lineNumber": 65,
+        "line": "     * @param {boolean} lockY\r"
+      },
+      {
+        "lineNumber": 66,
+        "line": "     * @param {boolean} lockZ\r"
+      },
+      {
+        "lineNumber": 67,
+        "line": "     * @return {void}\r"
+      },
+      {
+        "lineNumber": 68,
+        "line": "     */\r"
+      },
+      {
+        "lineNumber": 69,
         "line": "    TaskPlayAnim(animDictionary, animationName, duration = -1, flag = 0, callback, playbackRate = 0, blendInSpeed = 8.0, blendOutSpeed = 8.0, lockX = false, lockY = false, lockZ = false) {\r"
       }
     ],

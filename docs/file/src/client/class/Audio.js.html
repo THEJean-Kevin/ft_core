@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <base data-ice="baseUrl">
-  <title data-ice="title">Home | @fivemtools/ft_core</title>
+  <base data-ice="baseUrl" href="../../../../">
+  <title data-ice="title">src/client/class/Audio.js | @fivemtools/ft_core</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -53,24 +53,129 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="ft-core">ft_core</h1><p>To create resources on FiveM</p>
-<h3 id="prerequisites">Prerequisites</h3><ul>
-<li><a href="https://nodejs.org/">Nodejs</a></li>
-</ul>
-<h3 id="installing">Installing</h3><p>Copy <code>exemple</code> directory and rename to <code>ft_exemple</code>.</p>
-<p>Last add, into the server.cfg file :</p>
-<pre><code><code class="source-code prettyprint">    start ft_exemple</code>
-</code></pre><h3 id="documentation">Documentation</h3><ul>
-<li>Online : <a href="https://ft_core.fivem.tools">https://ft_core.fivem.tools</a></li>
-<li>Local : <code>docs</code> directory (github)</li>
-</ul>
-<h2 id="license">License</h2><p>This project is licensed under the GNU General Public License v3.0 - see the <a href="LICENSE">LICENSE</a> file for details</p>
-<h2 id="contributors--">Contributors :</h2><ul>
-<li>Samuelds</li>
-<li>THEJean-Kevin</li>
-<li>LH-Lawliet</li>
-</ul>
-</div>
+<div class="content" data-ice="content"><h1 data-ice="title">src/client/class/Audio.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/**
+ * @Project: FivemTools
+ * @Author: Samuelds
+ * @License: GNU General Public License v3.0
+ * @Source: https://github.com/FivemTools/ft_core
+ */
+
+class Audio {
+
+    /**
+     *@description Play sound at Coord pastebin.com/0neZdsZ5
+     * @param {Vector3} position
+     * @param {Number} soundId
+     * @param {String} SoundName
+     * @param {*} soundSet
+     * @returns {Number} sound Id
+     */
+    PlaySoundAt(position, soundId, SoundName, soundSet) {
+        PlaySoundFromCoord(soundId, SoundName, position.x, position.y, position.z, soundSet ? soundSet : null, false, 0, false);
+        this.id = GetSoundId();
+        return this.id;
+    }
+
+    /**
+     * @description play sound near Entity pastebin.com/0neZdsZ5
+     * @param {Entity} entity
+     * @param {Number} soundId
+     * @param {String} soundName
+     * @param {*} soundSet
+     * @returns {Number} sound Id
+     */
+    PlaySoundFromEntity(entity, soundId, soundName, soundSet) {
+        PlaySoundFromEntity(soundId, soundName, entity.id, soundSet ? soundSet : null, false, 0);
+        this.id = GetSoundId();
+        return this.id;
+    }
+
+    /**
+     * @description Play sound front end pastebin.com/0neZdsZ5
+     * @param {Number} soundId
+     * @param {String} soundName
+     * @param {*} soundSet
+     * @returns {Number} sound Id
+     */
+    PlaySoundFrontEnd(soundId, soundName, soundSet) {
+        PlaySoundFrontend(soundId, soundName, soundSet ? soundSet : null, false);
+        this.id = GetSoundId();
+        return this.id;
+    }
+
+    /**
+     * @description stop the sound
+     */
+    StopSound() {
+        StopSound(this.id);
+    }
+
+    /**
+     * @description Release the sound
+     * @return {void}
+     */
+    ReleaseSound() {
+        ReleaseSoundId(this.id);
+    }
+
+    /**
+     * @description check if the sound is finish
+     * @param {Number} soundId
+     * @returns {Boolean}
+     */
+    HasSoundFinished() {
+        return HasSoundFinished(this.id);
+    }
+
+    /**
+     * @description Set the audio flag
+     * @param {String|Number} flag for number see the array audioFlag
+     * @param {*} toggle
+     */
+    SetAudioFlag(flag, toggle) {
+        if (typeof flag === &apos;string&apos;) {
+            SetAudioFlag(flag, toggle)
+        } else {
+            SetAudioFlag(AudioFlag[Number(flag)], toggle);
+        }
+    }
+
+    /**
+     * @description Play the sound
+     * @param {Number} soundId
+     * @param {String} soundName
+     * @param {*} soundSet
+     */
+    PlaySound(soundId, soundName, soundSet) {
+        this.PlaySoundFrontEnd(soundId, soundName, soundSet);
+        this.ReleaseSound();
+    }
+
+    /**
+     * @description play music
+     * @param {String} musicfile https://pastebin.com/RzDFmB1W
+     */
+    PlayMusic(musicfile) {
+        if (this.musicFile !== null) {
+            CancelMusicEvent(this.musicFile);
+        }
+        this.musicFile = musicfile;
+        TriggerMusicEvent(musicFile);
+    }
+
+    /**
+     * @description Stop music
+     */
+    StopMusic() {
+        if (this.musicFile) {
+            CancelMusicEvent(this.musicFile);
+            this.musicFile = null
+        }
+    }
+
+}</code></pre>
+
 </div>
 
 <footer class="footer">

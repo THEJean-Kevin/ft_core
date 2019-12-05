@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../../">
+  <title data-ice="title">src/client/class/Game.js | @fivemtools/ft_core</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Libs for Fivem"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="@fivemtools/ft_core"><meta property="twitter:description" content="Libs for Fivem"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/FivemTools/ft_core"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#client-class">client/class</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/client/class/Audio.js~Audio.html">Audio</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/client/class/Entity.js~Entity.html">Entity</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/client/class/Game.js~Game.html">Game</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/client/class/Ped.js~Ped.html">Ped</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/client/class/Vehicle.js~Vehicle.html">Vehicle</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#client-enum">client/enum</a><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-AudioFlag">AudioFlag</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Control">Control</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-InputMode">InputMode</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DrivingStyle">DrivingStyle</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-VehicleDrivingFlags">VehicleDrivingFlags</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-HelmetType">HelmetType</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Languages">Languages</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-RagdollType">RagdollType</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#client-events">client/events</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-OnPlayerSpawn">OnPlayerSpawn</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-OnSessionStarted">OnSessionStarted</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-_onSpawn">_onSpawn</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-_OnSessionStartedTimer">_OnSessionStartedTimer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-_onSessionStarted">_onSessionStarted</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#common-utils">common/utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/common/utils/Vector3.js~Vector3.html">Vector3</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Enum">Enum</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/client/class/Game.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/**
+ * @Project: FivemTools
+ * @Author: Samuelds
+ * @License: GNU General Public License v3.0
+ * @Source: https://github.com/FivemTools/ft_core
+ */
+
+/*TODO
+player =&gt; avec class Player
+playerPed
+playerList()
+pvp
+*/
+class Game {
+
+    /**
+     * @description Get Hash
+     * @param {string} string
+     * @return {string|boolean}
+     */
+    GenerateHash(string) {
+        if (string === undefined) {
+            return false;
+        }
+        return GetHashKey(string);
+    }
+
+    /**
+     * @description Gets the game language
+     * @return {object}
+     */
+    get language() {
+        const id = GetUserLanguageId();
+        return {id: id, language: Languages[id]};
+    }
+
+    /**
+     * @description Gets how many milliseconds the game has been open this session
+     * @return {number}
+     */
+    get gameTime() {
+        return GetGameTimer();
+    }
+
+    /**
+     * @description Sets the time scale of the Game.
+     * @param {Number} time The time scale, only accepts values between 0.0 and 1.0
+     */
+    set timeScale(time) {
+        SetTimeScale(time &lt;= 1 &amp;&amp; time &gt;= 0 ? time : 1);
+    }
+
+    /**
+     * @description Gets the total amount of frames rendered in this session
+     * @return {Number}}
+     */
+    get frameCount() {
+        return GetFrameCount();
+    }
+
+    /**
+     * @description Gets the current frame rate per second
+     * @return {Number}
+     */
+    GetFps() {
+        return 1 / this.lastFrameTime;
+    }
+
+    /**
+     * @description Gets the time it currently takes to render a frame, in seconds;
+     * @return {Number}
+     */
+    get lastFrameTime() {
+        return GetFrameTime();
+    }
+
+    /**
+     * @description Get the local player&apos;s Player object.
+     * @return {Number}
+     */
+    get player() {
+        const id = PlayerId();
+        if (this._player === undefined || id !== this._player) {
+            this._player = id;
+        }
+        return this._player;
+    }
+
+    /**
+     * @description  Get the maximum wanted level.
+     * @return {Number}
+     */
+    get maxWantedLevel() {
+        this.maxWantedLevel = GetMaxWantedLevel();
+        return this._maxWantedLevel;
+    }
+
+    /**
+     * @description Set the maximum wanted level the local client can get.
+     * @param  {Number} value betwwen 0 and 5
+     */
+    set maxWantedLevel(value) {
+        if (value &lt; 0) {
+            value = 0;
+        } else if (value &gt; 5) {
+            value = 5;
+        }
+        this._maxWantedLevel = value;
+        SetMaxWantedLevel(value);
+    }
+
+    /**
+     * @description Set the multiplier of the wanted level.
+     * @param {Number} value
+     */
+    set wantedMultiplier(value) {
+        this._maxWantedLevelMultiplier = value;
+        SetWantedLevelMultiplier(value);
+    }
+
+    /**
+     * @description Get the multiplier of the wanted level.
+     * @return {number}
+     */
+    get wantedMultiplier() {
+        return this._maxWantedLevelMultiplier;
+    }
+
+    /**
+     * @description Set whether police blips should show on minimap.
+     * @param {Boolean} toggle
+     */
+    set showPoliceBlipsOnRadar(toggle) {
+        SetPoliceRadarBlips(toggle);
+    }
+
+    /**
+     * @description Get if nightvision is active.
+     * @return {Boolean}
+     */
+    get nightVision() {
+        return GetUsingnightvision();
+    }
+
+    /**
+     * @description Toggle nightvision.
+     * @param {Boolean} toggle
+     */
+    set nightVision(toggle) {
+        SetNightvision(toggle);
+    }
+
+    /**
+     * @description Get if thermal (heat) vision is active.
+     * @return {Boolean}
+     */
+    get thermalVision() {
+        return GetUsingseethrough();
+    }
+
+    /**
+     * @description Toggle thermal (heat) vision.
+     * @param {Boolean} toggle
+     */
+    set thermalVision(toggle) {
+        SetSeethrough(toggle);
+    }
+
+    /**
+     * @description  Return if players is in mission
+     * @return {Boolean}
+     */
+    get isMissionActive() {
+        return GetMissionFlag();
+    }
+
+    /**
+     * @description Set if players is in mission
+     * @param {Boolean} toggle
+     */
+    set isMissionActive(toggle) {
+        SetMissionFlag(toggle);
+    }
+
+    /**
+     * @description *
+     * @return {Boolean}
+     */
+    get isRandomEventActive() {
+        return GetRandomEventFlag() === 1;
+    }
+
+    /**
+     * @description *
+     * @param {Boolean} toggle
+     */
+    set isRandomEventActive(toggle) {
+        SetRandomEventFlag(toggle ? 1 : 0);
+    }
+
+    /**
+     * @description *
+     * @return {Boolean}
+     */
+    get isCutsceneActive() {
+        return IsCutsceneActive();
+    }
+
+    /**
+     * @description Is a waypoint set on the map.
+     * @return {Boolean}
+     */
+    get isWaypointActive() {
+        return IsWaypointActive();
+    }
+
+    /**
+     * @description Is the player in the pause menu (ESC).
+     * @return {Boolean}
+     */
+    get isPaused() {
+        return IsPauseMenuActive();
+    }
+
+    /**
+     * @description Force enable pause menu.
+     * @param {Boolean} toggle
+     */
+    set isPaused(toggle) {
+        SetPauseMenuActive(toggle);
+    }
+
+    /**
+     * @description Get if a loading screen is active.
+     * @return {Boolean}
+     */
+    get isLoading() {
+        return GetIsLoadingScreenActive();
+    }
+
+    /**
+     * @description Force player to stop the laoding screen
+     */
+    StopLoading() {
+        ShutdownLoadingScreen();
+    }
+
+    /**
+     * @description Get current input mode.
+     * @returns {Number} InputMode: Mouse &amp; Keyboard (0) or GamePad(1)
+     */
+    get CurrentInputMode() {
+        return IsInputDisabled(2) ? InputMode.MOUSSEANDKEYBOARD : InputMode.GAMEPAD;
+    }
+
+}</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>
