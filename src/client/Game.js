@@ -1,14 +1,9 @@
-const languageId = Object.freeze({
-    7: "french",
-    9: "japanese",
-    10: "spanish",
-    12: "english",
-    16: "portuguese",
-    17: "korean",
-    21: "italian",
-    22: "german",
-    25: "russian"
-});
+/**
+ * @Project: FivemTools
+ * @Author: Samuelds
+ * @License: GNU General Public License v3.0
+ * @Source: https://github.com/FivemTools/ft_core
+ */
 
 /*TODO
 player => avec class Player
@@ -17,79 +12,89 @@ playerList()
 pvp
 */
 class Game {
-    _cachedPlayer;
+
     /**
      * @description Get Hash
      * @param {string} string
-     * @return {hash}
+     * @return {string|boolean}
      */
     GenerateHash(string) {
-        if (typeof string === "undefined") {
-            return 0;
+        if (string === undefined) {
+            return false;
         }
-        return GetHashKey(string)
+        return GetHashKey(string);
     }
+
     /**
      * @description Gets the game language
-     * @return {Array} [id,name]
+     * @return {object}
      */
     get language() {
-        const id = GetUserLanguageId()
-        return [id, languageId[id]]
+        const id = GetUserLanguageId();
+        return { id: id, language: Languages[id] };
     }
+
     /**
      * @description Gets how many milliseconds the game has been open this session
      * @return {number}
      */
     get gameTime() {
-        return GetGameTimer()
+        return GetGameTimer();
     }
+
     /**
      * @description Sets the time scale of the Game.
      * @param {Number} time The time scale, only accepts values between 0.0 and 1.0
      */
     set timeScale(time) {
-        SetTimeScale(time <= 1 && time >= 0 ? time : 1)
+        SetTimeScale(time <= 1 && time >= 0 ? time : 1);
     }
+
     /**
          * @description Gets the total amount of frames rendered in this session
          * @return {Number}}
          */
     get frameCount() {
-        return GetFrameCount()
+        return GetFrameCount();
     }
+
     /**
      * @description Gets the current frame rate per second
      * @return {Number}
      */
-    get FPS() {
-        return 1 / this.lastFrameTime
+    GetFps() {
+        return 1 / this.lastFrameTime;
     }
+
     /**
      * @description Gets the time it currently takes to render a frame, in seconds;
      * @return {Number}
      */
     get lastFrameTime() {
-        return GetFrameTime()
+        return GetFrameTime();
     }
+
     /**
      * @description Get the local player's Player object.
      * @return {Number}
      */
     get player() {
-        const handle = PlayerId()
-        if (typeof this._cachedPlayer === 'undefined' || handle !== this._cachedPlayer) {
-            this._cachedPlayer = handle
+        const id = PlayerId();
+        if (this._player === undefined || id !== this._player) {
+            this._player = id;
         }
-        return this._cachedPlayer
+        return this._player;
     }
+
     /**
      * @description  Get the maximum wanted level.
      * @return {Number}
      */
     get maxWantedLevel() {
-        return GetMaxWantedLevel()
+        this.maxWantedLevel = GetMaxWantedLevel();
+        return this._maxWantedLevel;
     }
+
     /**
      * @description Set the maximum wanted level the local client can get.
      * @param  {Number} value betwwen 0 and 5
@@ -100,64 +105,83 @@ class Game {
         } else if (value > 5) {
             value = 5;
         }
+        this._maxWantedLevel = value;
         SetMaxWantedLevel(value);
     }
+
     /**
      * @description Set the multiplier of the wanted level.
-     * @param  {Number}
+     * @param {Number} value
      */
     set wantedMultiplier(value) {
-        SetWantedLevelMultiplier(value)
+        this._maxWantedLevelMultiplier = value;
+        SetWantedLevelMultiplier(value);
     }
+
+    /**
+     * @description Get the multiplier of the wanted level.
+     * @return {number}
+     */
+    get wantedMultiplier() {
+        return this._maxWantedLevelMultiplier;
+    }
+
     /**
      * @description Set whether police blips should show on minimap.
-     * @param {Boolean}
+     * @param {Boolean} toggle
      */
     set showPoliceBlipsOnRadar(toggle) {
-        SetPoliceRadarBlips(toggle)
+        SetPoliceRadarBlips(toggle);
     }
+
     /**
      * @description Get if nightvision is active.
      * @return {Boolean}
      */
     get nightVision() {
-        return !!GetUsingnightvision()
+        return GetUsingnightvision();
     }
+
     /**
      * @description Toggle nightvision.
-     * @param {Boolean}
+     * @param {Boolean} toggle
      */
     set nightVision(toggle) {
         SetNightvision(toggle);
     }
+
     /**
      * @description Get if thermal (heat) vision is active.
      * @return {Boolean}
      */
     get thermalVision() {
-        return !!GetUsingseethrough()
+        return GetUsingseethrough();
     }
+
     /**
      * @description Toggle thermal (heat) vision.
-     * @param {Boolean}
+     * @param {Boolean} toggle
      */
     set thermalVision(toggle) {
         SetSeethrough(toggle);
     }
+
     /**
      * @description  Return if players is in mission
      * @return {Boolean}
      */
     get isMissionActive() {
-        return !!GetMissionFlag()
+        return GetMissionFlag();
     }
+
     /**
      * @description Set if players is in mission
-     * @param {Boolean}
+     * @param {Boolean} toggle
      */
     set isMissionActive(toggle) {
         SetMissionFlag(toggle);
     }
+
     /**
      * @description *
      * @return {Boolean}
@@ -165,61 +189,70 @@ class Game {
     get isRandomEventActive() {
         return GetRandomEventFlag() === 1;
     }
+
     /**
      * @description *
-     * @param {Boolean}
+     * @param {Boolean} toggle
      */
     set isRandomEventActive(toggle) {
         SetRandomEventFlag(toggle ? 1 : 0);
     }
+
     /**
      * @description *
      * @return {Boolean}
      */
     get isCutsceneActive() {
-        return !!IsCutsceneActive()
+        return IsCutsceneActive();
     }
+
     /**
      * @description Is a waypoint set on the map.
      * @return {Boolean}
      */
     get isWaypointActive() {
-        return !!IsWaypointActive()
+        return IsWaypointActive();
     }
+
     /**
      * @description Is the player in the pause menu (ESC).
      * @return {Boolean}
      */
     get isPaused() {
-        return !!IsPauseMenuActive()
+        return IsPauseMenuActive();
     }
+
     /**
      * @description Force enable pause menu.
-     * @param {Boolean}
+     * @param {Boolean} toggle
      */
     set isPaused(toggle) {
         SetPauseMenuActive(toggle);
     }
+
     /**
      * @description Get if a loading screen is active.
      * @return {Boolean}
      */
     get isLoading() {
-        return !!GetIsLoadingScreenActive()
+        return GetIsLoadingScreenActive();
     }
+
     /**
      * @description Force player to stop the laoding screen
      */
     StopLoading() {
-        ShutdownLoadingScreen()
+        ShutdownLoadingScreen();
     }
+
     /**
      * @description Get current input mode.
      * @returns {Number} InputMode: Mouse & Keyboard (0) or GamePad(1)
      */
     get CurrentInputMode() {
-        return IsInputDisabled(2) ? InputMode.MOUSSEANDKEYBOARD : InputMode.GAMEPAD
+        return IsInputDisabled(2) ? InputMode.MOUSSEANDKEYBOARD : InputMode.GAMEPAD;
     }
+
     /**
      * @descriptionheck whether a control is currently pressed.
      * @param {Number} index input group (usually 0)
@@ -227,6 +260,7 @@ class Game {
      * @returns {Boolean}
      */
     IsControlPressed(index, control) {
-        return !!IsControlPressed(index, Number(control))
+        return IsControlPressed(index, Number(control));
     }
+
 }
