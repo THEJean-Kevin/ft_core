@@ -31,7 +31,7 @@ class Game {
      */
     get language() {
         const id = GetUserLanguageId();
-        return { id: id, language: Languages[id] };
+        return {id: id, language: Languages[id]};
     }
 
     /**
@@ -51,9 +51,9 @@ class Game {
     }
 
     /**
-         * @description Gets the total amount of frames rendered in this session
-         * @return {Number}}
-         */
+     * @description Gets the total amount of frames rendered in this session
+     * @return {Number}}
+     */
     get frameCount() {
         return GetFrameCount();
     }
@@ -251,32 +251,6 @@ class Game {
      */
     get CurrentInputMode() {
         return IsInputDisabled(2) ? InputMode.MOUSSEANDKEYBOARD : InputMode.GAMEPAD;
-    }
-
-    /**
-     * @descriptionheck Execute callback when control is pressed
-     * @param {Number} index input group (usually 0)
-     * @param {Number} control Control
-     * @param {Function} callback
-     * @returns {Boolean|Number} Return boolean if callback was not set or the id of callback
-     */
-    OnControlPressed(index,control,callback){
-        if(callback){
-            return setTick(()=>{
-                if(IsControlPressed(index,control)){
-                    callback()
-                }
-            })
-        }else{
-            return !!IsControlPressed(index, control)
-        }
-    }
-    /**
-     * @description clear the callback for OnControlPressed
-     * @param {Number} id 
-     */
-    StopOnControlPressed(id){
-        clearTick(id)
     }
 
 }
