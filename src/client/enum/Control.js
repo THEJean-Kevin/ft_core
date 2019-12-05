@@ -1,9 +1,16 @@
-const InputMode = Object.freeze({
+/**
+ * @Project: FivemTools
+ * @Author: Samuelds
+ * @License: GNU General Public License v3.0
+ * @Source: https://github.com/FivemTools/ft_core
+ */
+
+const InputMode = new Enum({
     MOUSSEANDKEYBOARD: 0,
     GAMEPAD: 1
-})
+});
 
-const Control = Object.freeze(Enum([
+const Control = new Enum([
     "NextCamera",
     "LookLeftRight",
     "LookUpDown",
@@ -362,4 +369,4 @@ const Control = Object.freeze(Enum([
     "VehicleFlyBombBay",
     "VehicleFlyCounter",
     "VehicleFlyTransform"
-]))
+]);
