@@ -183,7 +183,7 @@ class Vector3 {
         if (racine === 0) {
             console.error("Vector3: angleTo() can't handle zero length vectors.");
         }
-        const theta = this.DotProduct(value) / denominator;
+        const theta = this.DotProduct(value) / racine;
         return Math.acos(Math.clamp(theta, -1, 1));
     }
 

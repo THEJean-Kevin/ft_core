@@ -1,9 +1,9 @@
-/*
+/**
  * @Project: FivemTools
  * @Author: Samuelds
  * @License: GNU General Public License v3.0
  * @Source: https://github.com/FivemTools/ft_core
-*/
+ */
 
 /**
  * Creates a new Entity.
@@ -92,13 +92,13 @@ class Entity {
      */
     get coords() {
         const coords = GetEntityCoords(this.id);
-        this._coords = { x : coords[0], y : coords[1], z : coords[2] };
+        this._coords = new Vector3(coords[0], coords[1], coords[2]);
         return this._coords;
     }
 
     /**
      * @description Set coords
-     * @param {object} coords
+     * @param {Vector3} coords
      * @return {void}
      */
     set coords(coords) {
@@ -108,7 +108,7 @@ class Entity {
 
     /**
      * @description Set coords no offset
-     * @param {object} coords
+     * @param {Vector3} coords
      * @return {void}
      */
     set coordsNoOffset(coords) {
@@ -192,7 +192,7 @@ class Entity {
      * @description Get if entity exist
      * @return {boolean}
      */
-    Exist() {
+    Exists() {
         return Boolean(DoesEntityExist(this.id));
     }
 
@@ -275,10 +275,12 @@ class Entity {
 
     /**
      * @description Set coords
-     * @return {void}
+     * @param {number} x
+     * @param {number} y
+     * @param {number} z
      */
      SetCoords(x, y, z) {
-        this.coords = { x: x, y: y, z: z };
+        this.coords = new Vector3(x, y, z);
     }
 
 }

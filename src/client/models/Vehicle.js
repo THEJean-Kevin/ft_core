@@ -1,9 +1,9 @@
-/*
+/**
  * @Project: FivemTools
  * @Author: Samuelds
  * @License: GNU General Public License v3.0
  * @Source: https://github.com/FivemTools/ft_core
-*/
+ */
 
 /**
  * Creates a new Vehicle.
