@@ -361,6 +361,5 @@ const Control = Object.freeze(Enum([
     "VehicleBikeWings",
     "VehicleFlyBombBay",
     "VehicleFlyCounter",
-    "VehicleFlyTransform",
-
+    "VehicleFlyTransform"
 ]))
