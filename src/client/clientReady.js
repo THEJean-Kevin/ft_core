@@ -6,6 +6,7 @@
  */
 
 let _onReady = [];
+let _onSpawn = [];
 
 /**
  * @description Add function to run on client ready
@@ -21,12 +22,25 @@ const _loadingClientTimer = setInterval(function () {
         clearInterval(_loadingClientTimer);
         _onReady.forEach(function (callback) {
             callback();
-        })
+        });
     }
 }, 10);
 
-// Event send by spawn manager
+/**
+ * @description Add function to run on player spawn
+ * @param callback
+ * @constructor
+ */
+function OnPlayerSpawn(callback) {
+    _onSpawn.push(callback);
+}
+
+/**
+ * Event send by spawn manager resource
+  */
 RegisterServerEvent('playerSpawned');
 AddEventHandler('playerSpawned', function () {
-    TriggerServerEvent('ft_core:playerSpawned');
+    _onSpawn.forEach(function (callback) {
+        callback();
+    });
 });
