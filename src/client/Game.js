@@ -78,10 +78,10 @@ class Game {
      */
     get player() {
         const handle = PlayerId()
-        if (typeof this.cachedPlayer === 'undefined' || handle !== this.cachedPlayer) {
-            this.cachedPlayer = handle
+        if (typeof this._cachedPlayer === 'undefined' || handle !== this._cachedPlayer) {
+            this._cachedPlayer = handle
         }
-        return this.cachedPlayer
+        return this._cachedPlayer
     }
     /**
      * @description  Get the maximum wanted level.
