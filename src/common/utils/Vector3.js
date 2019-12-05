@@ -128,7 +128,12 @@ class Vector3 {
     }
 
     /**
-     * @description
+     * @description This function is used to calculate the dot product of two vectors.
+                    The dot product is a number calculated by multiplying the magnitudes of both vectors together, then multiplying that number by cosine of the angle between them.
+                    For normalized vectors, the dot product will be:
+                    -1 - If the vectors point in the exact opposite direction
+                    0 - If the vectors are perpendicular
+                    1 - If the vectors point the same direction
      * @param {array|Vector3} value
      * @returns {number}
      */
@@ -137,7 +142,7 @@ class Vector3 {
     }
 
     /**
-     * @description
+     * @description calculate the cross product of two vectors. The cross product is a vector that is perpendicular to both input vectors
      * @param {array|Vector3} value
      */
     CrossProduct(value) {
@@ -148,7 +153,7 @@ class Vector3 {
     }
 
     /**
-     * @description
+     * @description Convert this vector to a unit vector - that is, sets it equal to the vector with the same direction as this one, but length 1.
      * @returns {Vector3}
      */
     Normalize() {
@@ -173,8 +178,7 @@ class Vector3 {
     }
 
     /**
-     * TODO
-     * @description
+     * @description returns the angle (in radians) between two vectors.
      * @param value
      * @returns {number}
      */
@@ -188,8 +192,7 @@ class Vector3 {
     }
 
     /**
-     * TODO
-     * @description
+     * @description Computes the Euclidean length (straight-line length) from (0, 0, 0) to (x, y, z).
      * @returns {number}
      */
     Length() {
@@ -197,7 +200,7 @@ class Vector3 {
     }
 
     /**
-     * @description
+     * @description return the max number in the vector or If this vector's x, y or z value is less than v's x, y or z value, replace that value with the corresponding max value.
      * @param value
      * @returns {number|Vector3}
      */
@@ -213,7 +216,7 @@ class Vector3 {
     }
 
     /**
-     * @description
+     * @description return the min number in the vector or If this vector's x, y or z value is greater than v's x, y or z value, replace that value with the corresponding min value.
      * @param value
      * @returns {number|Vector3}
      */
@@ -229,7 +232,7 @@ class Vector3 {
     }
 
     /**
-     * @description
+     * @description return the opposite of the vector
      * @returns {Vector3}
      */
     Negative() {
@@ -248,7 +251,7 @@ class Vector3 {
     }
 
     /**
-     * @description
+     * @description Computes the distance from this vector to v.
      * @param value
      * @returns {number}
      */
@@ -257,7 +260,7 @@ class Vector3 {
     }
 
     /**
-     * @description
+     * @description Computes the squared distance from this vector to v. If you are just comparing the distance with another distance, you should compare the distance squared instead as it is slightly more efficient to calculate.
      * @param value
      * @returns {number}
      */
