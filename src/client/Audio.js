@@ -1,3 +1,10 @@
+/**
+ * @Project: FivemTools
+ * @Author: Samuelds
+ * @License: GNU General Public License v3.0
+ * @Source: https://github.com/FivemTools/ft_core
+ */
+
 class Audio {
     /**
      *@description Play sound at Coord pastebin.com/0neZdsZ5 

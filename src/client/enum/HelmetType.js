@@ -5,8 +5,8 @@
  * @Source: https://github.com/FivemTools/ft_core
  */
 
-const HelmetType = Object.freeze({
-    RegularMotorcycleHelmet: 4096,
-    FiremanHelmet: 16384,
-    PilotHeadset: 32768
+const HelmetType = new Enum({
+    "RegularMotorcycleHelmet": 4096,
+    "FiremanHelmet": 16384,
+    "PilotHeadset": 32768
 });

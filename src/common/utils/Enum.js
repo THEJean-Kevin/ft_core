@@ -1,13 +1,20 @@
-const Enum = (t)=>{
-    if(Array.isArray(t)){
-        var object = {};
-        var index = 0
-        t.forEach(element => {
+/**
+ * @Project: FivemTools
+ * @Author: Samuelds
+ * @License: GNU General Public License v3.0
+ * @Source: https://github.com/FivemTools/ft_core
+ */
+
+function Enum(values) {
+    if(values instanceof Array) {
+        let object = {};
+        let index = 0;
+        values.forEach(element => {
             object[element] = index;
-            index++
+            index++;
         });
-        return Object.freeze(object)
-    }else{
-        return Object.freeze(t)
+        return Object.freeze(object);
+    } else {
+        return Object.freeze(values);
     }
 }
