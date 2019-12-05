@@ -7,7 +7,7 @@ class Audio {
      * @param {*} soundSet
      * @returns {Number} sound Id
      */
-    playSoundAt(position, soundId, SoundName, soundSet) {
+    PlaySoundAt(position, soundId, SoundName, soundSet) {
         PlaySoundFromCoord(soundId, SoundName, position.x, position.y, position.z, soundSet ? soundSet : null, false, 0, false)
         return GetSoundId()
     }
@@ -19,7 +19,7 @@ class Audio {
      * @param {*} soundSet 
      * @returns {Number} sound Id
      */
-    playSoundFromEntity(entity, soundId, soundName, soundSet) {
+    PlaySoundFromEntity(entity, soundId, soundName, soundSet) {
         PlaySoundFromEntity(soundId, soundName, entity.id, soundSet ? soundSet : null, false, 0);
         return GetSoundId()
     }
@@ -30,7 +30,7 @@ class Audio {
      * @param {*} soundSet 
      * @returns {Number} sound Id
      */
-    playSoundFrontEnd(soundId, soundName, soundSet) {
+    PlaySoundFrontEnd(soundId, soundName, soundSet) {
         PlaySoundFrontend(soundId, soundName, soundSet ? soundSet : null, false)
         return GetSoundId()
     }
@@ -38,14 +38,14 @@ class Audio {
      * @description stop the sound
      * @param {Number} soundId
      */
-    stopSound(soundId) {
+    StopSound(soundId) {
         StopSound(soundId)
     }
     /**
      * @description release the sound
      * @param {Number} soundId
     */
-    releaseSound(soundId) {
+    ReleaseSound(soundId) {
         ReleaseSoundId(soundId)
     }
     /**
@@ -53,7 +53,7 @@ class Audio {
      * @param {Number} soundId
      * @returns {Boolean}
     */
-    hasSoundFinished(soundId){
+    HasSoundFinished(soundId){
         return !!HasSoundFinished(soundId)
     }
     /**
@@ -61,7 +61,7 @@ class Audio {
      * @param {String|Number} flag for number see the array audioFlag 
      * @param {*} toggle 
      */
-    setAudioFlag(flag,toggle){
+    SetAudioFlag(flag,toggle){
         if(typeof flag === 'string'){
             SetAudioFlag(flag,toggle)
         }else{
@@ -75,7 +75,7 @@ class Audio {
      * @param {String} soundName
      * @param {*} soundSet
      */
-    playSound(soundId,soundName,soundSet){
+    PlaySound(soundId,soundName,soundSet){
         this.releaseSound(this.playSoundFrontEnd(soundId,soundName,soundSet))
     }
 
@@ -83,7 +83,7 @@ class Audio {
      * @description play music
      * @param {String} musicfile https://pastebin.com/RzDFmB1W
      */
-    playMusic(musicfile){
+    PlayMusic(musicfile){
         if(this._cachedMusicFile !== null){
             CancelMusicEvent(this._cachedMusicFile)
         }
@@ -95,7 +95,7 @@ class Audio {
      * @description Stop music
      * @param {string} musicFile https://pastebin.com/RzDFmB1W
      */
-    stopMusic(musicFile){
+    StopMusic(musicFile){
         if(!musicFile){
             CancelMusicEvent(musicFile)
         }else{

@@ -23,7 +23,7 @@ class Game {
      * @param {string} string
      * @return {hash}
      */
-    generateHash(string) {
+    GenerateHash(string) {
         if (typeof string === "undefined") {
             return 0;
         }
@@ -210,7 +210,7 @@ class Game {
     /**
      * @description Force player to stop the laoding screen
      */
-    stopLoading() {
+    StopLoading() {
         ShutdownLoadingScreen()
     }
     /**
@@ -226,7 +226,7 @@ class Game {
      * @param {Number} control Control
      * @returns {Boolean}
      */
-    isControlPressed(index, control) {
+    IsControlPressed(index, control) {
         return !!IsControlPressed(index, Number(control))
     }
 }
