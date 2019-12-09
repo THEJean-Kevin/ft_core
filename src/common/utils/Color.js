@@ -53,40 +53,47 @@ class Color {
     }
 
     hexToRGB(h) {
-        // 3 digits
-        if (h.length == 4) {
-            this.r = "0x" + h[1] + h[1];
-            this.g = "0x" + h[2] + h[2];
-            this.b = "0x" + h[3] + h[3];
+        if (/^#([\da-f]{3}){1,2}$/i.test(h)) {
+            // 3 digits
+            if (h.length == 4) {
+                this.r = "0x" + h[1] + h[1];
+                this.g = "0x" + h[2] + h[2];
+                this.b = "0x" + h[3] + h[3];
 
-            // 6 digits
-        } else if (h.length == 7) {
-            this.r = "0x" + h[1] + h[2];
-            this.g = "0x" + h[3] + h[4];
-            this.b = "0x" + h[5] + h[6];
+                // 6 digits
+            } else if (h.length == 7) {
+                this.r = "0x" + h[1] + h[2];
+                this.g = "0x" + h[3] + h[4];
+                this.b = "0x" + h[5] + h[6];
+            }
+
+            return this
+        } else {
+            console.error(h + " was not a hex value")
         }
-
-        return this
     }
 
     hexAToRGBA(h) {
-        
-      
-        if (h.length == 5) {
-            this.r = "0x" + h[1] + h[1];
-            this.g = "0x" + h[2] + h[2];
-            this.b = "0x" + h[3] + h[3];
-            this.a = "0x" + h[4] + h[4];
-      
-        } else if (h.length == 9) {
-            this.r = "0x" + h[1] + h[2];
-            this.g = "0x" + h[3] + h[4];
-            this.b = "0x" + h[5] + h[6];
-            this.a = "0x" + h[7] + h[8];
-        }
-        this.a = +(this.a / 255).toFixed(3);
-      
-        return this;
-      }
 
+        if (/^#([\da-f]{4}){1,2}$/i.test(h)) {
+            if (h.length == 5) {
+                this.r = "0x" + h[1] + h[1];
+                this.g = "0x" + h[2] + h[2];
+                this.b = "0x" + h[3] + h[3];
+                this.a = "0x" + h[4] + h[4];
+
+            } else if (h.length == 9) {
+                this.r = "0x" + h[1] + h[2];
+                this.g = "0x" + h[3] + h[4];
+                this.b = "0x" + h[5] + h[6];
+                this.a = "0x" + h[7] + h[8];
+            }
+            this.a = +(this.a / 255).toFixed(3);
+
+            return this;
+        }
+        else {
+            console.error(h + " was not a hex a value")
+        }
+    }
 }
