@@ -16,7 +16,7 @@ class Color {
         this.r = x;
         this.g = y;
         this.b = z;
-        this.a = a
+        this.a = a;
     }
 
     RGBToHex() {
@@ -69,7 +69,7 @@ class Color {
 
             return this
         } else {
-            console.error(h + " was not a hex value")
+            console.error(h + " was not a hex value");
         }
     }
 
@@ -93,7 +93,7 @@ class Color {
             return this;
         }
         else {
-            console.error(h + " was not a hex a value")
+            console.error(h + " was not a hex a value");
         }
     }
 }

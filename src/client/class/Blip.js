@@ -17,8 +17,8 @@ class Blip {
      */
     NewBlipForCoord(vector3, data) {
         this.id = AddBlipForCoord(vector3.x, vector3.y, vector3.z);
-        this.updateData(data)
-        return this.id
+        this.updateData(data);
+        return this.id;
     }
     /**
      * @description Create new blip for Areal
@@ -30,8 +30,8 @@ class Blip {
      */
     NewBlipForArea(vector3, width = 1, height = 1, data) {
         this.id = AddBlipForArea(vector3.x, vector3.y, vector3.z, width, height);
-        this.updateData(data)
-        return this.id
+        this.updateData(data);
+        return this.id;
     }
     /**
      * @description Create a blip for Enity
@@ -41,8 +41,8 @@ class Blip {
      */
     NewBlipForEntity(entity, data) {
         this.id = AddBlipForEntity(entity.id);
-        this.updateData(data)
-        return this.id
+        this.updateData(data);
+        return this.id;
     }
     /**
      * @description Create new blip for Radius
@@ -53,8 +53,8 @@ class Blip {
      */
     NewBlipForRadius(vector3, radius = 1, data) {
         this.id = AddBlipForRadius(vector3.x, vector3.y, vector3.z, radius);
-        this.updateData(data)
-        return this.id
+        this.updateData(data);
+        return this.id;
     }
     /**
      * @description Create new blip for pickup
@@ -64,8 +64,8 @@ class Blip {
      */
     NewBlipForPickup(pickup,data) {
         this.id = AddBlipForPickup(pickup);
-        this.updateData(data)
-        return this.id
+        this.updateData(data);
+        return this.id;
     }
 
     /**
@@ -73,7 +73,7 @@ class Blip {
      * @param {Entity}
      */
     get blipFromEntity(entity) {
-        return GetBlipFromEntity(entity.id)
+        return GetBlipFromEntity(entity.id);
     }
 
 
@@ -82,64 +82,58 @@ class Blip {
      * @returns {vector3}
      */
     get coord() {
-        return GetBlipInfoIdCoord(this.id)
+        return GetBlipInfoIdCoord(this.id);
     }
     /**
     * @description Set the position of this blip
     * @param {vector3}
     */
     set coord(vector3) {
-        SetBlipCoords(this.id, vector3.x, vector3.y, vector3.z)
-    }
-
-    /**
-     * @description Get the rotation of this on the map.
-     */
-    get rotation() {
-        return this.rotation
+        SetBlipCoords(this.id, vector3.x, vector3.y, vector3.z);
     }
     /**
      * @description Set the rotation of this on the map.
      * @param {Number}
      */
     set rotation(value) {
-        SetBlipRotation(this.id, value)
+        SetBlipRotation(this.id, value);
+        this.rotation = value
     }
     /**
      * @description Get the scale of this on the ma
      * @return {Number}
      */
     get scale() {
-        return this.scale
+        return this.scale;
     }
     /**
      * @description Set the scale of this on the ma
      * @param {Number}
      */
     set scale(taille) {
-        SetBlipScale(this.id, taille)
-        this.scale = taille
+        SetBlipScale(this.id, taille);
+        this.scale = taille;
     }
     /**
      * @description Gets the type of this
      * @return {Number}
      */
     get type() {
-        return GetBlipInfoIdType(this.id)
+        return GetBlipInfoIdType(this.id);
     }
     /**
      * @description Gets the alpha of this on the map.
      * @return {Number}
      */
     get alpha() {
-        return GetBlipAlpha(this.id)
+        return GetBlipAlpha(this.id);
     }
     /**
      * @description Sets the alpha of this on the map.
      * @param {Number}
      */
     set alpha(value) {
-        SetBlipAlpha(this.id, value)
+        SetBlipAlpha(this.id, value);
     }
     /**
      * @description Turns on the "cone view" that are used for guards for example. Not sure what the values for priority do.
@@ -147,34 +141,34 @@ class Blip {
      * 
      */
     set priority(value) {
-        SetBlipPriority(this.id, value)
+        SetBlipPriority(this.id, value);
     }
     /**
      * @description Sets this label to the given number.
      * @param {Number}
      */
     set numberLabel(value) {
-        ShowNumberOnBlip(this.id, value)
+        ShowNumberOnBlip(this.id, value);
     }
     /**
      * @description Removes the number label for this blip
      */
     RemoveNumberLabal() {
-        HideNumberOnBlip(this.id)
+        HideNumberOnBlip(this.id);
     }
     /**
      * @description Gets the color of this
      * @return {Number}
      */
     get color() {
-        return GetBlipColour(this.id)
+        return GetBlipColour(this.id);
     }
     /**
      * @description Set the color of this
      * @param {Number} value https://runtime.fivem.net/doc/natives/#_0x03D7FB09E75D6B7E
      */
     set color(value) {
-        SetBlipColour(this.id, value)
+        SetBlipColour(this.id, value);
     }
 
     /**
@@ -197,10 +191,10 @@ class Blip {
      * @param {string}
      */
     set name(name) {
-        BeginTextCommandSetBlipName("STRING")
-        AddTextComponentSubstringPlayerName(name)
-        EndTextCommandSetBlipName(this.id)
-        this.name = name
+        BeginTextCommandSetBlipName("STRING");
+        AddTextComponentSubstringPlayerName(name);
+        EndTextCommandSetBlipName(this.id);
+        this.name = name;
     }
 
     /**
@@ -208,7 +202,7 @@ class Blip {
      * @returns {Entity}
      */
     get entity() {
-        return new Entity(GetBlipInfoIdEntityIndex(this.id))
+        return new Entity(GetBlipInfoIdEntityIndex(this.id));
     }
 
     /**
@@ -247,7 +241,7 @@ class Blip {
      * @param {Boolean}
      */
     IsFriendCrew(value) {
-        ShowOutlineIndicatorOnBlip(this.id, value)
+        ShowOutlineIndicatorOnBlip(this.id, value);
     }
     /**
      * @description Set the circle color
@@ -261,35 +255,35 @@ class Blip {
      * @param {boolean}
      */
     set isFlashing(value) {
-        SetBlipFlashes(this.id, value)
+        SetBlipFlashes(this.id, value);
     }
     /**
      * @description Sets a value indicating whether this blip is flashing.
      * @return{boolean}
      */
     get isFlashing() {
-        return IsBlipFlashing(this.id)
+        return IsBlipFlashing(this.id);
     }
     /**
      * @description Gets a value indicating whether this blip is on minimap.
      * @returns {boolean}
      */
     get isOnMinimap() {
-        return IsBlipOnMinimap(this.id)
+        return IsBlipOnMinimap(this.id);
     }
     /**
      * @description Gets a value indicating whether this blip is short range.
      * @return {boolean}
      */
     get isShortRange() {
-        return IsBlipShortRange(this.id)
+        return IsBlipShortRange(this.id);
     }
     /**
      * @description Set a value indicating whether this blip is short range.
      * @param{boolean}
      */
     set isShortRange(value) {
-        SetBlipAsShortRange(this.id, value)
+        SetBlipAsShortRange(this.id, value);
     }
 
     /**
@@ -297,7 +291,7 @@ class Blip {
      */
     Delete() {
         if (DoesBlipExist(this.id)) {
-            RemoveBlip(this.id)
+            RemoveBlip(this.id);
         }
     }
     /**
@@ -305,7 +299,7 @@ class Blip {
      * @returns {boolean}
      */
     Exist() {
-        return DoesBlipExist(this.id)
+        return DoesBlipExist(this.id);
     }
 
     /**
@@ -313,7 +307,7 @@ class Blip {
      * @return {Number} value possible value : 0=Doesn't show up, ever, anywhere |2 = Shows on both main map and minimap. (Selectable on map) | 3 = Shows on main map only. (Selectable on map) | 5 = Shows on minimap only. |8 = Shows on both main map and minimap. (Not selectable on map)
      */
     get display() {
-        return GetBlipInfoIdDisplay(this.id)
+        return GetBlipInfoIdDisplay(this.id);
     }
 
     /**
@@ -321,7 +315,7 @@ class Blip {
      * @param {Number} value possible value : 0=Doesn't show up, ever, anywhere |2 = Shows on both main map and minimap. (Selectable on map) | 3 = Shows on main map only. (Selectable on map) | 5 = Shows on minimap only. |8 = Shows on both main map and minimap. (Not selectable on map)
      */
     set display(value) {
-        SetBlipDisplay(this.id, value)
+        SetBlipDisplay(this.id, value);
     }
 
     /**
@@ -332,52 +326,51 @@ class Blip {
         Object.keys(data).forEach(e => {
             switch (e) {
                 case "sprite":
-                    this.sprite = data.sprite
+                    this.sprite = data.sprite;
                     break;
                 case "name":
-                    this.name = data.name
+                    this.name = data.name;
                     break;
                 case "scale":
-                    this.scale = data.scale
+                    this.scale = data.scale;
                     break;
                 case "display":
-                    this.display = data.display
+                    this.display = data.display;
                     break
                 case "color":
-                    this.color = data.color
+                    this.color = data.color;
                     break
                 case "alpha":
-                    this.alpha = data.alpha
+                    this.alpha = data.alpha;
                     break
                 case 'coord':
-                    this.coord = data.coord
+                    this.coord = data.coord;
                     break
                 case 'rotation':
-                    this.rotation = data.rotation
+                    this.rotation = data.rotation;
                     break
                 case 'priority':
-                    this.priority = data.priority
+                    this.priority = data.priority;
                     break
                 case 'numberLabel':
-                    this.numberLabel = data.numberLabel
+                    this.numberLabel = data.numberLabel;
                     break;
                 case 'showRoute':
-                    this.ShowRoute(data.showRoute)
+                    this.ShowRoute(data.showRoute);
                     break
                 case 'isFriend':
-                    this.IsFriend(data.isFriend)
+                    this.IsFriend(data.isFriend);
                     break
                 case 'isCrew':
                     this.IsCrew(data.isCrew);
                     break
                 case 'secondaryColor':
-                    this.secondaryColor = data.secondaryColor
-                    break
+                    this.secondaryColor = data.secondaryColor;                    break
                 case 'isFlashing':
-                    this.isFlashing = data.isFlashing
+                    this.isFlashing = data.isFlashing;
                     break
                 case 'isShortRange':
-                    this.isShortRange = data.isShortRange
+                    this.isShortRange = data.isShortRange;
                     break
                 default:
                     break;
