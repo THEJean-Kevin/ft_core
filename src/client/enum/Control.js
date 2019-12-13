@@ -1,13 +1,13 @@
-/**
- * @Project: FivemTools
+/*
+ * @Project: FiveM Tools
  * @Author: Samuelds
  * @License: GNU General Public License v3.0
- * @Source: https://github.com/FivemTools/ft_core
- */
+ * @Source: https://github.com/FivemTools/ft_players
+*/
 
 const InputMode = new Enum({
-    MOUSSEANDKEYBOARD: 0,
-    GAMEPAD: 1
+    "MOUSSEANDKEYBOARD": 0,
+    "GAMEPAD": 1
 });
 
 const Control = new Enum([
