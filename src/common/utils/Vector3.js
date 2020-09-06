@@ -2,7 +2,7 @@
  * @Project: FiveM Tools
  * @Authors: Samuelds, THEJean_Kevin
  * @License: GNU General Public License v3.0
- * @Source: https://github.com/FivemTools/ft_players
+ * @Source: https://github.com/FivemTools/ft_core
 */
 
 

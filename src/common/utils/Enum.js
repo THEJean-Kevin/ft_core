@@ -2,11 +2,11 @@
  * @Project: FiveM Tools
  * @Author: Samuelds
  * @License: GNU General Public License v3.0
- * @Source: https://github.com/FivemTools/ft_players
+ * @Source: https://github.com/FivemTools/ft_core
 */
 
 function Enum(values) {
-    if(values instanceof Array) {
+    if (values instanceof Array) {
         let object = {};
         let index = 0;
         values.forEach(element => {
@@ -15,6 +15,10 @@ function Enum(values) {
         });
         return Object.freeze(object);
     } else {
-        return Object.freeze(values);
+        let object = values;
+        for (let [k, v] of Object.entries(value)) {
+            object[v] = k;
+        }
+        return Object.freeze(object);
     }
 }

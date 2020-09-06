@@ -2,7 +2,7 @@
  * @Project: FiveM Tools
  * @Authors: Samuelds, THEJean_Kevin
  * @License: GNU General Public License v3.0
- * @Source: https://github.com/FivemTools/ft_players
+ * @Source: https://github.com/FivemTools/ft_core
 */
 
 class Color {
@@ -79,15 +79,14 @@ class Color {
      * @returns {Color}
      */
     hexToRGB(h) {
-        if(/^#([\da-f]{3}){1,2}$/i.test(h)) {
+        if (/^#([\da-f]{3}){1,2}$/i.test(h)) {
             // 3 digits
-            if(h.length == 4) {
+            if (h.length == 4) {
                 this.r = "0x" + h[1] + h[1];
                 this.g = "0x" + h[2] + h[2];
                 this.b = "0x" + h[3] + h[3];
-
                 // 6 digits
-            } else if(h.length == 7) {
+            } else if (h.length == 7) {
                 this.r = "0x" + h[1] + h[2];
                 this.g = "0x" + h[3] + h[4];
                 this.b = "0x" + h[5] + h[6];
@@ -105,8 +104,8 @@ class Color {
      * @returns {Color}
      */
     hexAToRGBA(h) {
-        if(/^#([\da-f]{4}){1,2}$/i.test(h)) {
-            if(h.length == 5) {
+        if (/^#([\da-f]{4}){1,2}$/i.test(h)) {
+            if (h.length == 5) {
                 this.r = "0x" + h[1] + h[1];
                 this.g = "0x" + h[2] + h[2];
                 this.b = "0x" + h[3] + h[3];

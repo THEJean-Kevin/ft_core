@@ -2,12 +2,12 @@
  * @Project: FiveM Tools
  * @Authors: Samuelds, THEJean_Kevin
  * @License: GNU General Public License v3.0
- * @Source: https://github.com/FivemTools/ft_players
+ * @Source: https://github.com/FivemTools/ft_core
 */
 
 const RagdollType = new Enum({
     "Normal": 0,
     "StiffLegs": 1,
     "NarrowLegs": 2,
-    "WideLegs":3,
+    "WideLegs": 3,
 });
