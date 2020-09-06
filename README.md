@@ -3,36 +3,21 @@ To create resources on FiveM
 
 ### Prerequisites
 
-Nothing
+* [Nodejs](https://nodejs.org/)
 
 ### Installing
 
-Put the folder where you want it and add it to the server.cfg file :
+Copy `exemple` directory and rename to `ft_exemple`.
 
-Example:
-
-```
-start ft_core
-```
-
-or put in to dependencies in __resource.lua :
-
-```
-dependency 'ft_core'
-
-or
-
-dependencies {
-  ...
-  'ft_core',
-  ...
-}
-
+Last add, into the server.cfg file :
+ ```
+    start ft_exemple
 ```
 
 ### Documentation
 
-[Online](https://fivemtools-core.readme.io/v1.0/)
+- Online : https://ft_core.fivem.tools
+- Local : `docs` directory (github)
 
 ## License
 
@@ -41,5 +26,5 @@ This project is licensed under the GNU General Public License v3.0 - see the [LI
 ## Contributors :
 
 - Samuelds
-- LH-Lawliet
 - THEJean-Kevin
+- LH-Lawliet

@@ -85,7 +85,6 @@ class Color {
                 this.r = "0x" + h[1] + h[1];
                 this.g = "0x" + h[2] + h[2];
                 this.b = "0x" + h[3] + h[3];
-
                 // 6 digits
             } else if (h.length == 7) {
                 this.r = "0x" + h[1] + h[2];

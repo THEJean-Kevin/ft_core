@@ -11,7 +11,6 @@ function Enum(values) {
         let index = 0;
         values.forEach(element => {
             object[element] = index;
-            object[index] = element;
             index++;
         });
         return Object.freeze(object);

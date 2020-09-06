@@ -11,6 +11,7 @@ files {
     -- Class
     "src/class/entity.class.js",
 	"src/class/vehicle.class.js",
+	"src/class/ped.class.js",
 	
 	-- Utils	
 	"src/load.client.js",
