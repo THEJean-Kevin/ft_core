@@ -20,6 +20,7 @@ class Entity {
     }
 
     /**
+     * @API Client
      * @description Get entity model
      * @return {string}
      */
@@ -31,6 +32,7 @@ class Entity {
     }
 
     /**
+     * @API Client, Server
      * @description Set entity model value
      * @param {string} value
      * @return {void}
@@ -40,6 +42,7 @@ class Entity {
     }
 
     /**
+     * @API Client, Server
      * @description Get entity health
      * @return {number}
      */
@@ -49,6 +52,7 @@ class Entity {
     }
 
     /**
+     * @API Client
      * @description Set entity health
      * @param amount
      * @return {void}
@@ -59,6 +63,7 @@ class Entity {
     }
 
     /**
+     * @API Client, Server
      * @description Get max health
      * @return {number}
      */
@@ -68,6 +73,7 @@ class Entity {
     }
 
     /**
+     * @API Client
      * @description Set max health
      * @param {number} amount
      * @return {void}
@@ -78,6 +84,7 @@ class Entity {
     }
 
     /**
+     * @API Client, Server
      * @description Get coords
      * @return {object} coords
      */
@@ -88,6 +95,7 @@ class Entity {
     }
 
     /**
+     * @API Client, Server
      * @description Set coords
      * @param {object} coords
      * @return {void}
@@ -98,6 +106,7 @@ class Entity {
     }
 
     /**
+     * @API Client
      * @description Set coords no offset
      * @param {object} coords
      * @return {void}
@@ -108,6 +117,7 @@ class Entity {
     }
 
     /**
+     * @API Client, Server
      * @description Get heading
      * @return {number}
      */
@@ -117,6 +127,7 @@ class Entity {
     }
 
     /**
+     * @API Client, Server
      * @description Set heading
      * @param heading
      * @return {void}
@@ -127,6 +138,7 @@ class Entity {
     }
 
     /**
+     * @API Client
      * @description Get collision status
      * @return {boolean}
      */
@@ -136,6 +148,7 @@ class Entity {
     }
 
     /**
+     * @API Client
      * @description Set collision
      * @param status
      * @return {void}
@@ -146,6 +159,7 @@ class Entity {
     }
 
     /**
+     * @API Client, Server
      * @description Get network id
      * @return {number}
      */
@@ -155,6 +169,7 @@ class Entity {
     }
 
     /**
+     * @API Client, Server
      * @param {number} netId
      * @return {void}
      */
@@ -164,6 +179,7 @@ class Entity {
     }
 
     /**
+     * @API Client
      * @description Get if entity is dead
      * @return {boolean}
      */
@@ -172,6 +188,7 @@ class Entity {
     }
 
     /**
+     * @API Client
      * @description Get if entity is alive
      * @return {boolean}
      */
@@ -180,6 +197,7 @@ class Entity {
     }
 
     /**
+     * @API Client, Server
      * @description Get if entity exist
      * @return {boolean}
      */
@@ -188,6 +206,7 @@ class Entity {
     }
 
     /**
+     * @API Client, Server
      * @description Delete entity
      * @return {void}
      */
@@ -197,6 +216,7 @@ class Entity {
     }
 
     /**
+     * @API Client
      * @param {string} boneName
      * @return {number}
      */
@@ -205,6 +225,7 @@ class Entity {
     }
 
     /**
+     * @API Client
      * @description Set as mission
      * @param {function} callback
      * @return void
@@ -232,6 +253,7 @@ class Entity {
     }
 
     /**
+     * @API Client
      * @description Register as networked
      * @param {function} callback
      * @return {void}
