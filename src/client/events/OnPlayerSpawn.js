@@ -2,7 +2,7 @@
  * @Project: FiveM Tools
  * @Author: Samuelds
  * @License: GNU General Public License v3.0
- * @Source: https://github.com/FivemTools/ft_players
+ * @Source: https://github.com/FivemTools/ft_core
 */
 
 let _onSpawn = [];
@@ -13,7 +13,7 @@ let _onSpawn = [];
  * @constructor
  */
 function OnPlayerSpawn(callback) {
-    _onSpawn.push(callback);
+  _onSpawn.push(callback);
 }
 
 /**
@@ -21,7 +21,7 @@ function OnPlayerSpawn(callback) {
  */
 RegisterServerEvent('playerSpawned');
 AddEventHandler('playerSpawned', function () {
-    _onSpawn.forEach(function (callback) {
-        callback();
-    });
+  _onSpawn.forEach(function (callback) {
+    callback();
+  });
 });

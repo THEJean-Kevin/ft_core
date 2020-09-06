@@ -2,7 +2,7 @@
  * @Project: FiveM Tools
  * @Author: Samuelds
  * @License: GNU General Public License v3.0
- * @Source: https://github.com/FivemTools/ft_players
+ * @Source: https://github.com/FivemTools/ft_core
 */
 
 let _onSessionStarted = [];
@@ -13,14 +13,14 @@ let _onSessionStarted = [];
  * @return {void}
  */
 function OnSessionStarted(callback) {
-    _onSessionStarted.push(callback);
+  _onSessionStarted.push(callback);
 }
 
 const _OnSessionStartedTimer = setInterval(function () {
-    if (NetworkIsSessionStarted()) {
-        clearInterval(_OnSessionStartedTimer);
-        _onSessionStarted.forEach(function (callback) {
-            callback();
-        });
-    }
+  if (NetworkIsSessionStarted()) {
+    clearInterval(_OnSessionStartedTimer);
+    _onSessionStarted.forEach(function (callback) {
+      callback();
+    });
+  }
 }, 10);
