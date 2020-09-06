@@ -1,8 +1,8 @@
 /*
- * @Project: FivemTools
- * @Author: Samuelds
+ * @Project: FiveM Tools
+ * @Authors: Samuelds, THEJean_Kevin
  * @License: GNU General Public License v3.0
- * @Source: https://github.com/FivemTools/ft_core
+ * @Source: https://github.com/FivemTools/ft_players
 */
 
 /**
@@ -20,7 +20,6 @@ class Entity {
     }
 
     /**
-     * @API Client
      * @description Get entity model
      * @return {string}
      */
@@ -32,7 +31,6 @@ class Entity {
     }
 
     /**
-     * @API Client, Server
      * @description Set entity model value
      * @param {string} value
      * @return {void}
@@ -42,7 +40,15 @@ class Entity {
     }
 
     /**
-     * @API Client, Server
+     * @description Get model hash by name
+     * @param {string} name
+     * @return {void}
+     */
+    SetModelByName(name) {
+        this.model = GetHashKey(name);
+    }
+
+    /**
      * @description Get entity health
      * @return {number}
      */
@@ -52,7 +58,6 @@ class Entity {
     }
 
     /**
-     * @API Client
      * @description Set entity health
      * @param amount
      * @return {void}
@@ -63,7 +68,6 @@ class Entity {
     }
 
     /**
-     * @API Client, Server
      * @description Get max health
      * @return {number}
      */
@@ -73,7 +77,6 @@ class Entity {
     }
 
     /**
-     * @API Client
      * @description Set max health
      * @param {number} amount
      * @return {void}
@@ -84,20 +87,18 @@ class Entity {
     }
 
     /**
-     * @API Client, Server
      * @description Get coords
      * @return {object} coords
      */
     get coords() {
         const coords = GetEntityCoords(this.id);
-        this._coords = { x : coords[0], y : coords[1], z : coords[2] };
+        this._coords = new Vector3(coords[0], coords[1], coords[2]);
         return this._coords;
     }
 
     /**
-     * @API Client, Server
      * @description Set coords
-     * @param {object} coords
+     * @param {Vector3} coords
      * @return {void}
      */
     set coords(coords) {
@@ -106,9 +107,8 @@ class Entity {
     }
 
     /**
-     * @API Client
      * @description Set coords no offset
-     * @param {object} coords
+     * @param {Vector3} coords
      * @return {void}
      */
     set coordsNoOffset(coords) {
@@ -117,7 +117,6 @@ class Entity {
     }
 
     /**
-     * @API Client, Server
      * @description Get heading
      * @return {number}
      */
@@ -127,7 +126,6 @@ class Entity {
     }
 
     /**
-     * @API Client, Server
      * @description Set heading
      * @param heading
      * @return {void}
@@ -138,7 +136,6 @@ class Entity {
     }
 
     /**
-     * @API Client
      * @description Get collision status
      * @return {boolean}
      */
@@ -148,7 +145,6 @@ class Entity {
     }
 
     /**
-     * @API Client
      * @description Set collision
      * @param status
      * @return {void}
@@ -159,7 +155,6 @@ class Entity {
     }
 
     /**
-     * @API Client, Server
      * @description Get network id
      * @return {number}
      */
@@ -169,7 +164,6 @@ class Entity {
     }
 
     /**
-     * @API Client, Server
      * @param {number} netId
      * @return {void}
      */
@@ -179,7 +173,6 @@ class Entity {
     }
 
     /**
-     * @API Client
      * @description Get if entity is dead
      * @return {boolean}
      */
@@ -188,7 +181,6 @@ class Entity {
     }
 
     /**
-     * @API Client
      * @description Get if entity is alive
      * @return {boolean}
      */
@@ -197,16 +189,14 @@ class Entity {
     }
 
     /**
-     * @API Client, Server
      * @description Get if entity exist
      * @return {boolean}
      */
-    Exist() {
+    Exists() {
         return Boolean(DoesEntityExist(this.id));
     }
 
     /**
-     * @API Client, Server
      * @description Delete entity
      * @return {void}
      */
@@ -216,7 +206,6 @@ class Entity {
     }
 
     /**
-     * @API Client
      * @param {string} boneName
      * @return {number}
      */
@@ -225,7 +214,6 @@ class Entity {
     }
 
     /**
-     * @API Client
      * @description Set as mission
      * @param {function} callback
      * @return void
@@ -253,7 +241,6 @@ class Entity {
     }
 
     /**
-     * @API Client
      * @description Register as networked
      * @param {function} callback
      * @return {void}
@@ -284,6 +271,16 @@ class Entity {
             }
             waiting++;
         }, 20);
+    }
+
+    /**
+     * @description Set coords
+     * @param {number} x
+     * @param {number} y
+     * @param {number} z
+     */
+     SetCoords(x, y, z) {
+        this.coords = new Vector3(x, y, z);
     }
 
 }
