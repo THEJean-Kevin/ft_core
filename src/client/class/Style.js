@@ -175,11 +175,11 @@ class Style {
      * @param {Number} type 
      * @param {Number} color 
      */
-    SetHair(type,color){
-        if(type){
+    SetHair(type, color) {
+        if (type) {
             this.PedComponent(2).index = type;
         }
-        if(color){
+        if (color) {
             SetPedHairColor(this._ped.id, color, 0);
         }
     }
@@ -188,7 +188,7 @@ class Style {
      * @description small function to get type and color
      * @returns {Object} 
      */
-    GetHair(){
+    GetHair() {
         return {
             type: this.PedComponent(2).index,
             color: GetPedHairColor(this._ped.id)
@@ -302,7 +302,7 @@ class Style {
     /**
      * @description Clean all tattoos of the ped
      */
-    ClearTattoos(){
+    ClearTattoos() {
         ClearPedDecorations(this._ped.id);
     }
 
@@ -311,8 +311,8 @@ class Style {
      * @param {String} collection 
      * @param {String} name 
      */
-    AddTattos(collection,name){
-        AddPedDecorationFromHashes(this._ped.id,Game.GenerateHash(collection),Game.GenerateHash(name));
+    AddTattos(collection, name) {
+        AddPedDecorationFromHashes(this._ped.id, Game.GenerateHash(collection), Game.GenerateHash(name));
     }
 }
 

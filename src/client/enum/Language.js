@@ -6,13 +6,13 @@
 */
 
 const Languages = new Enum({
-  7: "french",
-  9: "japanese",
-  10: "spanish",
-  12: "english",
-  16: "portuguese",
-  17: "korean",
-  21: "italian",
-  22: "german",
-  25: "russian"
+    7: "french",
+    9: "japanese",
+    10: "spanish",
+    12: "english",
+    16: "portuguese",
+    17: "korean",
+    21: "italian",
+    22: "german",
+    25: "russian"
 });

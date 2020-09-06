@@ -13,14 +13,14 @@ let _onSessionStarted = [];
  * @return {void}
  */
 function OnSessionStarted(callback) {
-  _onSessionStarted.push(callback);
+    _onSessionStarted.push(callback);
 }
 
 const _OnSessionStartedTimer = setInterval(function () {
-  if (NetworkIsSessionStarted()) {
-    clearInterval(_OnSessionStartedTimer);
-    _onSessionStarted.forEach(function (callback) {
-      callback();
-    });
-  }
+    if (NetworkIsSessionStarted()) {
+        clearInterval(_OnSessionStartedTimer);
+        _onSessionStarted.forEach(function (callback) {
+            callback();
+        });
+    }
 }, 10);

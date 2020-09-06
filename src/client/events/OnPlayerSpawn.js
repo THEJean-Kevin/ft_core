@@ -13,7 +13,7 @@ let _onSpawn = [];
  * @constructor
  */
 function OnPlayerSpawn(callback) {
-  _onSpawn.push(callback);
+    _onSpawn.push(callback);
 }
 
 /**
@@ -21,7 +21,7 @@ function OnPlayerSpawn(callback) {
  */
 RegisterServerEvent('playerSpawned');
 AddEventHandler('playerSpawned', function () {
-  _onSpawn.forEach(function (callback) {
-    callback();
-  });
+    _onSpawn.forEach(function (callback) {
+        callback();
+    });
 });
