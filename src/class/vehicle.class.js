@@ -13,6 +13,7 @@
 class Vehicle extends Entity {
 
     /**
+     * @API Client
      * @description Get class
      * @return {string}
      */
@@ -24,6 +25,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client, Server
      * @description Get body health
      * @return {number}
      */
@@ -33,6 +35,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client, Server
      * @description Set body health
      * @param {number} amount
      * @return {void}
@@ -43,6 +46,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client, Server
      * @description Get engine health
      * @return {number}
      */
@@ -52,6 +56,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Set engine health
      * @param {number} amount
      * @return {void}
@@ -62,6 +67,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client, Server
      * @description Get engine is running
      * @return {boolean}
      */
@@ -71,6 +77,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Set engine is running
      * @param {boolean} status
      * @return {void}
@@ -81,6 +88,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client, Server
      * @description Get petrol tank health
      * @return {number}
      */
@@ -90,6 +98,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Set petrol tank health
      * @param {number} amount
      * @return {void}
@@ -100,6 +109,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client, Server
      * @description Get lights
      * @return {object}
      */
@@ -127,6 +137,7 @@ class Vehicle extends Entity {
     }*/
 
     /**
+     * @API Client, Server
      * @description Set lights mode
      * @param {number} amount
      * @return {void}
@@ -137,6 +148,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Set light multiplier
      * @param {number} amount
      * @return {void}
@@ -147,6 +159,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Get neon light
      * @param {number} index
      * @return {void}
@@ -156,9 +169,11 @@ class Vehicle extends Entity {
             this._neonLight = {};
         }
         this._neonLight[index] = Boolean(IsVehicleNeonLightEnabled(this.id, index));
+        return this._neonLight[index];
     }
 
     /**
+     * @API Client
      * @description Get all neon light
      * @return {object}
      */
@@ -170,6 +185,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description return neon light is enabled
      * @param {number} index
      * @return {boolean}
@@ -179,6 +195,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Set neon light
      * @param {number} index
      * @param {boolean} state
@@ -194,6 +211,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Set multiple neon light
      * @param {object} status
      * @return {void}
@@ -205,6 +223,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Get neon colour
      * @return {object}
      */
@@ -215,6 +234,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Set neon colour
      * @param {object} colour
      */
@@ -224,6 +244,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Return all doors
      * @{*} {object}
      */
@@ -232,6 +253,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Set all doors
      * @param {object} values
      */
@@ -240,6 +262,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client, Server
      * @description Get look status
      * @{*} {boolean}
      */
@@ -249,6 +272,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client, Server
      * @description Set look status
      * @param status
      */
@@ -258,6 +282,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Get fuel level
      * @{*} {number}
      */
@@ -267,6 +292,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Set fuel level
      * @param {number} amount
      * @return {void}
@@ -277,6 +303,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client, Server
      * @description Get plate text
      * @returns {string}
      */
@@ -286,6 +313,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client, Server
      * @description Set plate text
      * @param {string} text
      * @return {void}
@@ -296,6 +324,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client, Server
      * @description Get plate style
      * @returns {number}
      */
@@ -305,6 +334,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Set plate style
      * @param style
      * @return {void}
@@ -315,6 +345,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client, Server
      * @description Get dirt level
      * @returns {number}
      */
@@ -324,6 +355,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client, Server
      * @description Set dirt level
      * @param {number} level
      * @return {void}
@@ -334,6 +366,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client, Server
      * @description Get wheel type
      * @returns {number}
      */
@@ -343,6 +376,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Set wheel type
      * @param {number} type
      * @return {number}
@@ -353,6 +387,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client, Server
      * @description Get colours
      * @returns {object}
      */
@@ -363,6 +398,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client, Server
      * @description Set colours
      * @param {object} colours
      * @return {void}
@@ -373,6 +409,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client, Server
      * @description Get primary colour
      * @returns {object}
      */
@@ -383,6 +420,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client, Server
      * @description Set primary colour
      * @param {object} colour
      * @return {void}
@@ -393,6 +431,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client, Server
      * @description Get secondary colour
      * @returns {object}
      */
@@ -403,6 +442,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client, Server
      * @description Set secondary colour
      * @param {object} colour
      * @return {void}
@@ -413,6 +453,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client, Server
      * @description Get extra colours
      * @returns {object}
      */
@@ -423,6 +464,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Set extra colours
      * @param {object} extraColours
      * @return {void}
@@ -433,6 +475,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Get mod color 1
      * @returns {object}
      */
@@ -443,6 +486,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Set mod color 1
      * @param {object} color
      * @return {void}
@@ -453,6 +497,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Get mod color 2
      * @return {object}
      */
@@ -463,6 +508,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Set mod color 2
      * @param {object} color
      * @return {void}
@@ -473,6 +519,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client, Server
      * @description Get tyre smoke color
      * @return {object}
      */
@@ -483,6 +530,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Set tyre smoke color
      * @param {object} color
      */
@@ -492,6 +540,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Get custom tires
      * @return {boolean}
      */
@@ -500,6 +549,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Set custom tires
      * @param value
      */
@@ -508,6 +558,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Get traier
      * @return {number}
      */
@@ -518,6 +569,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Set trailler
      * @param {number} trailerId
      * @return {void}
@@ -528,6 +580,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client, Server
      * @description Get Extras
      * @return {object}
      */
@@ -540,6 +593,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Set extras
      * @param {object} values
      * @return {void}
@@ -550,6 +604,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client, Server
      * @description Get livery
      * @return {number}
      */
@@ -559,6 +614,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client, Server
      * @description Set livery
      * @param {number} value
      * @return {void}
@@ -569,6 +625,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client, Server
      * @description Get window tint
      * @return {number}
      */
@@ -578,6 +635,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Set window tint
      * @param value
      */
@@ -587,6 +645,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client, Server
      * @description Get is siren is On
      * @returns {boolean}
      */
@@ -596,6 +655,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Get is siren is On
      * @param {boolean} status
      * @returns {void}
@@ -606,6 +666,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Get number doors
      * @return {number}
      */
@@ -617,6 +678,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description return if door id damaged
      * @param {number} index
      * @return {boolean}
@@ -626,6 +688,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description return door angle
      * @param {number} index
      * @return {number}
@@ -635,6 +698,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Get door state
      * @param {number} index
      * @return {number}
@@ -656,6 +720,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Get all door state
      * @return {object}
      */
@@ -668,6 +733,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Set door is broken
      * @param {number} index
      * @param {boolean} remove
@@ -679,6 +745,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Set door shut
      * @param {number} index
      * @param {boolean} instantly
@@ -690,6 +757,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Set door open
      * @param {number} index
      * @param {boolean} loose
@@ -701,6 +769,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Set door control
      * @param {number} index
      * @param {number} speed
@@ -712,6 +781,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Set door control
      * @param {number} index
      * @param {boolean} force
@@ -723,6 +793,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Set door state
      * @param {number} index
      * @param {number} state
@@ -748,6 +819,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Set multiple door state
      * @param {object} states
      * @return {void}
@@ -759,6 +831,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Get all tyre burst bone
      * @return {object}
      */
@@ -788,6 +861,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Set tyre burst
      * @param {number} index
      * @param {boolean} state
@@ -802,6 +876,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Set multiple tyre burst
      * @param {object} states
      */
@@ -812,6 +887,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Get all window state
      * @return {object}
      */
@@ -835,6 +911,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Smash window
      * @param {number} index
      * @return {void}
@@ -845,6 +922,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Set multiple window state
      * @param {object} states
      */
@@ -861,6 +939,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Get specific mod
      * @param {number} index
      * @return {object}
@@ -879,6 +958,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Get all mods
      * @return {object}
      */
@@ -890,6 +970,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Set multiple mods
      * @param {object} status
      * @return {void}
@@ -901,6 +982,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client
      * @description Set specific mod
      * @param {number} type
      * @param {number} index
@@ -936,6 +1018,7 @@ class Vehicle extends Entity {
     }
 
     /**
+     * @API Client, Server
      * @description Spawn
      * @param {function} callback
      * @return {void}
